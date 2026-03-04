@@ -1,0 +1,2 @@
+nmcli dev wifi -> show all connection near to this machine 
+arp -a -> show my network devices and their IP addresses

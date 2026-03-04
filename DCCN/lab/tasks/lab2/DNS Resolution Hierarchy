@@ -1,0 +1,44 @@
+Your Computer
+    │
+    ▼
+┌──────────────────────────┐
+│ 1. LOCAL CACHE            │  ← Check your OS DNS cache first (the 17 entries you saw)
+│    (systemd-resolved)     │     If found → instant answer, done!
+│    127.0.0.53             │     If NOT found → go to step 2
+└──────────┬───────────────┘
+           ▼
+┌──────────────────────────┐
+│ 2. RECURSIVE RESOLVER     │  ← Your configured DNS server (ISP or university)
+│    172.16.17.9            │     In your case: COMSATS university DNS
+│    (your primary DNS)     │     It checks ITS OWN cache first
+│                           │     If found → returns answer, done!
+│    Fallback servers:      │     If NOT found → it starts the recursive lookup ↓
+│    8.8.8.8 (Google)       │     If primary fails → try 8.8.8.8 → 10.100.100.51 → 172.16.17.32
+│    10.100.100.51          │
+│    172.16.17.32           │
+└──────────┬───────────────┘
+           ▼
+┌──────────────────────────┐
+│ 3. ROOT DNS SERVERS       │  ← 13 root servers (a.root-servers.net to m.root-servers.net)
+│    (.)                    │     They DON'T know the IP of www.google.com
+│                           │     They say: "I don't know, but ask .com TLD servers"
+│                           │     Returns: NS records for .com
+└──────────┬───────────────┘
+           ▼
+┌──────────────────────────┐
+│ 4. TLD DNS SERVERS        │  ← Top-Level Domain servers for .com
+│    (.com)                 │     They DON'T know the IP either
+│    e.g., a.gtld-servers.net│    They say: "Ask Google's authoritative servers"
+│                           │     Returns: NS records for google.com
+└──────────┬───────────────┘
+           ▼
+┌──────────────────────────┐
+│ 5. AUTHORITATIVE DNS      │  ← Google's own DNS servers
+│    (google.com)           │     ns1.google.com, ns2.google.com, etc.
+│                           │     They KNOW the answer!
+│                           │     Returns: A record → 142.250.185.4
+└──────────────────────────┘
+           │
+           ▼
+        Answer flows back:
+            Authoritative dns (cuilahore.edu.com) → Top level domain TLD server(.edu.com) -> (Recursive Resolver (ISP) (caches it) → Your OS Cache (caches it) → Browser
