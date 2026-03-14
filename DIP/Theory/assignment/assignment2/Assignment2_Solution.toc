@@ -1,0 +1,31 @@
+\contentsline {section}{3.4 -- Intensity-Slicing Transformations for Bit Planes}{3}{section*.2}%
+\contentsline {subsection}{Idea}{3}{section*.3}%
+\contentsline {subsection}{General Transformation}{3}{section*.4}%
+\contentsline {subsection}{Pattern of the Ranges}{3}{section*.5}%
+\contentsline {section}{3.5 -- Effect of Zeroing Lower-Order and Higher-Order Bit Planes}{5}{section*.6}%
+\contentsline {subsection}{Part (a): Zeroing Lower-Order Bit Planes}{5}{section*.7}%
+\contentsline {subsection}{Part (b): Zeroing Higher-Order Bit Planes}{5}{section*.8}%
+\contentsline {section}{3.6 -- Why Discrete Histogram Equalization Is Not Flat in General}{6}{section*.9}%
+\contentsline {subsection}{Core Reason}{6}{section*.10}%
+\contentsline {subsection}{Why Flatness Fails}{6}{section*.11}%
+\contentsline {section}{3.7 -- Why a Second Histogram Equalization Pass Changes Nothing}{7}{section*.12}%
+\contentsline {subsection}{First Equalization Pass}{7}{section*.13}%
+\contentsline {subsection}{Second Equalization Pass}{7}{section*.14}%
+\contentsline {section}{3.13 -- Histograms of Arithmetic Combinations of Two Images}{8}{section*.15}%
+\contentsline {subsection}{Main Observation}{8}{section*.16}%
+\contentsline {subsection}{Condition Needed}{8}{section*.17}%
+\contentsline {subsection}{Cases}{8}{section*.18}%
+\contentsline {section}{3.15 -- Fast Box-Filter Algorithm and Computational Advantage}{10}{section*.19}%
+\contentsline {subsection}{Part (a): Box-Filter Update Rule}{10}{section*.20}%
+\contentsline {subsection}{Part (b): Computational Advantage}{10}{section*.21}%
+\contentsline {section}{3.19 -- Computing and Updating the Median in an $n\times n$ Neighborhood}{12}{section*.22}%
+\contentsline {subsection}{Part (a): Computing the Median}{12}{section*.23}%
+\contentsline {subsection}{Part (b): Updating the Median While Sliding}{12}{section*.24}%
+\contentsline {section}{3.24 -- Proving the Laplacian Is Isotropic}{14}{section*.25}%
+\contentsline {subsection}{Laplacian in Original Coordinates}{14}{section*.26}%
+\contentsline {subsection}{First Derivatives}{14}{section*.27}%
+\contentsline {subsection}{Second Derivatives}{14}{section*.28}%
+\contentsline {section}{3.28 -- Showing That Subtracting the Laplacian Is Proportional to Unsharp Masking}{16}{section*.29}%
+\contentsline {subsection}{Start with the Discrete Laplacian}{16}{section*.30}%
+\contentsline {subsection}{Connection with Unsharp Masking}{16}{section*.31}%
+\contentsline {section}{Summary of Answers}{17}{section*.32}%
