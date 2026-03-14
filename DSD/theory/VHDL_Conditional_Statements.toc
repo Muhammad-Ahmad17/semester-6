@@ -1,0 +1,57 @@
+\contentsline {section}{\numberline {1}Introduction to VHDL Conditional Statements}{2}{section.1}%
+\contentsline {subsection}{\numberline {1.1}When to Use Each Statement}{2}{subsection.1.1}%
+\contentsline {section}{\numberline {2}IF-ELSE Conditional Statement}{2}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Basic Structure}{2}{subsection.2.1}%
+\contentsline {subsubsection}{\numberline {2.1.1}Syntax}{2}{subsubsection.2.1.1}%
+\contentsline {subsection}{\numberline {2.2}Key Characteristics}{3}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}Example 1: D-Latch (IF-ELSE Statement)}{3}{subsection.2.3}%
+\contentsline {subsubsection}{\numberline {2.3.1}Truth Table}{3}{subsubsection.2.3.1}%
+\contentsline {subsubsection}{\numberline {2.3.2}VHDL Implementation}{3}{subsubsection.2.3.2}%
+\contentsline {subsubsection}{\numberline {2.3.3}Explanation}{4}{subsubsection.2.3.3}%
+\contentsline {subsection}{\numberline {2.4}Example 2: D-Flip-Flop (IF-ELSE Statement in Process)}{5}{subsection.2.4}%
+\contentsline {subsubsection}{\numberline {2.4.1}Truth Table}{5}{subsubsection.2.4.1}%
+\contentsline {subsubsection}{\numberline {2.4.2}VHDL Implementation}{5}{subsubsection.2.4.2}%
+\contentsline {subsubsection}{\numberline {2.4.3}Key Differences from Latch}{6}{subsubsection.2.4.3}%
+\contentsline {subsubsection}{\numberline {2.4.4}If-Else Hierarchical Priority}{6}{subsubsection.2.4.4}%
+\contentsline {section}{\numberline {3}CASE Statement}{7}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Basic Structure}{7}{subsection.3.1}%
+\contentsline {subsubsection}{\numberline {3.1.1}Syntax}{7}{subsubsection.3.1.1}%
+\contentsline {subsection}{\numberline {3.2}Key Characteristics}{7}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}Example 1: 4-to-1 Multiplexer (CASE Statement)}{7}{subsection.3.3}%
+\contentsline {subsubsection}{\numberline {3.3.1}Block Diagram}{7}{subsubsection.3.3.1}%
+\contentsline {subsubsection}{\numberline {3.3.2}Truth Table}{8}{subsubsection.3.3.2}%
+\contentsline {subsubsection}{\numberline {3.3.3}VHDL Implementation using CASE}{8}{subsubsection.3.3.3}%
+\contentsline {subsubsection}{\numberline {3.3.4}Alternative: Concurrent CASE Statement}{9}{subsubsection.3.3.4}%
+\contentsline {subsection}{\numberline {3.4}Example 2: 2-to-4 Decoder (CASE Statement)}{10}{subsection.3.4}%
+\contentsline {subsubsection}{\numberline {3.4.1}Block Diagram}{10}{subsubsection.3.4.1}%
+\contentsline {subsubsection}{\numberline {3.4.2}Truth Table}{10}{subsubsection.3.4.2}%
+\contentsline {subsubsection}{\numberline {3.4.3}VHDL Implementation using CASE}{10}{subsubsection.3.4.3}%
+\contentsline {subsubsection}{\numberline {3.4.4}Key Features}{11}{subsubsection.3.4.4}%
+\contentsline {section}{\numberline {4}WHEN-ELSE Concurrent Assignment}{12}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Basic Structure}{12}{subsection.4.1}%
+\contentsline {subsubsection}{\numberline {4.1.1}Syntax}{12}{subsubsection.4.1.1}%
+\contentsline {subsection}{\numberline {4.2}Key Characteristics}{12}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Example 1: 4-to-1 Multiplexer (WHEN-ELSE)}{12}{subsection.4.3}%
+\contentsline {subsubsection}{\numberline {4.3.1}Advantages over CASE}{13}{subsubsection.4.3.1}%
+\contentsline {subsection}{\numberline {4.4}Example 2: 2-to-4 Decoder (WHEN-ELSE)}{13}{subsection.4.4}%
+\contentsline {subsection}{\numberline {4.5}Example 3: Serial-to-Parallel Shift Register Output}{13}{subsection.4.5}%
+\contentsline {section}{\numberline {5}Comparison: IF-ELSE vs CASE vs WHEN-ELSE}{15}{section.5}%
+\contentsline {section}{\numberline {6}Selection Guide}{16}{section.6}%
+\contentsline {subsection}{\numberline {6.1}Use IF-ELSE When:}{16}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2}Use CASE When:}{16}{subsection.6.2}%
+\contentsline {subsection}{\numberline {6.3}Use WHEN-ELSE When:}{16}{subsection.6.3}%
+\contentsline {section}{\numberline {7}Advanced Example: 4-Bit Serial-to-Parallel Shift Register}{17}{section.7}%
+\contentsline {subsection}{\numberline {7.1}Overview}{17}{subsection.7.1}%
+\contentsline {subsection}{\numberline {7.2}Complete VHDL Implementation}{17}{subsection.7.2}%
+\contentsline {subsection}{\numberline {7.3}Analysis}{18}{subsection.7.3}%
+\contentsline {section}{\numberline {8}Best Practices}{19}{section.8}%
+\contentsline {subsection}{\numberline {8.1}General Design Guidelines}{19}{subsection.8.1}%
+\contentsline {subsection}{\numberline {8.2}Synthesis Considerations}{19}{subsection.8.2}%
+\contentsline {section}{\numberline {9}Common Mistakes and How to Avoid Them}{20}{section.9}%
+\contentsline {subsection}{\numberline {9.1}Mistake 1: Missing WHEN OTHERS}{20}{subsection.9.1}%
+\contentsline {subsection}{\numberline {9.2}Mistake 2: Incomplete Sensitivity List}{20}{subsection.9.2}%
+\contentsline {subsection}{\numberline {9.3}Mistake 3: Confusing Priority}{20}{subsection.9.3}%
+\contentsline {subsection}{\numberline {9.4}Mistake 4: Invalid Use of CASE Outside Process}{21}{subsection.9.4}%
+\contentsline {section}{\numberline {10}Summary}{22}{section.10}%
+\contentsline {subsection}{\numberline {10.1}Key Takeaways}{22}{subsection.10.1}%
+\contentsline {subsection}{\numberline {10.2}Quick Reference}{22}{subsection.10.2}%

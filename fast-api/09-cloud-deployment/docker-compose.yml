@@ -1,0 +1,62 @@
+services:
+  # ─── FastAPI Application ────────────────────────────────────────
+  api:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - APP_NAME=FastAPI Cloud Demo
+      - ENVIRONMENT=development
+      - DEBUG=true
+      - DATABASE_URL=postgresql://fastapi_user:fastapi_pass@db:5432/fastapi_db
+      - REDIS_URL=redis://redis:6379
+      - SECRET_KEY=dev-secret-key-change-in-prod
+      - ALLOWED_ORIGINS=http://localhost:3000,http://localhost:5173
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    restart: unless-stopped
+
+  # ─── PostgreSQL Database ────────────────────────────────────────
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: fastapi_user
+      POSTGRES_PASSWORD: fastapi_pass
+      POSTGRES_DB: fastapi_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U fastapi_user -d fastapi_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # ─── Redis (Caching / Sessions / Task Queue) ───────────────────
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redisdata:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # ─── Adminer (Database GUI — optional) ─────────────────────────
+  adminer:
+    image: adminer
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+
+volumes:
+  pgdata:
+  redisdata:

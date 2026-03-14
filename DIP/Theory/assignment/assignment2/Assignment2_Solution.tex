@@ -1,0 +1,600 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{hyperref}
+
+\setcounter{secnumdepth}{0}
+\setcounter{tocdepth}{1}
+\tcbuselibrary{skins,breakable}
+\newtcolorbox{answerbox}[1][Answer]{
+  colback=green!5!white, colframe=green!50!black,
+  fonttitle=\bfseries, title=#1, breakable}
+\newtcolorbox{stmtbox}[1][Problem Statement]{
+  colback=blue!3!white, colframe=blue!40!black,
+  fonttitle=\bfseries, title=#1, breakable}
+\newtcolorbox{notebox}[1][Note]{
+  colback=orange!5!white, colframe=orange!60!black,
+  fonttitle=\bfseries, title=#1, breakable}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\textbf{Digital Image Processing (CPE-415)}}
+\fancyhead[R]{\textbf{Assignment \#2 -- Solutions}}
+\fancyfoot[C]{\thepage}
+\setlength{\headheight}{14.5pt}
+
+\begin{document}
+
+\thispagestyle{empty}
+\begin{center}
+\vspace*{2cm}
+{\LARGE\bfseries Digital Image Processing\\[6pt]
+(CPE-415)}\\[20pt]
+{\huge\bfseries Assignment \#2 -- Detailed Solutions}\\[20pt]
+{\large Topics: Image Enhancement and Spatial Filtering}\\[30pt]
+{\normalsize Reference: \textit{Digital Image Processing}, 3rd Edition\\
+by Gonzalez \& Woods}\\[20pt]
+{\normalsize Problems: 3.4, 3.5, 3.6, 3.7, 3.13, 3.15, 3.19, 3.24, 3.28}\\[40pt]
+\begin{tabular}{ll}
+\textbf{Name:}    & \rule{8cm}{0.4pt} \\[12pt]
+\textbf{Roll No:} & \rule{8cm}{0.4pt} \\[12pt]
+\textbf{Section:} & \rule{8cm}{0.4pt} \\
+\end{tabular}\\[30pt]
+{\normalsize Assignment Date: 14th March 2026}\\[6pt]
+{\normalsize Submission Due Date: 26th March 2026}\\[20pt]
+{\large\bfseries Total Marks: 10}
+\end{center}
+\newpage
+
+\tableofcontents
+\newpage
+
+\section{3.4 -- Intensity-Slicing Transformations for Bit Planes}
+\begin{stmtbox}
+Propose a set of intensity-slicing transformations capable of producing all the individual bit planes of an 8-bit monochrome image.
+\end{stmtbox}
+
+\subsection{Idea}
+An 8-bit image has intensity values in the range $0$ to $255$. Each intensity can be written in binary as
+\[
+r = b_7 2^7 + b_6 2^6 + \cdots + b_1 2^1 + b_0 2^0,
+\]
+where each bit $b_k \in \{0,1\}$.
+
+The goal of the $k$th bit-plane image is simple: output a bright value when bit $b_k=1$ and a dark value when $b_k=0$.
+
+\subsection{General Transformation}
+For bit plane $k$ with $k=0,1,\dots,7$, define
+\[
+T_k(r)=
+\begin{cases}
+255, & \text{if } \left\lfloor \dfrac{r}{2^k} \right\rfloor \bmod 2 = 1,\\[6pt]
+0, & \text{if } \left\lfloor \dfrac{r}{2^k} \right\rfloor \bmod 2 = 0.
+\end{cases}
+\]
+This tests whether the $k$th bit is 1 or 0.
+
+Equivalent compact form:
+\[
+T_k(r)=255\,\bigl((r \gg k) \;\&\; 1\bigr),
+\]
+where $\gg$ is right-shift and \& is bitwise AND.
+
+\subsection{Pattern of the Ranges}
+The transformation alternates between blocks of width $2^k$:
+\begin{itemize}[nosep]
+  \item output 0 for the first block of width $2^k$,
+  \item output 255 for the next block of width $2^k$,
+  \item then repeat.
+\end{itemize}
+So the ranges for each plane are:
+\begin{itemize}[nosep]
+  \item 8th bit plane ($k=7$): $[0,127]\to0$, $[128,255]\to255$.
+  \item 7th bit plane ($k=6$): $[0,63]\to0$, $[64,127]\to255$, $[128,191]\to0$, $[192,255]\to255$.
+  \item 6th bit plane ($k=5$): alternating blocks of length 32.
+  \item 5th bit plane ($k=4$): alternating blocks of length 16.
+  \item 4th bit plane ($k=3$): alternating blocks of length 8.
+  \item 3rd bit plane ($k=2$): alternating blocks of length 4.
+  \item 2nd bit plane ($k=1$): alternating blocks of length 2.
+  \item 1st bit plane ($k=0$): even values map to 0, odd values map to 255.
+\end{itemize}
+
+\begin{answerbox}
+A complete family of intensity-slicing transformations for the 8 bit planes is
+\[
+T_k(r)=
+\begin{cases}
+255, & \text{if } \left\lfloor \dfrac{r}{2^k} \right\rfloor \bmod 2 = 1,\\[6pt]
+0, & \text{otherwise,}
+\end{cases}
+\qquad k=0,1,\dots,7.
+\]
+Each transformation isolates one binary bit of the gray level and produces the corresponding bit-plane image.
+\end{answerbox}
+
+\newpage
+\section{3.5 -- Effect of Zeroing Lower-Order and Higher-Order Bit Planes}
+\begin{stmtbox}
+(a) What effect would setting to zero the lower-order bit planes have on the histogram of an image in general?\\
+(b) What would be the effect on the histogram if we set to zero the higher-order bit planes instead?
+\end{stmtbox}
+
+\subsection{Part (a): Zeroing Lower-Order Bit Planes}
+The lower-order bit planes carry the fine gray-level detail. If we zero them, many nearby intensity levels collapse to the same new value.
+
+For example, if we zero the lowest 2 bits, then every level is rounded down to a multiple of 4:
+\[
+0,1,2,3 \mapsto 0, \qquad 4,5,6,7 \mapsto 4, \qquad \dots
+\]
+So:
+\begin{itemize}[nosep]
+  \item the number of distinct gray levels decreases,
+  \item histogram bins merge together,
+  \item some remaining histogram peaks become taller,
+  \item contrast in fine detail is usually reduced.
+\end{itemize}
+
+\subsection{Part (b): Zeroing Higher-Order Bit Planes}
+The higher-order bit planes control the large-scale brightness and dynamic range. If we zero them, the strongest effect is severe reduction of maximum possible intensity.
+
+For example, removing the highest bit in an 8-bit image limits the range to $0$ through $127$.
+
+So:
+\begin{itemize}[nosep]
+  \item the histogram is compressed toward the darker end,
+  \item bright intensities disappear,
+  \item the image becomes significantly darker,
+  \item histogram peaks become taller because the same total number of pixels is redistributed over a smaller range.
+\end{itemize}
+
+\begin{answerbox}
+If the lower-order bit planes are set to zero, the histogram loses gray-level variety because neighboring levels merge together; the number of occupied bins decreases and some peaks increase in height.
+
+If the higher-order bit planes are set to zero, the image darkens strongly because the available intensity range shrinks toward low values; the histogram becomes narrower and shifted toward darker levels.
+\end{answerbox}
+
+\newpage
+\section{3.6 -- Why Discrete Histogram Equalization Is Not Flat in General}
+\begin{stmtbox}
+Explain why the discrete histogram equalization technique does not, in general, yield a flat histogram.
+\end{stmtbox}
+
+\subsection{Core Reason}
+Histogram equalization does \emph{not} rearrange pixels so that each output gray level receives exactly the same number of pixels. Instead, it only remaps input levels through the cumulative distribution function.
+
+In discrete form,
+\[
+s_k = T(r_k) = (L-1) \sum_{j=0}^{k} p_r(r_j),
+\]
+followed by rounding to one of the allowed integer gray levels.
+
+\subsection{Why Flatness Fails}
+A perfectly flat histogram would require exactly
+\[
+\frac{MN}{L}
+\]
+pixels at each of the $L$ output levels for an $M\times N$ image. But discrete histogram equalization does not force this.
+
+The reasons are:
+\begin{itemize}[nosep]
+  \item input histogram bins usually contain unequal numbers of pixels,
+  \item multiple input levels may map to the same output level,
+  \item some output levels may receive no pixels,
+  \item rounding of the cumulative transform introduces quantization effects.
+\end{itemize}
+
+Thus the result is usually \emph{more spread out} than the original histogram, but not perfectly uniform.
+
+\begin{answerbox}
+Discrete histogram equalization generally does not produce a flat histogram because it only remaps intensity levels using the cumulative histogram. It does not explicitly redistribute pixels so that every output level has the same count. Since several input levels can map to the same output level, some levels can be skipped, and rounding must be used, the resulting histogram is usually not uniform.
+\end{answerbox}
+
+\newpage
+\section{3.7 -- Why a Second Histogram Equalization Pass Changes Nothing}
+\begin{stmtbox}
+Suppose that a digital image is subjected to histogram equalization. Show that a second pass of histogram equalization on the histogram-equalized image will produce exactly the same result as the first pass.
+\end{stmtbox}
+
+\subsection{First Equalization Pass}
+Let the original gray levels be $r_k$, and let the equalized output levels be
+\[
+s_k = T(r_k) = \sum_{j=0}^{k} \frac{n_j}{n},
+\]
+where $n_j$ is the number of pixels with level $r_j$ and $n=MN$ is the total number of pixels.
+
+Every pixel with value $r_k$ is mapped to $s_k$. Therefore, the number of pixels at output level $s_k$ is exactly the same as the number of pixels originally at $r_k$:
+\[
+n_{s_k} = n_{r_k}.
+\]
+
+\subsection{Second Equalization Pass}
+Now equalize the already equalized image. The new transform is
+\[
+v_k = T(s_k) = \sum_{j=0}^{k} \frac{n_{s_j}}{n}.
+\]
+But because $n_{s_j}=n_{r_j}$ for each $j$,
+\[
+v_k = \sum_{j=0}^{k} \frac{n_{r_j}}{n} = s_k.
+\]
+So the second pass produces exactly the same gray levels as the first pass.
+
+\begin{answerbox}
+A second pass of histogram equalization does not change the image because the first pass already maps each gray level according to the cumulative histogram. The equalized image preserves the same cumulative counts under its new labels, so applying the equalization transform again reproduces the same values:
+\[
+v_k = s_k.
+\]
+Hence the second equalization pass yields the same result as the first, ignoring negligible roundoff effects.
+\end{answerbox}
+
+\newpage
+\section{3.13 -- Histograms of Arithmetic Combinations of Two Images}
+\begin{stmtbox}
+Two images, $f(x,y)$ and $g(x,y)$, have histograms $h_f$ and $h_g$. Give the conditions under which you can determine the histograms of\\
+(a) $f(x,y)+g(x,y)$\\
+(b) $f(x,y)-g(x,y)$\\
+(c) $f(x,y)\cdot g(x,y)$\\
+(d) $f(x,y)/g(x,y)$\\
+in terms of $h_f$ and $h_g$. Explain how to obtain the histogram in each case.
+\end{stmtbox}
+
+\subsection{Main Observation}
+A histogram contains only \emph{gray-level counts}. It contains no spatial information telling us which pixel of $f$ is paired with which pixel of $g$.
+
+Therefore, in general, the histogram of a pixelwise arithmetic combination cannot be determined from $h_f$ and $h_g$ alone.
+
+\subsection{Condition Needed}
+The result can be determined directly only in the special case when one of the images is constant. Let
+\[
+g(x,y)=c
+\]
+for all $(x,y)$, and assume for division that $c\neq 0$.
+
+Then each pixel operation becomes a simple gray-level remapping of $f$.
+
+\subsection{Cases}
+\textbf{(a) Sum:}
+\[
+u_k = r_k + c.
+\]
+The histogram heights stay the same as those of $h_f$, but their locations shift right by $c$.
+
+\textbf{(b) Difference:}
+\[
+u_k = r_k - c.
+\]
+Again the histogram heights stay the same, but the bins shift left by $c$.
+
+\textbf{(c) Product:}
+\[
+u_k = c\,r_k.
+\]
+The histogram heights stay the same, but the bin positions are scaled by factor $c$.
+
+\textbf{(d) Division:}
+\[
+u_k = \frac{r_k}{c}, \qquad c\neq 0.
+\]
+The histogram heights stay the same, while the bin positions are compressed by factor $1/c$.
+
+\begin{notebox}
+If neither image is constant, then the histograms alone are insufficient because they do not say which values of $f$ occur at the same spatial locations as which values of $g$.
+\end{notebox}
+
+\begin{answerbox}
+In general, the histograms of $f\pm g$, $fg$, and $f/g$ cannot be determined from $h_f$ and $h_g$ alone because histograms contain no spatial pairing information.
+
+They can be determined directly only when one of the images is constant, say $g(x,y)=c$. In that case:
+\begin{itemize}[nosep]
+  \item $f+g$: same counts as $h_f$, shifted right by $c$.
+  \item $f-g$: same counts as $h_f$, shifted left by $c$.
+  \item $fg$: same counts as $h_f$, with intensity-axis scaling by $c$.
+  \item $f/g$: same counts as $h_f$, with intensity-axis scaling by $1/c$, provided $c\neq 0$.
+\end{itemize}
+\end{answerbox}
+
+\newpage
+\section{3.15 -- Fast Box-Filter Algorithm and Computational Advantage}
+\begin{stmtbox}
+The implementation of linear spatial filters requires moving the center of a mask throughout an image and, at each location, computing the sum of products of the mask coefficients with the corresponding pixels at that location. A lowpass filter can be implemented by setting all coefficients to 1, allowing use of a box-filter or moving-average algorithm.\\
+(a) Formulate such an algorithm for an $n\times n$ filter, showing the computations involved and the scanning sequence used for moving the mask around the image.\\
+(b) Obtain the computational advantage over brute-force implementation and plot it as a function of $n$ for $n>1$.
+\end{stmtbox}
+
+\subsection{Part (a): Box-Filter Update Rule}
+Consider first a $3\times 3$ mask whose entries are all 1, ignoring the common scale factor $1/9$.
+
+At the first location, the response requires summing all 9 pixels, so it takes 8 additions.
+
+Suppose the mask moves one pixel to the right. Then:
+\begin{itemize}[nosep]
+  \item the old left column leaves the mask,
+  \item a new right column enters the mask.
+\end{itemize}
+So the new response can be updated by
+\[
+R_{\text{new}} = R_{\text{old}} - C_{\text{out}} + C_{\text{in}},
+\]
+where $C_{\text{out}}$ is the sum of the column that leaves and $C_{\text{in}}$ is the sum of the column that enters.
+
+For a general $n\times n$ mask:
+\begin{itemize}[nosep]
+  \item computing $C_{\text{in}}$ needs $n-1$ additions,
+  \item updating the response needs 1 subtraction and 1 addition.
+\end{itemize}
+Thus each move requires
+\[
+(n-1)+2 = n+1
+\]
+arithmetic operations.
+
+A natural scan is serpentine:
+\begin{itemize}[nosep]
+  \item scan left-to-right across one row,
+  \item move down one row,
+  \item scan right-to-left across the next row,
+  \item repeat.
+\end{itemize}
+This avoids unnecessary recomputation.
+
+\subsection{Part (b): Computational Advantage}
+A brute-force implementation needs to sum $n^2$ pixels at each location, requiring
+\[
+n^2 - 1
+\]
+additions.
+
+The moving-average update needs
+\[
+n+1
+\]
+operations per move.
+
+So the computational advantage is
+\[
+A(n)=\frac{n^2-1}{n+1}=n-1.
+\]
+This is a straight line.
+
+\begin{center}
+\begin{tabular}{cc}
+\toprule
+$n$ & $A(n)=n-1$ \\
+\midrule
+2 & 1 \\
+3 & 2 \\
+5 & 4 \\
+7 & 6 \\
+9 & 8 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{answerbox}
+A box filter can be updated recursively using
+\[
+R_{\text{new}} = R_{\text{old}} - C_{\text{out}} + C_{\text{in}}.
+\]
+For an $n\times n$ mask, each move needs $n-1$ additions to compute the entering column plus one subtraction and one addition, for a total of
+\[
+n+1
+\]
+operations per move.
+
+A brute-force method needs $n^2-1$ additions, so the computational advantage is
+\[
+A(n)=\frac{n^2-1}{n+1}=n-1.
+\]
+Thus the advantage grows linearly with mask size.
+\end{answerbox}
+
+\newpage
+\section{3.19 -- Computing and Updating the Median in an $n\times n$ Neighborhood}
+\begin{stmtbox}
+(a) Develop a procedure for computing the median of an $n\times n$ neighborhood.\\
+(b) Propose a technique for updating the median as the center of the neighborhood is moved from pixel to pixel.
+\end{stmtbox}
+
+\subsection{Part (a): Computing the Median}
+An $n\times n$ neighborhood contains
+\[
+n^2
+\]
+values. Since $n$ is odd, $n^2$ is also odd, so the median is the middle value after sorting.
+
+Procedure:
+\begin{enumerate}[nosep]
+  \item Collect all $n^2$ neighborhood values into a list.
+  \item Sort the list in nondecreasing order.
+  \item Select the element in position
+  \[
+  \frac{n^2+1}{2}
+  \]
+  in 1-based indexing.
+\end{enumerate}
+Thus,
+\[
+\zeta = \text{the } \left(\frac{n^2+1}{2}\right)\text{th smallest value.}
+\]
+
+\subsection{Part (b): Updating the Median While Sliding}
+If we recompute from scratch at every position, the cost is high. A better idea is to update the sorted data structure.
+
+When the neighborhood shifts by one pixel:
+\begin{itemize}[nosep]
+  \item delete the values in the trailing edge that leave the window,
+  \item insert the values in the leading edge that enter the window,
+  \item maintain the list in sorted order,
+  \item read the median again from the middle position.
+\end{itemize}
+
+This can be implemented using:
+\begin{itemize}[nosep]
+  \item a sorted list with delete/insert,
+  \item or, more efficiently for bounded gray levels, a running histogram of neighborhood intensities.
+\end{itemize}
+With a histogram-based update, the median is found by cumulative counting until half the neighborhood population is reached.
+
+\begin{answerbox}
+To compute the median of an $n\times n$ neighborhood, sort its $n^2$ values and choose the middle one:
+\[
+\zeta = \text{the } \left(\frac{n^2+1}{2}\right)\text{th smallest value.}
+\]
+
+To update the median as the window moves, do not sort from scratch. Remove the values that leave the neighborhood, insert the new values that enter, maintain the ordered structure, and read the middle value again. A running histogram is especially efficient when the gray-level range is fixed.
+\end{answerbox}
+
+\newpage
+\section{3.24 -- Proving the Laplacian Is Isotropic}
+\begin{stmtbox}
+Show that the Laplacian defined in Eq. (3.6-3) is isotropic (invariant to rotation). Use the rotated-coordinate relations
+\[
+x = x'\cos\theta - y'\sin\theta, \qquad y = x'\sin\theta + y'\cos\theta.
+\]
+\end{stmtbox}
+
+\subsection{Laplacian in Original Coordinates}
+The Laplacian is
+\[
+\nabla^2 f = \frac{\partial^2 f}{\partial x^2} + \frac{\partial^2 f}{\partial y^2}.
+\]
+We must show that this has the same form in rotated coordinates $(x',y')$.
+
+\subsection{First Derivatives}
+Using the chain rule,
+\[
+\frac{\partial f}{\partial x'} = \frac{\partial f}{\partial x}\frac{\partial x}{\partial x'} + \frac{\partial f}{\partial y}\frac{\partial y}{\partial x'}
+= \frac{\partial f}{\partial x}\cos\theta + \frac{\partial f}{\partial y}\sin\theta.
+\]
+Similarly,
+\[
+\frac{\partial f}{\partial y'} = \frac{\partial f}{\partial x}\frac{\partial x}{\partial y'} + \frac{\partial f}{\partial y}\frac{\partial y}{\partial y'}
+= -\frac{\partial f}{\partial x}\sin\theta + \frac{\partial f}{\partial y}\cos\theta.
+\]
+
+\subsection{Second Derivatives}
+Differentiate again with respect to $x'$:
+\[
+\frac{\partial^2 f}{\partial x'^2}
+= \cos^2\theta\,\frac{\partial^2 f}{\partial x^2}
++ 2\sin\theta\cos\theta\,\frac{\partial^2 f}{\partial x\partial y}
++ \sin^2\theta\,\frac{\partial^2 f}{\partial y^2}.
+\]
+Differentiate with respect to $y'$:
+\[
+\frac{\partial^2 f}{\partial y'^2}
+= \sin^2\theta\,\frac{\partial^2 f}{\partial x^2}
+- 2\sin\theta\cos\theta\,\frac{\partial^2 f}{\partial x\partial y}
++ \cos^2\theta\,\frac{\partial^2 f}{\partial y^2}.
+\]
+
+Add the two expressions:
+\[
+\frac{\partial^2 f}{\partial x'^2} + \frac{\partial^2 f}{\partial y'^2}
+= (\cos^2\theta+\sin^2\theta)\frac{\partial^2 f}{\partial x^2}
++ (\sin^2\theta+\cos^2\theta)\frac{\partial^2 f}{\partial y^2}.
+\]
+The mixed-derivative terms cancel, and $\sin^2\theta+\cos^2\theta=1$, so
+\[
+\frac{\partial^2 f}{\partial x'^2} + \frac{\partial^2 f}{\partial y'^2}
+= \frac{\partial^2 f}{\partial x^2} + \frac{\partial^2 f}{\partial y^2}.
+\]
+
+\begin{answerbox}
+The Laplacian is isotropic because under a rotation of coordinates,
+\[
+\frac{\partial^2 f}{\partial x'^2} + \frac{\partial^2 f}{\partial y'^2}
+= \frac{\partial^2 f}{\partial x^2} + \frac{\partial^2 f}{\partial y^2}.
+\]
+Therefore,
+\[
+\nabla^2 f
+\]
+has exactly the same value regardless of the orientation of the coordinate axes. That is why the Laplacian is invariant to rotation.
+\end{answerbox}
+
+\newpage
+\section{3.28 -- Showing That Subtracting the Laplacian Is Proportional to Unsharp Masking}
+\begin{stmtbox}
+Show that subtracting the Laplacian from an image is proportional to unsharp masking. Use the definition for the Laplacian given in Eq. (3.6-6).
+\end{stmtbox}
+
+\subsection{Start with the Discrete Laplacian}
+Using the four-neighbor discrete Laplacian,
+\[
+\nabla^2 f(x,y) = f(x+1,y) + f(x-1,y) + f(x,y+1) + f(x,y-1) - 4f(x,y).
+\]
+Subtract it from the image:
+\begin{align*}
+f(x,y) - \nabla^2 f(x,y)
+&= f(x,y) - \bigl[f(x+1,y) + f(x-1,y) + f(x,y+1) + f(x,y-1) - 4f(x,y)\bigr] \\
+&= 5f(x,y) - \bigl[f(x+1,y) + f(x-1,y) + f(x,y+1) + f(x,y-1)\bigr].
+\end{align*}
+
+Now define the local average over the center pixel and its four immediate neighbors as
+\[
+\bar f(x,y)=\frac{1}{5}\bigl[f(x,y)+f(x+1,y)+f(x-1,y)+f(x,y+1)+f(x,y-1)\bigr].
+\]
+Then
+\[
+5\bar f(x,y)=f(x,y)+f(x+1,y)+f(x-1,y)+f(x,y+1)+f(x,y-1).
+\]
+So we can rewrite the previous result as
+\begin{align*}
+f(x,y)-\nabla^2 f(x,y)
+&= 6f(x,y)-5\bar f(x,y) \\
+&= 5\bigl(1.2f(x,y)-\bar f(x,y)\bigr).
+\end{align*}
+
+\subsection{Connection with Unsharp Masking}
+Unsharp masking has the form
+\[
+f(x,y)-\bar f(x,y),
+\]
+or, more generally, a scaled version of the original image minus a blurred version.
+
+The expression
+\[
+1.2f(x,y)-\bar f(x,y)
+\]
+has exactly this same structure. Therefore,
+\[
+f(x,y)-\nabla^2 f(x,y)
+\]
+is proportional to an unsharp-masking/highboost operation.
+
+\begin{answerbox}
+Using the discrete Laplacian,
+\[
+f(x,y)-\nabla^2 f(x,y)=5\bigl(1.2f(x,y)-\bar f(x,y)\bigr),
+\]
+where $\bar f(x,y)$ is the average of the center pixel and its four immediate neighbors. Since unsharp masking is based on subtracting a blurred version from a scaled original image, this proves that subtracting the Laplacian from an image is proportional to unsharp masking.
+\end{answerbox}
+
+\section*{Summary of Answers}
+\addcontentsline{toc}{section}{Summary of Answers}
+\begin{center}
+\begin{tabular}{>{\bfseries}cl}
+\toprule
+Problem & Key Result \\
+\midrule
+3.4 & Use one thresholded transform per bit: test whether bit $k$ is 0 or 1 \\
+3.5 & Zeroing low bits merges nearby levels; zeroing high bits darkens strongly \\
+3.6 & Histogram equalization remaps levels but does not force equal pixel counts \\
+3.7 & A second equalization pass gives the same result as the first \\
+3.13 & Arithmetic-result histograms are deducible only when one image is constant \\
+3.15 & Box-filter update rule: $R_{new}=R_{old}-C_{out}+C_{in}$; advantage $=n-1$ \\
+3.19 & Median is the middle sorted value; update by delete-insert in sorted form \\
+3.24 & The Laplacian is rotation invariant, hence isotropic \\
+3.28 & $f-\nabla^2 f$ is proportional to unsharp masking/highboost filtering \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\end{document}

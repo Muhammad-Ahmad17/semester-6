@@ -1,0 +1,1020 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{tikz}
+
+% ============================================================================
+% VHDL Code Listing Setup
+% ============================================================================
+\lstdefinelanguage{VHDL}{
+  morekeywords={library, use, entity, port, in, out, inout, is, end, architecture, signal, 
+                process, if, then, elsif, else, case, when, others, rising_edge, 
+                std_logic, std_logic_vector, begin, all},
+  morecomment=[l]{--},
+  morestring=[d]{""},
+  basicstyle=\ttfamily\small,
+  keywordstyle=\color{blue}\bfseries,
+  commentstyle=\color{gray}\itshape,
+  stringstyle=\color{red},
+  breaklines=true,
+  showstringspaces=false,
+  tabsize=2,
+  numbers=left,
+  numberstyle=\tiny\color{gray},
+  backgroundcolor=\color{lightgray!15},
+  frame=single,
+}
+
+\lstset{
+  language=VHDL,
+  basicstyle=\ttfamily\small,
+  keywordstyle=\color{blue}\bfseries,
+  commentstyle=\color{darkgray}\itshape,
+  stringstyle=\color{darkred},
+  breaklines=true,
+  showstringspaces=false,
+  tabsize=2,
+  numbers=left,
+  numberstyle=\tiny\color{gray},
+  backgroundcolor=\color{lightgray!10},
+  frame=single,
+  xleftmargin=20pt,
+}
+
+% Header and Footer
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{VHDL Conditional Statements}
+\lhead{Digital System Design}
+\cfoot{\thepage}
+\lfoot{Semester 6}
+
+% ============================================================================
+% Document Start
+% ============================================================================
+\title{\textbf{VHDL Conditional Statements}\\
+        \normalsize Case, If-Else, and When-Else}
+\author{Digital System Design Guide}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+\newpage
+
+% ============================================================================
+% Section 1: Introduction
+% ============================================================================
+\section{Introduction to VHDL Conditional Statements}
+
+VHDL provides three primary mechanisms for implementing conditional logic:
+\begin{enumerate}
+    \item \textbf{Case Statements} - For multiple mutually exclusive conditions
+    \item \textbf{If-Else Statements} - For hierarchical conditional logic
+    \item \textbf{When-Else Statements} - For concurrent signal assignments
+\end{enumerate}
+
+Each statement type has distinct characteristics, use cases, and performance implications in hardware design.
+
+\subsection{When to Use Each Statement}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|p{4cm}|p{4cm}|}
+\hline
+\textbf{Statement} & \textbf{Best Used For} & \textbf{Context} \\
+\hline
+\textbf{Case} & Multiple exclusive conditions with clear priorities & Sequential (process) \\
+\hline
+\textbf{If-Else} & Hierarchical/nested conditions & Sequential (process) \\
+\hline
+\textbf{When-Else} & Concurrent signal assignment & Concurrent \\
+\hline
+\end{tabular}
+\end{table}
+
+% ============================================================================
+% Section 2: IF-ELSE Statement
+% ============================================================================
+\section{IF-ELSE Conditional Statement}
+
+\subsection{Basic Structure}
+
+The \texttt{if-else} statement is used within sequential processes to implement hierarchical conditional logic.
+
+\subsubsection{Syntax}
+\begin{lstlisting}
+if (condition1) then
+    -- statements executed if condition1 is TRUE
+    
+elsif (condition2) then
+    -- statements executed if condition2 is TRUE
+    -- (only if condition1 was FALSE)
+    
+else
+    -- statements executed if all conditions are FALSE
+end if;
+\end{lstlisting}
+
+\subsection{Key Characteristics}
+\begin{itemize}
+    \item Used within \textbf{sequential processes}
+    \item Supports \textbf{hierarchical/nested conditions}
+    \item Priority is determined by \textbf{order of conditions}
+    \item \textbf{Only one branch} executes (no fallthrough)
+    \item Can include \textbf{multiple elsif} clauses
+\end{itemize}
+
+\subsection{Example 1: D-Latch (IF-ELSE Statement)}
+
+A D-Latch is a level-triggered memory element. When the enable signal is HIGH, the output follows the input. When enable is LOW, the output holds its previous value.
+
+\subsubsection{Truth Table}
+\begin{table}[h]
+\centering
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{Enable} & \textbf{Data In} & \textbf{Q} & \textbf{Behavior} \\
+\hline
+1 & 0 & 0 & Output follows input \\
+\hline
+1 & 1 & 1 & Output follows input \\
+\hline
+0 & X & Previous & Output holds \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsubsection{VHDL Implementation}
+
+\begin{lstlisting}
+library IEEE;
+use IEEE.STD_LOGIC_1164.all;
+
+entity D_Latch is
+    port (
+        Enable  : in  STD_LOGIC;
+        Data_In : in  STD_LOGIC;
+        Q       : out STD_LOGIC;
+        Q_bar   : out STD_LOGIC
+    );
+end D_Latch;
+
+architecture Behavioral of D_Latch is
+    signal Q_internal : STD_LOGIC := '0';
+begin
+    
+    process(Enable, Data_In)
+    begin
+        if (Enable = '1') then
+            -- When Enable is HIGH, output follows input
+            Q_internal <= Data_In;
+        -- else: Q_internal holds its previous value
+        end if;
+    end process;
+    
+    -- Continuous assignment
+    Q     <= Q_internal;
+    Q_bar <= not Q_internal;
+    
+end Behavioral;
+\end{lstlisting}
+
+\subsubsection{Explanation}
+\begin{itemize}
+    \item The \texttt{process} sensitivity list includes \texttt{Enable} and \texttt{Data\_In}
+    \item When \texttt{Enable = '1'}, the latch becomes transparent (output follows input)
+    \item When \texttt{Enable = '0'}, no assignment occurs, so the value is held
+    \item This implements level-triggered behavior (latch)
+\end{itemize}
+
+\newpage
+
+\subsection{Example 2: D-Flip-Flop (IF-ELSE Statement in Process)}
+
+A D-Flip-Flop is edge-triggered. It samples the input on a clock edge and holds the value until the next clock edge.
+
+\subsubsection{Truth Table}
+\begin{table}[h]
+\centering
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{CLK} & \textbf{Reset} & \textbf{Data In} & \textbf{Q Output} \\
+\hline
+$\uparrow$ & 0 & 0 & 0 \\
+\hline
+$\uparrow$ & 0 & 1 & 1 \\
+\hline
+0/1 & 1 & X & 0 (Reset) \\
+\hline
+\end{tabular}
+
+\begin{flushleft}
+$\uparrow$ = Rising edge (clock transition from 0 to 1)
+\end{flushleft}
+\end{table}
+
+\subsubsection{VHDL Implementation}
+
+\begin{lstlisting}
+library IEEE;
+use IEEE.STD_LOGIC_1164.all;
+
+entity D_FlipFlop is
+    port (
+        CLK     : in  STD_LOGIC;
+        Reset   : in  STD_LOGIC;
+        Data_In : in  STD_LOGIC;
+        Q       : out STD_LOGIC;
+        Q_bar   : out STD_LOGIC
+    );
+end D_FlipFlop;
+
+architecture Behavioral of D_FlipFlop is
+    signal Q_internal : STD_LOGIC := '0';
+begin
+    
+    process(CLK, Reset)
+    begin
+        -- Asynchronous reset (highest priority)
+        if (Reset = '1') then
+            Q_internal <= '0';
+            
+        -- Synchronous data capture (on rising edge of clock)
+        elsif rising_edge(CLK) then
+            Q_internal <= Data_In;
+        end if;
+    end process;
+    
+    Q     <= Q_internal;
+    Q_bar <= not Q_internal;
+    
+end Behavioral;
+\end{lstlisting}
+
+\subsubsection{Key Differences from Latch}
+\begin{itemize}
+    \item Uses \textbf{\texttt{rising\_edge(CLK)}} for edge-triggered behavior
+    \item \textbf{Asynchronous reset} has higher priority (checked first)
+    \item Only captures data on the \textbf{rising edge} of the clock
+    \item Holds data between clock edges
+\end{itemize}
+
+\subsubsection{If-Else Hierarchical Priority}
+\begin{enumerate}
+    \item \textbf{First condition} (\texttt{Reset = '1'}): Always checked first
+    \item \textbf{Second condition} (\texttt{elsif rising\_edge(CLK)}): Only evaluated if reset is not asserted
+\end{enumerate}
+
+% ============================================================================
+% Section 3: CASE Statement
+% ============================================================================
+\newpage
+\section{CASE Statement}
+
+\subsection{Basic Structure}
+
+The \texttt{case} statement selects one of multiple branches based on the value of a single expression.
+
+\subsubsection{Syntax}
+\begin{lstlisting}
+case (select_signal) is
+    when value1 =>
+        -- statements executed if select_signal = value1
+    
+    when value2 =>
+        -- statements executed if select_signal = value2
+    
+    when value3 | value4 =>
+        -- statements executed if select_signal = value3 OR value4
+    
+    when others =>
+        -- default case (catches all unspecified values)
+end case;
+\end{lstlisting}
+
+\subsection{Key Characteristics}
+\begin{itemize}
+    \item Used within \textbf{sequential processes}
+    \item Evaluates a \textbf{single expression}
+    \item All possible values must be covered
+    \item \textbf{Mutually exclusive} branches (no fallthrough)
+    \item Usually synthesizes to \textbf{MUX (Multiplexer)}} logic
+    \item More efficient than nested if-elsif-else for many conditions
+\end{itemize}
+
+\subsection{Example 1: 4-to-1 Multiplexer (CASE Statement)}
+
+A 4-to-1 multiplexer selects one of 4 input signals based on a 2-bit select signal.
+
+\subsubsection{Block Diagram}
+\begin{lstlisting}
+    I0 ----\
+    I1 -----|---> Y
+    I2 -----|
+    I3 ----/
+              (selected by S[1:0])
+\end{lstlisting}
+
+\subsubsection{Truth Table}
+\begin{table}[h]
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+\textbf{S[1:0]} & \textbf{Selection} & \textbf{Output Y} \\
+\hline
+00 & 0 & I0 \\
+\hline
+01 & 1 & I1 \\
+\hline
+10 & 2 & I2 \\
+\hline
+11 & 3 & I3 \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsubsection{VHDL Implementation using CASE}
+
+\begin{lstlisting}
+library IEEE;
+use IEEE.STD_LOGIC_1164.all;
+
+entity Mux4to1 is
+    port (
+        I0 : in  STD_LOGIC;           -- Input 0
+        I1 : in  STD_LOGIC;           -- Input 1
+        I2 : in  STD_LOGIC;           -- Input 2
+        I3 : in  STD_LOGIC;           -- Input 3
+        S  : in  STD_LOGIC_VECTOR(1 downto 0);  -- 2-bit select
+        Y  : out STD_LOGIC            -- Output
+    );
+end Mux4to1;
+
+architecture Behavioral of Mux4to1 is
+begin
+    
+    process(I0, I1, I2, I3, S)
+    begin
+        case S is
+            when "00" =>
+                Y <= I0;
+            
+            when "01" =>
+                Y <= I1;
+            
+            when "10" =>
+                Y <= I2;
+            
+            when "11" =>
+                Y <= I3;
+            
+            when others =>
+                Y <= '0';  -- Default (should not occur)
+        end case;
+    end process;
+    
+end Behavioral;
+\end{lstlisting}
+
+\subsubsection{Alternative: Concurrent CASE Statement}
+
+For combinational logic, case can be written as a concurrent statement:
+
+\begin{lstlisting}
+architecture Behavioral of Mux4to1 is
+begin
+    
+    process(S, I0, I1, I2, I3)
+    begin
+        case S is
+            when "00" => Y <= I0;
+            when "01" => Y <= I1;
+            when "10" => Y <= I2;
+            when "11" => Y <= I3;
+            when others => Y <= '0';
+        end case;
+    end process;
+    
+end Behavioral;
+\end{lstlisting}
+
+\newpage
+
+\subsection{Example 2: 2-to-4 Decoder (CASE Statement)}
+
+A 2-to-4 decoder converts a 2-bit input into 4 mutually exclusive outputs.
+
+\subsubsection{Block Diagram}
+\begin{lstlisting}
+    I[1:0] ----> [DECODER] ----> O0
+                                O1
+                                O2
+                                O3
+\end{lstlisting}
+
+\subsubsection{Truth Table}
+\begin{table}[h]
+\centering
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+\textbf{I[1]} & \textbf{I[0]} & \textbf{O3} & \textbf{O2} & \textbf{O1} & \textbf{O0} \\
+\hline
+0 & 0 & 0 & 0 & 0 & 1 \\
+\hline
+0 & 1 & 0 & 0 & 1 & 0 \\
+\hline
+1 & 0 & 0 & 1 & 0 & 0 \\
+\hline
+1 & 1 & 1 & 0 & 0 & 0 \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsubsection{VHDL Implementation using CASE}
+
+\begin{lstlisting}
+library IEEE;
+use IEEE.STD_LOGIC_1164.all;
+
+entity Decoder2to4 is
+    port (
+        I       : in  STD_LOGIC_VECTOR(1 downto 0);
+        Enable  : in  STD_LOGIC;
+        O       : out STD_LOGIC_VECTOR(3 downto 0)
+    );
+end Decoder2to4;
+
+architecture Behavioral of Decoder2to4 is
+begin
+    
+    process(I, Enable)
+    begin
+        -- Initialize output to 0
+        O <= "0000";
+        
+        if (Enable = '1') then
+            case I is
+                when "00" =>
+                    O <= "0001";  -- Only O0 is HIGH
+                
+                when "01" =>
+                    O <= "0010";  -- Only O1 is HIGH
+                
+                when "10" =>
+                    O <= "0100";  -- Only O2 is HIGH
+                
+                when "11" =>
+                    O <= "1000";  -- Only O3 is HIGH
+                
+                when others =>
+                    O <= "0000";  -- Default
+            end case;
+        end if;
+    end process;
+    
+end Behavioral;
+\end{lstlisting}
+
+\subsubsection{Key Features}
+\begin{itemize}
+    \item Uses \textbf{case statement} to map each input to unique output
+    \item \textbf{Enable signal} controls decoder operation
+    \item \textbf{Mutually exclusive outputs} (only one HIGH at a time)
+    \item Efficient for address decoding in memory systems
+\end{itemize}
+
+% ============================================================================
+% Section 4: WHEN-ELSE Concurrent Assignment
+% ============================================================================
+\newpage
+\section{WHEN-ELSE Concurrent Assignment}
+
+\subsection{Basic Structure}
+
+The \texttt{when-else} statement is a concurrent signal assignment used outside of processes.
+
+\subsubsection{Syntax}
+\begin{lstlisting}
+output_signal <= value1 when condition1 else
+                 value2 when condition2 else
+                 value3 when condition3 else
+                 default_value;
+\end{lstlisting}
+
+\subsection{Key Characteristics}
+\begin{itemize}
+    \item Used for \textbf{concurrent signal assignment}
+    \item Evaluates \textbf{multiple independent conditions}
+    \item Priority determined by \textbf{order of evaluation}
+    \item Must provide \textbf{default value} at the end
+    \item Clean, readable syntax for combinational logic
+    \item No process required
+\end{itemize}
+
+\subsection{Example 1: 4-to-1 Multiplexer (WHEN-ELSE)}
+
+\begin{lstlisting}
+library IEEE;
+use IEEE.STD_LOGIC_1164.all;
+
+entity Mux4to1_WhenElse is
+    port (
+        I0 : in  STD_LOGIC;
+        I1 : in  STD_LOGIC;
+        I2 : in  STD_LOGIC;
+        I3 : in  STD_LOGIC;
+        S  : in  STD_LOGIC_VECTOR(1 downto 0);
+        Y  : out STD_LOGIC
+    );
+end Mux4to1_WhenElse;
+
+architecture Behavioral of Mux4to1_WhenElse is
+begin
+    
+    -- Concurrent when-else statement
+    -- No process required
+    Y <= I0 when (S = "00") else
+         I1 when (S = "01") else
+         I2 when (S = "10") else
+         I3;  -- Default (handles "11" and others)
+    
+end Behavioral;
+\end{lstlisting}
+
+\subsubsection{Advantages over CASE}
+\begin{itemize}
+    \item \textbf{No process} required (concurrent)
+    \item More \textbf{concise} for simple conditions
+    \item Assigns directly to output signal
+    \item Cleaner for small selector logic
+\end{itemize}
+
+\subsection{Example 2: 2-to-4 Decoder (WHEN-ELSE)}
+
+\begin{lstlisting}
+library IEEE;
+use IEEE.STD_LOGIC_1164.all;
+
+entity Decoder2to4_WhenElse is
+    port (
+        I       : in  STD_LOGIC_VECTOR(1 downto 0);
+        Enable  : in  STD_LOGIC;
+        O       : out STD_LOGIC_VECTOR(3 downto 0)
+    );
+end Decoder2to4_WhenElse;
+
+architecture Behavioral of Decoder2to4_WhenElse is
+begin
+    
+    -- Concurrent when-else statement
+    O <= "0001" when (Enable = '1' and I = "00") else
+         "0010" when (Enable = '1' and I = "01") else
+         "0100" when (Enable = '1' and I = "10") else
+         "1000" when (Enable = '1' and I = "11") else
+         "0000";  -- Default (disabled or invalid)
+    
+end Behavioral;
+\end{lstlisting}
+
+\subsection{Example 3: Serial-to-Parallel Shift Register Output}
+
+WHEN-ELSE can be used for logic involving the shift register:
+
+\begin{lstlisting}
+library IEEE;
+use IEEE.STD_LOGIC_1164.all;
+
+entity ShiftRegister_Control is
+    port (
+        Shift       : in  STD_LOGIC;
+        Load        : in  STD_LOGIC;
+        Serial_In   : in  STD_LOGIC;
+        Reset       : in  STD_LOGIC;
+        Mode_Select : in  STD_LOGIC_VECTOR(1 downto 0);
+        Output      : out STD_LOGIC
+    );
+end ShiftRegister_Control;
+
+architecture Behavioral of ShiftRegister_Control is
+begin
+    
+    -- Priority-based control logic using when-else
+    Output <= '0' when (Reset = '1') else
+              Serial_In when (Load = '1') else
+              '1' when (Shift = '1') else
+              '0';  -- Default idle state
+    
+end Behavioral;
+\end{lstlisting}
+
+% ============================================================================
+% Section 5: Comparison Table
+% ============================================================================
+\newpage
+\section{Comparison: IF-ELSE vs CASE vs WHEN-ELSE}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|c|c|c|}
+\hline
+\textbf{Feature} & \textbf{IF-ELSE} & \textbf{CASE} & \textbf{WHEN-ELSE} \\
+\hline
+Context & Sequential & Sequential & Concurrent \\
+\hline
+Within Process & Yes & Yes & No \\
+\hline
+Hierarchy & Supports nesting & Flat evaluation & Flat (priority order) \\
+\hline
+Best for & Complex conditions & Multiple values & Simple multiplexing \\
+\hline
+Priority & Top to bottom & Mutual exclusive & Top to bottom \\
+\hline
+Synthesizes to & Logic gates & Multiplexer & Multiplexer \\
+\hline
+Default required & No & \texttt{when others} & Yes \\
+\hline
+Readability & Good & Excellent & Good \\
+\hline
+Performance & Varies & Optimal & Optimal \\
+\hline
+\end{tabular}
+\end{table}
+
+% ============================================================================
+% Section 6: Selection Guide
+% ============================================================================
+\newpage
+\section{Selection Guide}
+
+\subsection{Use IF-ELSE When:}
+\begin{itemize}
+    \item You have \textbf{hierarchical or nested conditions}
+    \item Conditions are \textbf{complex} or interdependent
+    \item You need \textbf{sequential logic} (latches, flip-flops)
+    \item Some conditions have \textbf{higher priority} than others
+    \item Working within a \textbf{process block}
+\end{itemize}
+
+\textbf{Example:} D-Latch, D-Flip-Flop, or reset logic
+
+\subsection{Use CASE When:}
+\begin{itemize}
+    \item Selecting from \textbf{multiple discrete values}
+    \item Values are \textbf{mutually exclusive}
+    \item Need \textbf{clean, readable code}
+    \item Working with \textbf{multi-bit selectors}
+    \item Inside a \textbf{process block}
+\end{itemize}
+
+\textbf{Example:} Multiplexers, Decoders, State machines
+
+\subsection{Use WHEN-ELSE When:}
+\begin{itemize}
+    \item Implementing \textbf{combinational logic} only
+    \item Want \textbf{concurrent assignment}
+    \item Conditions are \textbf{simple and independent}
+    \item Don't need a \textbf{process block}
+    \item Code is \textbf{short and clear}
+\end{itemize}
+
+\textbf{Example:} Simple multiplexers, conditional routing, control signals
+
+% ============================================================================
+% Section 7: Advanced Example - Serial-to-Parallel Shift Register
+% ============================================================================
+\newpage
+\section{Advanced Example: 4-Bit Serial-to-Parallel Shift Register}
+
+\subsection{Overview}
+
+A 4-bit Serial-to-Parallel (S2P) shift register demonstrates hierarchical if-else logic combined with case statements for control.
+
+\subsection{Complete VHDL Implementation}
+
+\begin{lstlisting}
+library IEEE;
+use IEEE.STD_LOGIC_1164.all;
+
+entity Serial_to_Parallel_SR is
+    port (
+        CLK         : in  STD_LOGIC;
+        RESET       : in  STD_LOGIC;
+        Shift       : in  STD_LOGIC;
+        Serial_In   : in  STD_LOGIC;
+        S           : out STD_LOGIC_VECTOR(3 downto 0);
+        Control     : in  STD_LOGIC_VECTOR(1 downto 0)
+    );
+end Serial_to_Parallel_SR;
+
+architecture Behavioral of Serial_to_Parallel_SR is
+    signal S_reg : STD_LOGIC_VECTOR(3 downto 0);
+    
+begin
+    
+    -- ====================================================
+    -- MAIN PROCESS: Using IF-ELSE for hierarchical logic
+    -- ====================================================
+    process(CLK, RESET)
+    begin
+        -- HIGHEST PRIORITY: Asynchronous Reset
+        if (RESET = '1') then
+            S_reg <= (others => '0');
+        
+        -- SECOND PRIORITY: Clock edge check
+        elsif rising_edge(CLK) then
+            
+            -- CASE statement for shift control
+            case Shift is
+                when '1' =>
+                    -- Shift enable: shift data right
+                    S_reg <= Serial_In & S_reg(3 downto 1);
+                
+                when '0' =>
+                    -- Shift disable: hold value
+                    S_reg <= S_reg;
+                
+                when others =>
+                    S_reg <= (others => '0');
+            end case;
+        end if;
+    end process;
+    
+    -- ====================================================
+    -- CONCURRENT ASSIGNMENT: Using WHEN-ELSE
+    -- for output multiplexing based on Control signal
+    -- ====================================================
+    S <= S_reg when (Control = "00") else
+         not S_reg when (Control = "01") else
+         (others => '0') when (Control = "10") else
+         (others => '1');  -- Default
+    
+end Behavioral;
+\end{lstlisting}
+
+\subsection{Analysis}
+
+\textbf{Hierarchical IF-ELSE Structure:}
+\begin{enumerate}
+    \item \textbf{First condition:} \texttt{RESET = '1'} (highest priority)
+    \item \textbf{Second condition:} \texttt{rising\_edge(CLK)} (synchronous operation)
+    \item \textbf{Inside CLK block:} CASE statement for shift control
+\end{enumerate}
+
+\textbf{Why Each Statement Type:}
+\begin{itemize}
+    \item \textbf{IF-ELSE:} Handles priority (reset > clock), asynchronous to synchronous transitions
+    \item \textbf{CASE:} Manages shift control (on/off selection)
+    \item \textbf{WHEN-ELSE:} Concurrent output routing based on mode control
+\end{itemize}
+
+% ============================================================================
+% Section 8: Best Practices
+% ============================================================================
+\newpage
+\section{Best Practices}
+
+\subsection{General Design Guidelines}
+
+\begin{enumerate}
+    \item \textbf{Always cover all cases}
+        \begin{itemize}
+            \item Add \texttt{when others} to case statements
+            \item Provide default value in when-else
+            \item Don't leave conditions undefined
+        \end{itemize}
+    
+    \item \textbf{Use meaningful signal/variable names}
+        \begin{itemize}
+            \item \texttt{Enable} instead of \texttt{E}
+            \item \texttt{Serial\_In} instead of \texttt{SI}
+            \item Make intent clear in code
+        \end{itemize}
+    
+    \item \textbf{Maintain hierarchical structure}
+        \begin{itemize}
+            \item Keep reset logic separate (highest priority)
+            \item Use if-elsif-else for dependent conditions
+            \item Nest case inside if blocks when needed
+        \end{itemize}
+    
+    \item \textbf{Avoid implicit logic}
+        \begin{itemize}
+            \item Don't rely on signal holding values implicitly
+            \item Explicitly assign default values
+            \item Make sequential logic explicit with rising\_edge()
+        \end{itemize}
+    
+    \item \textbf{Choose the right tool}
+        \begin{itemize}
+            \item Use case for selectors (clean, synthesizes well)
+            \item Use if-else for complex conditions
+            \item Use when-else for simple concurrent logic
+        \end{itemize}
+\end{enumerate}
+
+\subsection{Synthesis Considerations}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|p{5cm}|p{4cm}|}
+\hline
+\textbf{Pattern} & \textbf{Synthesis Result} & \textbf{Notes} \\
+\hline
+Simple case with few branches & AND-OR gates & Optimal \\
+\hline
+Case with many (4+) branches & Multiplexer trees & Efficient \\
+\hline
+Nested if-elsif-else & Cascaded logic & May have long delays \\
+\hline
+When-else (priority) & Multiplexer chain & Fast for small selectors \\
+\hline
+Asynchronous reset & Set/Reset logic & Built into flip-flops \\
+\hline
+Multiple elsif branches & Priority detection logic & Priority is implicit \\
+\hline
+\end{tabular}
+\end{table}
+
+% ============================================================================
+% Section 9: Common Mistakes to Avoid
+% ============================================================================
+\newpage
+\section{Common Mistakes and How to Avoid Them}
+
+\subsection{Mistake 1: Missing WHEN OTHERS}
+
+\textbf{❌ Wrong:}
+\begin{lstlisting}
+case Mode is
+    when "00" => Output <= A;
+    when "01" => Output <= B;
+    when "10" => Output <= C;
+    -- Missing: when others => ...
+end case;
+\end{lstlisting}
+
+\textbf{✓ Correct:}
+\begin{lstlisting}
+case Mode is
+    when "00" => Output <= A;
+    when "01" => Output <= B;
+    when "10" => Output <= C;
+    when others => Output <= '0';  -- Always provide default
+end case;
+\end{lstlisting}
+
+\subsection{Mistake 2: Incomplete Sensitivity List}
+
+\textbf{❌ Wrong:}
+\begin{lstlisting}
+process(CLK)  -- Missing: Reset
+begin
+    if (Reset = '1') then  -- May not work!
+        Q <= '0';
+    elsif rising_edge(CLK) then
+        Q <= D;
+    end if;
+end process;
+\end{lstlisting}
+
+\textbf{✓ Correct:}
+\begin{lstlisting}
+process(CLK, Reset)  -- Include all async signals
+begin
+    if (Reset = '1') then
+        Q <= '0';
+    elsif rising_edge(CLK) then
+        Q <= D;
+    end if;
+end process;
+\end{lstlisting}
+
+\subsection{Mistake 3: Confusing Priority}
+
+\textbf{❌ Problem:} WHEN-ELSE evaluates top-to-bottom
+\begin{lstlisting}
+Y <= B when (Enable = '0') else  -- Checked FIRST
+     A when (Enable = '1') else   -- Checked SECOND (too late!)
+     A;
+\end{lstlisting}
+
+\textbf{✓ Correct:}
+\begin{lstlisting}
+Y <= A when (Enable = '1') else   -- Checked FIRST
+     B when (Enable = '0') else
+     A;  -- Default
+\end{lstlisting}
+
+\subsection{Mistake 4: Invalid Use of CASE Outside Process}
+
+\textbf{❌ Wrong:} (CASE cannot be concurrent)
+\begin{lstlisting}
+architecture Bad of Example is
+begin
+    -- This is INVALID - case is not concurrent
+    case S is
+        when "00" => Output <= A;
+        when others => Output <= B;
+    end case;
+end Bad;
+\end{lstlisting}
+
+\textbf{✓ Correct:}
+\begin{lstlisting}
+architecture Good of Example is
+begin
+    process(S, A, B)
+    begin
+        case S is
+            when "00" => Output <= A;
+            when others => Output <= B;
+        end case;
+    end process;
+end Good;
+\end{lstlisting}
+
+% ============================================================================
+% Section 10: Summary
+% ============================================================================
+\newpage
+\section{Summary}
+
+\subsection{Key Takeaways}
+
+\textbf{IF-ELSE:}
+\begin{itemize}
+    \item Hierarchical conditional logic
+    \item Priority determined by order
+    \item Best for complex conditions and latches/flip-flops
+    \item Use inside processes
+\end{itemize}
+
+\textbf{CASE:}
+\begin{itemize}
+    \item Select from multiple values
+    \item Mutually exclusive branches
+    \item Synthesizes efficiently to multiplexers
+    \item Always include \texttt{when others}
+\end{itemize}
+
+\textbf{WHEN-ELSE:}
+\begin{itemize}
+    \item Concurrent signal assignment
+    \item Priority by order of conditions
+    \item Clean for simple combinational logic
+    \item Must have default value
+\end{itemize}
+
+\subsection{Quick Reference}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|c|c|c|}
+\hline
+\textbf{Need...} & \textbf{Use IF-ELSE} & \textbf{Use CASE} & \textbf{Use WHEN-ELSE} \\
+\hline
+Sequential logic & ✓ & ✓ & ✗ \\
+\hline
+Combinational logic & ✓ & ✓ & ✓ \\
+\hline
+Nested conditions & ✓ & ✗ & ✗ \\
+\hline
+Multiple selectors & ✗ & ✓ & ✓ \\
+\hline
+Concurrent code & ✗ & ✗ & ✓ \\
+\hline
+Asynchronous reset & ✓ & ✓ & ✗ \\
+\hline
+\end{tabular}
+\end{table}
+
+% ============================================================================
+% References
+% ============================================================================
+\newpage
+\begin{thebibliography}{99}
+
+\bibitem{ieee} IEEE Std 1076-2019: VHDL Language Reference Manual
+
+\bibitem{vhdl_guide} Perry, Douglas L. (2002). \textit{VHDL Programming by Example}. 
+McGraw-Hill, 4th Edition.
+
+\bibitem{synthesis} Mealy, George H. \& Blakeslee, Thomas R. (1997). \textit{Digital Logic 
+Design and Computer Organization}. John Wiley \& Sons.
+
+\bibitem{dsd} Mano, M. Morris \& Ciletti, Michael D. (2013). \textit{Digital Design}. 
+Pearson, 5th Edition.
+
+\end{thebibliography}
+
+\end{document}

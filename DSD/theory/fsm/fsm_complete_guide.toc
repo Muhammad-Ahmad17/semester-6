@@ -1,0 +1,63 @@
+\contentsline {section}{\numberline {1}Introduction to Finite State Machines}{3}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Moore vs.\ Mealy Machines}{3}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}General FSM Architecture}{3}{subsection.1.2}%
+\contentsline {section}{\numberline {2}FSM Design Methodology --- Step by Step}{4}{section.2}%
+\contentsline {subsection}{\numberline {2.1}D Flip-Flop Characteristic and Excitation}{4}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}State Encoding Techniques}{5}{subsection.2.2}%
+\contentsline {section}{\numberline {3}Common Errors in FSM Design}{5}{section.3}%
+\contentsline {section}{\numberline {4}Best Practices for FSM Design}{6}{section.4}%
+\contentsline {section}{\numberline {5}From State Diagram to D Flip-Flop Implementation}{7}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Example: Sequence Detector (detects ``101'')}{7}{subsection.5.1}%
+\contentsline {subsubsection}{\numberline {5.1.1}Step 1: State Diagram}{7}{subsubsection.5.1.1}%
+\contentsline {subsubsection}{\numberline {5.1.2}Step 2: State Assignment}{7}{subsubsection.5.1.2}%
+\contentsline {subsubsection}{\numberline {5.1.3}Step 3: State / Transition Table}{8}{subsubsection.5.1.3}%
+\contentsline {subsubsection}{\numberline {5.1.4}Step 4: Excitation Table (D Flip-Flops)}{8}{subsubsection.5.1.4}%
+\contentsline {subsubsection}{\numberline {5.1.5}Step 5: K-Map Simplification}{8}{subsubsection.5.1.5}%
+\contentsline {subsubsection}{\numberline {5.1.6}Step 6: Circuit Diagram}{9}{subsubsection.5.1.6}%
+\contentsline {section}{\numberline {6}FSM Design Problems: Beginner to Advanced}{9}{section.6}%
+\contentsline {subsection}{\numberline {6.1}Problem 1: Simple Toggle Switch (Beginner)}{9}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2}Problem 2: 2-Bit Up Counter (Beginner)}{10}{subsection.6.2}%
+\contentsline {subsection}{\numberline {6.3}Problem 3: Sequence Detector ``11'' (Beginner)}{11}{subsection.6.3}%
+\contentsline {subsection}{\numberline {6.4}Problem 4: 3-Bit Up/Down Counter (Beginner--Intermediate)}{11}{subsection.6.4}%
+\contentsline {subsection}{\numberline {6.5}Problem 5: Vending Machine Controller (Intermediate)}{12}{subsection.6.5}%
+\contentsline {subsection}{\numberline {6.6}Problem 6: Traffic Light Controller (Intermediate)}{13}{subsection.6.6}%
+\contentsline {subsection}{\numberline {6.7}Problem 7: Serial Adder (Intermediate)}{14}{subsection.6.7}%
+\contentsline {subsection}{\numberline {6.8}Problem 8: Pattern Detector ``1010'' Non-Overlapping (Intermediate)}{15}{subsection.6.8}%
+\contentsline {subsection}{\numberline {6.9}Problem 9: Elevator Door Controller (Intermediate--Advanced)}{16}{subsection.6.9}%
+\contentsline {subsection}{\numberline {6.10}Problem 10: SPI Master Controller (Advanced)}{17}{subsection.6.10}%
+\contentsline {subsection}{\numberline {6.11}Problem 11: UART Receiver (Advanced)}{18}{subsection.6.11}%
+\contentsline {subsection}{\numberline {6.12}Problem 12: Washing Machine Controller (Advanced)}{19}{subsection.6.12}%
+\contentsline {subsection}{\numberline {6.13}Problem 13: Keypad Debouncer / Lock (Advanced)}{20}{subsection.6.13}%
+\contentsline {subsection}{\numberline {6.14}Problem 14: Memory Read Controller (Advanced)}{21}{subsection.6.14}%
+\contentsline {subsection}{\numberline {6.15}Problem 15: AHB-Lite Bus Master (Expert)}{21}{subsection.6.15}%
+\contentsline {section}{\numberline {7}Complete Worked Example: Excitation Table to Circuit}{22}{section.7}%
+\contentsline {subsection}{\numberline {7.1}Given State Diagram}{22}{subsection.7.1}%
+\contentsline {subsection}{\numberline {7.2}Complete Excitation Table}{23}{subsection.7.2}%
+\contentsline {subsection}{\numberline {7.3}K-Map for $D_1$}{23}{subsection.7.3}%
+\contentsline {subsection}{\numberline {7.4}K-Map for $D_0$}{23}{subsection.7.4}%
+\contentsline {subsection}{\numberline {7.5}Output K-Maps}{23}{subsection.7.5}%
+\contentsline {subsection}{\numberline {7.6}Final Circuit}{24}{subsection.7.6}%
+\contentsline {section}{\numberline {8}Comparison: Moore vs.\ Mealy Implementation}{24}{section.8}%
+\contentsline {section}{\numberline {9}Advanced Topics}{24}{section.9}%
+\contentsline {subsection}{\numberline {9.1}One-Hot Encoding Implementation}{24}{subsection.9.1}%
+\contentsline {subsection}{\numberline {9.2}State Minimization Using Implication Chart}{25}{subsection.9.2}%
+\contentsline {subsection}{\numberline {9.3}Handling Unused States}{25}{subsection.9.3}%
+\contentsline {subsection}{\numberline {9.4}Problem 16: Sequential Button Door Lock (Expert --- Full Design)}{25}{subsection.9.4}%
+\contentsline {subsubsection}{\numberline {9.4.1}Problem Statement}{25}{subsubsection.9.4.1}%
+\contentsline {subsubsection}{\numberline {9.4.2}Understanding Output $A$ (Activity Indicator)}{26}{subsubsection.9.4.2}%
+\contentsline {subsubsection}{\numberline {9.4.3}State Definitions}{27}{subsubsection.9.4.3}%
+\contentsline {subsubsection}{\numberline {9.4.4}State Diagram}{27}{subsubsection.9.4.4}%
+\contentsline {subsubsection}{\numberline {9.4.5}Edge Cases --- Every Scenario Explained}{28}{subsubsection.9.4.5}%
+\contentsline {subsubsection}{\numberline {9.4.6}State Assignment (Binary Encoding)}{29}{subsubsection.9.4.6}%
+\contentsline {subsubsection}{\numberline {9.4.7}Complete Excitation Table}{30}{subsubsection.9.4.7}%
+\contentsline {subsubsection}{\numberline {9.4.8}Output Equations}{31}{subsubsection.9.4.8}%
+\contentsline {subsubsection}{\numberline {9.4.9}Timing Diagram --- Correct Sequence}{31}{subsubsection.9.4.9}%
+\contentsline {subsubsection}{\numberline {9.4.10}Timing Diagram --- Wrong Button Scenario}{32}{subsubsection.9.4.10}%
+\contentsline {subsubsection}{\numberline {9.4.11}Strict vs.\ Lenient Design Comparison}{32}{subsubsection.9.4.11}%
+\contentsline {section}{\numberline {10}VHDL Template for FSM Design}{32}{section.10}%
+\contentsline {subsection}{\numberline {10.1}The Three-Process FSM Template}{33}{subsection.10.1}%
+\contentsline {subsection}{\numberline {10.2}Generic VHDL FSM Template}{33}{subsection.10.2}%
+\contentsline {subsection}{\numberline {10.3}Template Rules --- Never Break These}{35}{subsection.10.3}%
+\contentsline {subsection}{\numberline {10.4}Applied Template: Button Lock in VHDL}{36}{subsection.10.4}%
+\contentsline {section}{\numberline {11}Quick Reference: FSM Design Checklist}{38}{section.11}%
+\contentsline {section}{\numberline {12}Summary of All 16 Problems}{39}{section.12}%

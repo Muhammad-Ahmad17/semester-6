@@ -1,0 +1,51 @@
+\contentsline {section}{\numberline {1}Why Do We Need FSMs?}{3}{section.1}%
+\contentsline {subsection}{\numberline {1.1}The Problem with Trial-and-Error}{3}{subsection.1.1}%
+\contentsline {section}{\numberline {2}What is a Finite-State Machine (FSM)?}{3}{section.2}%
+\contentsline {subsection}{\numberline {2.1}The 5 Components of Every FSM}{4}{subsection.2.1}%
+\contentsline {section}{\numberline {3}Example 1 --- Simple Toggle}{4}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Problem}{4}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}FSM State Diagram}{4}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}Transition Table}{5}{subsection.3.3}%
+\contentsline {section}{\numberline {4}Example 2 --- Three-Cycles-High Laser Timer (Full Walkthrough)}{5}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Problem Statement}{5}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Step 1: Identify the States}{5}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Step 2: Draw the FSM State Diagram}{6}{subsection.4.3}%
+\contentsline {subsection}{\numberline {4.4}Cycle-by-Cycle Operation}{6}{subsection.4.4}%
+\contentsline {subsection}{\numberline {4.5}Timing Diagram}{7}{subsection.4.5}%
+\contentsline {section}{\numberline {5}The 5-Step Controller Design Process}{7}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Overview of Steps}{7}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}The Standard Architecture}{7}{subsection.5.2}%
+\contentsline {section}{\numberline {6}Step-by-Step: Converting Laser Timer FSM to Circuit}{8}{section.6}%
+\contentsline {subsection}{\numberline {6.1}Step 2B: Encode the States}{8}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2}Step 2C: Fill the Truth Table}{8}{subsection.6.2}%
+\contentsline {subsection}{\numberline {6.3}Step 2D: Derive Boolean Equations}{9}{subsection.6.3}%
+\contentsline {subsection}{\numberline {6.4}K-Map Derivation (Karnaugh Maps)}{10}{subsection.6.4}%
+\contentsline {subsection}{\numberline {6.5}Summary of All D Flip-Flop Input Equations}{12}{subsection.6.5}%
+\contentsline {subsection}{\numberline {6.6}Complete Hardware Circuit with D Flip-Flops}{12}{subsection.6.6}%
+\contentsline {subsection}{\numberline {6.7}Verification: Trace Through the Circuit}{13}{subsection.6.7}%
+\contentsline {subsection}{\numberline {6.8}Hardware Connection Summary}{14}{subsection.6.8}%
+\contentsline {section}{\numberline {7}Example 3 --- Call/Cancel Light Controller}{15}{section.7}%
+\contentsline {subsection}{\numberline {7.1}Problem}{15}{subsection.7.1}%
+\contentsline {subsection}{\numberline {7.2}FSM State Diagram}{15}{subsection.7.2}%
+\contentsline {subsection}{\numberline {7.3}State Encoding \& Truth Table}{15}{subsection.7.3}%
+\contentsline {subsection}{\numberline {7.4}D Flip-Flop Equation \& Hardware Circuit}{16}{subsection.7.4}%
+\contentsline {section}{\numberline {8}Output Glitching \& Solutions}{17}{section.8}%
+\contentsline {subsection}{\numberline {8.1}What is Glitching?}{17}{subsection.8.1}%
+\contentsline {subsection}{\numberline {8.2}Why It Happens}{17}{subsection.8.2}%
+\contentsline {subsection}{\numberline {8.3}Solution 1: Registered Outputs}{17}{subsection.8.3}%
+\contentsline {subsection}{\numberline {8.4}Solution 2: State Variables as Outputs}{17}{subsection.8.4}%
+\contentsline {subsection}{\numberline {8.5}Comparison of Solutions}{18}{subsection.8.5}%
+\contentsline {section}{\numberline {9}Example 4 --- Pacemaker (Real-World FSM)}{18}{section.9}%
+\contentsline {subsection}{\numberline {9.1}What Is a Pacemaker?}{18}{subsection.9.1}%
+\contentsline {subsection}{\numberline {9.2}Signals}{18}{subsection.9.2}%
+\contentsline {subsection}{\numberline {9.3}FSM State Diagram}{19}{subsection.9.3}%
+\contentsline {subsection}{\numberline {9.4}How It Works}{19}{subsection.9.4}%
+\contentsline {section}{\numberline {10}Chapter Summary \& Key Takeaways}{19}{section.10}%
+\contentsline {section}{\numberline {11}Quick Reference Cheat Sheet}{20}{section.11}%
+\contentsline {subsection}{\numberline {11.1}FSM Design Checklist}{20}{subsection.11.1}%
+\contentsline {subsection}{\numberline {11.2}Common FSM Patterns}{20}{subsection.11.2}%
+\contentsline {subsection}{\numberline {11.3}Key Formulas}{20}{subsection.11.3}%
+\contentsline {section}{\numberline {12}Practice Problems}{21}{section.12}%
+\contentsline {subsection}{\numberline {12.1}Problem 1: 2-Cycle Delay}{21}{subsection.12.1}%
+\contentsline {subsection}{\numberline {12.2}Problem 2: Sequence Detector}{21}{subsection.12.2}%
+\contentsline {subsection}{\numberline {12.3}Problem 3: Vending Machine}{21}{subsection.12.3}%
