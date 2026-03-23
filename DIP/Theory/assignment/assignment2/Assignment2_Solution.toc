@@ -1,31 +1,63 @@
-\contentsline {section}{3.4 -- Intensity-Slicing Transformations for Bit Planes}{3}{section*.2}%
-\contentsline {subsection}{Idea}{3}{section*.3}%
-\contentsline {subsection}{General Transformation}{3}{section*.4}%
-\contentsline {subsection}{Pattern of the Ranges}{3}{section*.5}%
-\contentsline {section}{3.5 -- Effect of Zeroing Lower-Order and Higher-Order Bit Planes}{5}{section*.6}%
-\contentsline {subsection}{Part (a): Zeroing Lower-Order Bit Planes}{5}{section*.7}%
-\contentsline {subsection}{Part (b): Zeroing Higher-Order Bit Planes}{5}{section*.8}%
-\contentsline {section}{3.6 -- Why Discrete Histogram Equalization Is Not Flat in General}{6}{section*.9}%
-\contentsline {subsection}{Core Reason}{6}{section*.10}%
-\contentsline {subsection}{Why Flatness Fails}{6}{section*.11}%
-\contentsline {section}{3.7 -- Why a Second Histogram Equalization Pass Changes Nothing}{7}{section*.12}%
-\contentsline {subsection}{First Equalization Pass}{7}{section*.13}%
-\contentsline {subsection}{Second Equalization Pass}{7}{section*.14}%
-\contentsline {section}{3.13 -- Histograms of Arithmetic Combinations of Two Images}{8}{section*.15}%
-\contentsline {subsection}{Main Observation}{8}{section*.16}%
-\contentsline {subsection}{Condition Needed}{8}{section*.17}%
-\contentsline {subsection}{Cases}{8}{section*.18}%
-\contentsline {section}{3.15 -- Fast Box-Filter Algorithm and Computational Advantage}{10}{section*.19}%
-\contentsline {subsection}{Part (a): Box-Filter Update Rule}{10}{section*.20}%
-\contentsline {subsection}{Part (b): Computational Advantage}{10}{section*.21}%
-\contentsline {section}{3.19 -- Computing and Updating the Median in an $n\times n$ Neighborhood}{12}{section*.22}%
-\contentsline {subsection}{Part (a): Computing the Median}{12}{section*.23}%
-\contentsline {subsection}{Part (b): Updating the Median While Sliding}{12}{section*.24}%
-\contentsline {section}{3.24 -- Proving the Laplacian Is Isotropic}{14}{section*.25}%
-\contentsline {subsection}{Laplacian in Original Coordinates}{14}{section*.26}%
-\contentsline {subsection}{First Derivatives}{14}{section*.27}%
-\contentsline {subsection}{Second Derivatives}{14}{section*.28}%
-\contentsline {section}{3.28 -- Showing That Subtracting the Laplacian Is Proportional to Unsharp Masking}{16}{section*.29}%
-\contentsline {subsection}{Start with the Discrete Laplacian}{16}{section*.30}%
-\contentsline {subsection}{Connection with Unsharp Masking}{16}{section*.31}%
-\contentsline {section}{Summary of Answers}{17}{section*.32}%
+\contentsline {section}{\numberline {1}Problem 3.4: Bit Plane Slicing Transformations}{3}{}%
+\contentsline {subsection}{\numberline {1.1}Understanding Bit Planes (Section 3.2.4)}{3}{}%
+\contentsline {subsection}{\numberline {1.2}Binary Representation Example}{3}{}%
+\contentsline {subsection}{\numberline {1.3}Why Bit Planes Matter}{3}{}%
+\contentsline {subsection}{\numberline {1.4}The Solution: Intensity Slicing Transformation}{4}{}%
+\contentsline {subsection}{\numberline {1.5}Intensity Ranges for Each Bit Plane}{4}{}%
+\contentsline {subsection}{\numberline {1.6}Transformation Graphs for All 8 Bit Planes}{4}{}%
+\contentsline {subsection}{\numberline {1.7}Complete Dry Run: Extract All Bits from r = 167}{5}{}%
+\contentsline {subsection}{\numberline {1.8}Complete Example: 3×3 Image Bit Plane Extraction}{5}{}%
+\contentsline {section}{\numberline {2}Problem 3.5: Effect of Zeroing Bit Planes on Histogram}{7}{}%
+\contentsline {subsection}{\numberline {2.1}Part (a): Zeroing Lower-Order Bits}{7}{}%
+\contentsline {subsection}{\numberline {2.2}Part (b): Zeroing Higher-Order Bits}{8}{}%
+\contentsline {section}{\numberline {3}Problem 3.6: Why Histogram Equalization Isn't Perfectly Flat}{9}{}%
+\contentsline {subsection}{\numberline {3.1}The Theory (Section 3.3.1)}{9}{}%
+\contentsline {subsection}{\numberline {3.2}Why It Fails in Discrete Images}{9}{}%
+\contentsline {section}{\numberline {4}Problem 3.7: Second Pass Produces Same Result}{11}{}%
+\contentsline {subsection}{\numberline {4.1}Understanding the Question}{11}{}%
+\contentsline {subsection}{\numberline {4.2}Recap: Histogram Equalization Formula}{11}{}%
+\contentsline {subsection}{\numberline {4.3}Step 1: Result of First Equalization}{11}{}%
+\contentsline {subsection}{\numberline {4.4}Step 2: Apply Equalization Again (Second Pass)}{12}{}%
+\contentsline {subsection}{\numberline {4.5}Visual Interpretation: CDF Comparison}{12}{}%
+\contentsline {subsection}{\numberline {4.6}Why Does This Happen?}{13}{}%
+\contentsline {subsection}{\numberline {4.7}Practical Implication}{13}{}%
+\contentsline {section}{\numberline {5}Problem 3.13: Histogram of Combined Images}{14}{}%
+\contentsline {subsection}{\numberline {5.1}Understanding the Problem}{14}{}%
+\contentsline {subsection}{\numberline {5.2}The Core Problem: What Histograms Tell Us}{14}{}%
+\contentsline {subsection}{\numberline {5.3}Concrete Counterexample}{14}{}%
+\contentsline {subsection}{\numberline {5.4}Computing A + B (Opposite Arrangement)}{15}{}%
+\contentsline {subsection}{\numberline {5.5}Computing A + C (Same Arrangement)}{15}{}%
+\contentsline {subsection}{\numberline {5.6}Analysis of All Operations}{16}{}%
+\contentsline {subsection}{\numberline {5.7}The Answer and Condition}{16}{}%
+\contentsline {subsection}{\numberline {5.8}Special Cases Where It IS Possible}{16}{}%
+\contentsline {section}{\numberline {6}Problem 3.15: Efficient Box Filter Algorithm}{17}{}%
+\contentsline {subsection}{\numberline {6.1}Understanding Box Filter (Section 3.5.1)}{17}{}%
+\contentsline {subsection}{\numberline {6.2}The Naive Approach}{17}{}%
+\contentsline {subsection}{\numberline {6.3}Part (a): The Efficient Sliding Window Algorithm}{17}{}%
+\contentsline {subsection}{\numberline {6.4}Complete Algorithm Steps}{18}{}%
+\contentsline {subsection}{\numberline {6.5}Part (b): Computational Advantage Analysis}{18}{}%
+\contentsline {section}{\numberline {7}Problem 3.19: Computing Median Efficiently}{20}{}%
+\contentsline {subsection}{\numberline {7.1}Understanding Median Filter (Section 3.5.2)}{20}{}%
+\contentsline {subsection}{\numberline {7.2}Part (a): Basic Median Computation Procedure}{20}{}%
+\contentsline {subsection}{\numberline {7.3}Why Sorting is Expensive}{21}{}%
+\contentsline {subsection}{\numberline {7.4}Part (b): Efficient Histogram-Based Update (Huang's Algorithm)}{21}{}%
+\contentsline {subsubsection}{\numberline {7.4.1}Algorithm Steps}{21}{}%
+\contentsline {subsection}{\numberline {7.5}Finding Median from Histogram}{22}{}%
+\contentsline {subsection}{\numberline {7.6}Computational Advantage}{22}{}%
+\contentsline {section}{\numberline {8}Problem 3.24: Proving Laplacian is Isotropic}{23}{}%
+\contentsline {subsection}{\numberline {8.1}Understanding Isotropy (Section 3.6.2)}{23}{}%
+\contentsline {subsection}{\numberline {8.2}Visual Intuition}{23}{}%
+\contentsline {subsection}{\numberline {8.3}Setting Up the Coordinate Rotation}{23}{}%
+\contentsline {subsection}{\numberline {8.4}Computing Partial Derivatives Under Rotation}{24}{}%
+\contentsline {subsection}{\numberline {8.5}The Key Step: Adding the Second Derivatives}{24}{}%
+\contentsline {subsection}{\numberline {8.6}Discrete Laplacian Kernels}{25}{}%
+\contentsline {section}{\numberline {9}Problem 3.28: Laplacian $\approx $ Unsharp Masking}{26}{}%
+\contentsline {subsection}{\numberline {9.1}Understanding Unsharp Masking (Section 3.6.3)}{26}{}%
+\contentsline {subsection}{\numberline {9.2}Unsharp Masking Process Flow}{26}{}%
+\contentsline {subsection}{\numberline {9.3}Understanding Laplacian Sharpening}{27}{}%
+\contentsline {subsection}{\numberline {9.4}Connecting the Two Methods}{27}{}%
+\contentsline {subsubsection}{\numberline {9.4.1}Discrete Laplacian Approximation}{27}{}%
+\contentsline {subsubsection}{\numberline {9.4.2}Relating to Local Average}{27}{}%
+\contentsline {subsection}{\numberline {9.5}Final Proof: Equivalence}{28}{}%
+\contentsline {subsection}{\numberline {9.6}Visual Comparison}{28}{}%
+\contentsline {subsection}{\numberline {9.7}Practical Implications}{28}{}%
