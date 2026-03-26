@@ -1,0 +1,24 @@
+|warningAlaram
+ignition => andGate:U2.a
+door => orGate:U1.b
+sbelt => notGate:U0.a
+warning <= andGate:U2.x
+
+
+|warningAlaram|notGate:U0
+a => x.DATAIN
+x <= a.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|warningAlaram|orGate:U1
+a => x.IN0
+b => x.IN1
+x <= x.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|warningAlaram|andGate:U2
+a => x.IN0
+b => x.IN1
+x <= x.DB_MAX_OUTPUT_PORT_TYPE
+
+

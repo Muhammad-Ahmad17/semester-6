@@ -1,0 +1,16 @@
+|serialToParallel
+clk => s_s[0].CLK
+clk => s_s[1].CLK
+clk => s_s[2].CLK
+clk => s_s[3].CLK
+reset => s_s[0].ACLR
+reset => s_s[1].ACLR
+reset => s_s[2].ACLR
+reset => s_s[3].ACLR
+sr_in => s_s[3].DATAIN
+pr_out[0] <= s_s[0].DB_MAX_OUTPUT_PORT_TYPE
+pr_out[1] <= s_s[1].DB_MAX_OUTPUT_PORT_TYPE
+pr_out[2] <= s_s[2].DB_MAX_OUTPUT_PORT_TYPE
+pr_out[3] <= s_s[3].DB_MAX_OUTPUT_PORT_TYPE
+
+

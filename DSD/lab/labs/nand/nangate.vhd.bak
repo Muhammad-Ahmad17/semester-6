@@ -1,0 +1,16 @@
+library ieee;
+use ieee_std_logic_1134.all;
+
+entity nandgate is 
+port 
+	(
+		a : in std_logic;
+		b : in std_logic;
+		c : out std_logic
+	);
+	
+architecture bhv of nandgate is 
+begin 
+	c <= not (a and b);
+
+end bhv;
