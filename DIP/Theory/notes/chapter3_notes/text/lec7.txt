@@ -1,0 +1,162 @@
+Lecture - 7
+Chapter 3
+
+INTENSITY TRANSFORMATION
+AND SPATIAL FILTERING
+
+Fundamentals of Spatial Filtering
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+2
+
+Fundamentals of Spatial Filtering
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+3
+
+Fundamentals of Spatial Filtering
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+4
+
+Smoothing (Low Pass) Spatial Filters
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+5
+
+Smoothing (Low Pass) Box Filter
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+6
+
+Smoothing (Low Pass) Gaussian Filter
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+7
+
+Smoothing (Low Pass) Gaussian Filter
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+8
+
+Smoothing (Low Pass) Gaussian Filter
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+9
+
+Box vs. Gaussian Filter Smoothing
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+10
+
+Filtering using Padding
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+11
+
+Filtering using Variable Gaussian Kernels
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+12
+
+Smoothing Application
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+13
+
+Order-Statistic (Nonlinear) Filters
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+14
+
+Sharpening (High Pass) Spatial Filters
+First Derivative (Gradient)
+
+Second Derivative (Laplacian)
+
+1. Must be zero in areas of constant intensity.
+2. Must be nonzero at the onset of an intensity
+step or ramp.
+3. Must be nonzero along intensity ramps.
+
+1. Must be zero in areas of constant intensity.
+2. Must be nonzero at the onset and end of an
+intensity step or ramp.
+3. Must be zero along intensity ramps.
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+15
+
+Sharpening (High Pass) Spatial Filters
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+16
+
+Second Derivative (Laplacian) Filters
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+17
+
+Second Derivative (Laplacian) Filters
+
+Background Recovery
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+18
+
+Unsharp Mask & High Boost Filtering
+Unsharp Masking
+1. Blur the original image.
+2. Subtract the blurred image from the original (the
+resulting difference is called the mask.)
+3. Add the mask to the original.
+
+High Boost filtering
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+19
+
+Unsharp Mask & High Boost Filtering
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+20
+
+Other Gradient Operators
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+21
+
+Other Gradient Operators
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+22
+
+Combining
+Spatial
+Enhancement
+Methods
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+23
+
+

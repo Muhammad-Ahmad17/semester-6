@@ -1,0 +1,184 @@
+Lecture - 9
+Chapter 4
+FILTERING IN THE FREQUENCY DOMAIN
+
+Discrete Fourier
+Transform (DFT)
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+2
+
+Discrete Fourier Transform (DFT)
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+3
+
+Discrete Fourier Transform (DFT)
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+4
+
+Phase Angle
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+5
+
+Image
+Reconstruction
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+6
+
+Spatial
+vs.
+Circular
+Convolution
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+7
+
+Frequency Domain Filtering
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+8
+
+Frequency Domain Filtering
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+9
+
+Frequency Domain Filtering
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+10
+
+Frequency Domain Filtering
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+11
+
+Frequency Domain Filtering
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+12
+
+Frequency Domain Filtering
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+13
+
+Frequency Domain Filtering
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+14
+
+Frequency
+Domain
+Filtering
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+15
+
+Frequency Domain Filtering
+H (u)
+
+H (u)
+
+u
+h (x)
+
+u
+h (x)
+
+1
+––
+3
+9
+
+1
+
+1
+
+1
+
+2 12 12 1
+
+1
+
+1
+
+1
+
+21 8 21
+
+1
+
+1
+
+1
+
+2 12 12 1
+
+1
+–– 3
+16
+
+1
+
+2
+
+1
+
+0 21 0
+
+2
+
+4
+
+2
+
+21 4 21
+
+1
+
+2
+
+1
+
+0 21 0
+
+x
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+x
+
+16
+
+Frequency Domain Filtering
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+17
+
+Frequency Domain Filtering
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+18
+
+

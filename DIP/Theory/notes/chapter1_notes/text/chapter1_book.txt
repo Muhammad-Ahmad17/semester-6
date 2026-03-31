@@ -1,0 +1,2157 @@
+www.EBooksWorld.ir
+
+Digital Image
+Processing
+Third Edition
+
+Rafael C. Gonzalez
+University of Tennessee
+
+Richard E. Woods
+MedData Interactive
+
+Upper Saddle River, NJ 07458
+
+www.EBooksWorld.ir
+
+Library of Congress Cataloging-in-Publication Data on File
+
+Vice President and Editorial Director, ECS: Marcia J. Horton
+Executive Editor: Michael McDonald
+Associate Editor: Alice Dworkin
+Editorial Assistant: William Opaluch
+Managing Editor: Scott Disanno
+Production Editor: Rose Kernan
+Director of Creative Services: Paul Belfanti
+Creative Director: Juan Lopez
+Art Director: Heather Scott
+Art Editors: Gregory Dulles and Thomas Benfatti
+Manufacturing Manager: Alexis Heydt-Long
+Manufacturing Buyer: Lisa McDowell
+Senior Marketing Manager: Tim Galligan
+
+© 2008 by Pearson Education, Inc.
+Pearson Prentice Hall
+Pearson Education, Inc.
+Upper Saddle River, New Jersey 07458
+All rights reserved. No part of this book may be reproduced, in any form, or by any means, without
+permission in writing from the publisher.
+Pearson Prentice Hall® is a trademark of Pearson Education, Inc.
+The authors and publisher of this book have used their best efforts in preparing this book. These efforts include
+the development, research, and testing of the theories and programs to determine their effectiveness. The authors
+and publisher make no warranty of any kind, expressed or implied, with regard to these programs or the
+documentation contained in this book. The authors and publisher shall not be liable in any event for incidental or
+consequential damages with, or arising out of, the furnishing, performance, or use of these programs.
+Printed in the United States of America.
+10 9 8 7 6 5 4 3 2 1
+ISBN
+
+0-13-168728-x
+978-0-13-168728-8
+
+Pearson Education Ltd., London
+Pearson Education Australia Pty. Ltd., Sydney
+Pearson Education Singapore, Pte., Ltd.
+Pearson Education North Asia Ltd., Hong Kong
+Pearson Education Canada, Inc., Toronto
+Pearson Educación de Mexico, S.A. de C.V.
+Pearson Education—Japan, Tokyo
+Pearson Education Malaysia, Pte. Ltd.
+Pearson Education, Inc., Upper Saddle River, New Jersey
+
+www.EBooksWorld.ir
+
+To Samantha
+and
+To Janice, David, and Jonathan
+
+www.EBooksWorld.ir
+
+This page intentionally left blank
+
+www.EBooksWorld.ir
+
+Contents
+Preface xv
+Acknowledgments xix
+The Book Web Site xx
+About the Authors xxi
+
+1 Introduction 1
+1.1
+1.2
+1.3
+
+1.4
+1.5
+
+What Is Digital Image Processing? 1
+The Origins of Digital Image Processing 3
+Examples of Fields that Use Digital Image Processing 7
+1.3.1 Gamma-Ray Imaging 8
+1.3.2 X-Ray Imaging 9
+1.3.3 Imaging in the Ultraviolet Band 11
+1.3.4 Imaging in the Visible and Infrared Bands 12
+1.3.5 Imaging in the Microwave Band 18
+1.3.6 Imaging in the Radio Band 20
+1.3.7 Examples in which Other Imaging Modalities Are Used
+Fundamental Steps in Digital Image Processing 25
+Components of an Image Processing System 28
+Summary 31
+References and Further Reading 31
+
+20
+
+2 Digital Image Fundamentals 35
+2.1
+
+2.2
+2.3
+
+2.4
+
+Elements of Visual Perception 36
+2.1.1 Structure of the Human Eye 36
+2.1.2 Image Formation in the Eye 38
+2.1.3 Brightness Adaptation and Discrimination 39
+Light and the Electromagnetic Spectrum 43
+Image Sensing and Acquisition 46
+2.3.1 Image Acquisition Using a Single Sensor 48
+2.3.2 Image Acquisition Using Sensor Strips 48
+2.3.3 Image Acquisition Using Sensor Arrays 50
+2.3.4 A Simple Image Formation Model 50
+Image Sampling and Quantization 52
+2.4.1 Basic Concepts in Sampling and Quantization 52
+2.4.2 Representing Digital Images 55
+2.4.3 Spatial and Intensity Resolution 59
+2.4.4 Image Interpolation 65
+
+v
+www.EBooksWorld.ir
+
+vi
+
+■ Contents
+
+2.5
+
+2.6
+
+Some Basic Relationships between Pixels 68
+2.5.1 Neighbors of a Pixel 68
+2.5.2 Adjacency, Connectivity, Regions, and Boundaries 68
+2.5.3 Distance Measures 71
+An Introduction to the Mathematical Tools Used in Digital Image
+Processing 72
+2.6.1 Array versus Matrix Operations 72
+2.6.2 Linear versus Nonlinear Operations 73
+2.6.3 Arithmetic Operations 74
+2.6.4 Set and Logical Operations 80
+2.6.5 Spatial Operations 85
+2.6.6 Vector and Matrix Operations 92
+2.6.7 Image Transforms 93
+2.6.8 Probabilistic Methods 96
+Summary 98
+References and Further Reading 98
+Problems 99
+
+3 Intensity Transformations and
+Spatial Filtering
+
+3.1
+
+3.2
+
+3.3
+
+3.4
+
+3.5
+
+3.6
+
+104
+
+Background 105
+3.1.1 The Basics of Intensity Transformations and Spatial Filtering 105
+3.1.2 About the Examples in This Chapter 107
+Some Basic Intensity Transformation Functions 107
+3.2.1 Image Negatives 108
+3.2.2 Log Transformations 109
+3.2.3 Power-Law (Gamma) Transformations 110
+3.2.4 Piecewise-Linear Transformation Functions 115
+Histogram Processing 120
+3.3.1 Histogram Equalization 122
+3.3.2 Histogram Matching (Specification) 128
+3.3.3 Local Histogram Processing 139
+3.3.4 Using Histogram Statistics for Image Enhancement 139
+Fundamentals of Spatial Filtering 144
+3.4.1 The Mechanics of Spatial Filtering 145
+3.4.2 Spatial Correlation and Convolution 146
+3.4.3 Vector Representation of Linear Filtering 150
+3.4.4 Generating Spatial Filter Masks 151
+Smoothing Spatial Filters 152
+3.5.1 Smoothing Linear Filters 152
+3.5.2 Order-Statistic (Nonlinear) Filters 156
+Sharpening Spatial Filters 157
+3.6.1 Foundation 158
+3.6.2 Using the Second Derivative for Image Sharpening—The
+Laplacian 160
+
+www.EBooksWorld.ir
+
+■ Contents
+
+3.6.3
+3.6.4
+3.7
+3.8
+
+Unsharp Masking and Highboost Filtering 162
+Using First-Order Derivatives for (Nonlinear) Image
+Sharpening—The Gradient 165
+Combining Spatial Enhancement Methods 169
+Using Fuzzy Techniques for Intensity Transformations and Spatial
+Filtering 173
+3.8.1 Introduction 173
+3.8.2 Principles of Fuzzy Set Theory 174
+3.8.3 Using Fuzzy Sets 178
+3.8.4 Using Fuzzy Sets for Intensity Transformations 186
+3.8.5 Using Fuzzy Sets for Spatial Filtering 189
+Summary 192
+References and Further Reading 192
+Problems 193
+
+4 Filtering in the Frequency Domain 199
+4.1
+
+4.2
+
+4.3
+
+4.4
+
+4.5
+
+Background 200
+4.1.1 A Brief History of the Fourier Series and Transform 200
+4.1.2 About the Examples in this Chapter 201
+Preliminary Concepts 202
+4.2.1 Complex Numbers 202
+4.2.2 Fourier Series 203
+4.2.3 Impulses and Their Sifting Property 203
+4.2.4 The Fourier Transform of Functions of One Continuous
+Variable 205
+4.2.5 Convolution 209
+Sampling and the Fourier Transform of Sampled Functions 211
+4.3.1 Sampling 211
+4.3.2 The Fourier Transform of Sampled Functions 212
+4.3.3 The Sampling Theorem 213
+4.3.4 Aliasing 217
+4.3.5 Function Reconstruction (Recovery) from Sampled Data 219
+The Discrete Fourier Transform (DFT) of One Variable 220
+4.4.1 Obtaining the DFT from the Continuous Transform of a
+Sampled Function 221
+4.4.2 Relationship Between the Sampling and Frequency
+Intervals 223
+Extension to Functions of Two Variables 225
+4.5.1 The 2-D Impulse and Its Sifting Property 225
+4.5.2 The 2-D Continuous Fourier Transform Pair 226
+4.5.3 Two-Dimensional Sampling and the 2-D Sampling
+Theorem 227
+4.5.4 Aliasing in Images 228
+4.5.5 The 2-D Discrete Fourier Transform and Its Inverse 235
+
+www.EBooksWorld.ir
+
+vii
+
+viii
+
+■ Contents
+
+4.6
+
+Some Properties of the 2-D Discrete Fourier Transform 236
+4.6.1 Relationships Between Spatial and Frequency Intervals 236
+4.6.2 Translation and Rotation 236
+4.6.3 Periodicity 237
+4.6.4 Symmetry Properties 239
+4.6.5 Fourier Spectrum and Phase Angle 245
+4.6.6 The 2-D Convolution Theorem 249
+4.6.7 Summary of 2-D Discrete Fourier Transform Properties 253
+4.7 The Basics of Filtering in the Frequency Domain 255
+4.7.1 Additional Characteristics of the Frequency Domain 255
+4.7.2 Frequency Domain Filtering Fundamentals 257
+4.7.3 Summary of Steps for Filtering in the Frequency Domain 263
+4.7.4 Correspondence Between Filtering in the Spatial and Frequency
+Domains 263
+4.8 Image Smoothing Using Frequency Domain Filters 269
+4.8.1 Ideal Lowpass Filters 269
+4.8.2 Butterworth Lowpass Filters 273
+4.8.3 Gaussian Lowpass Filters 276
+4.8.4 Additional Examples of Lowpass Filtering 277
+4.9 Image Sharpening Using Frequency Domain Filters 280
+4.9.1 Ideal Highpass Filters 281
+4.9.2 Butterworth Highpass Filters 284
+4.9.3 Gaussian Highpass Filters 285
+4.9.4 The Laplacian in the Frequency Domain 286
+4.9.5 Unsharp Masking, Highboost Filtering, and High-FrequencyEmphasis Filtering 288
+4.9.6 Homomorphic Filtering 289
+4.10 Selective Filtering 294
+4.10.1 Bandreject and Bandpass Filters 294
+4.10.2 Notch Filters 294
+4.11 Implementation 298
+4.11.1 Separability of the 2-D DFT 298
+4.11.2 Computing the IDFT Using a DFT Algorithm 299
+4.11.3 The Fast Fourier Transform (FFT) 299
+4.11.4 Some Comments on Filter Design 303
+Summary 303
+References and Further Reading 304
+Problems 304
+
+5 Image Restoration and Reconstruction 311
+5.1
+5.2
+
+A Model of the Image Degradation/Restoration Process 312
+Noise Models 313
+5.2.1 Spatial and Frequency Properties of Noise 313
+5.2.2 Some Important Noise Probability Density Functions 314
+
+www.EBooksWorld.ir
+
+■ Contents
+
+5.2.3 Periodic Noise 318
+5.2.4 Estimation of Noise Parameters 319
+5.3 Restoration in the Presence of Noise Only—Spatial Filtering 322
+5.3.1 Mean Filters 322
+5.3.2 Order-Statistic Filters 325
+5.3.3 Adaptive Filters 330
+5.4 Periodic Noise Reduction by Frequency Domain Filtering 335
+5.4.1 Bandreject Filters 335
+5.4.2 Bandpass Filters 336
+5.4.3 Notch Filters 337
+5.4.4 Optimum Notch Filtering 338
+5.5 Linear, Position-Invariant Degradations 343
+5.6 Estimating the Degradation Function 346
+5.6.1 Estimation by Image Observation 346
+5.6.2 Estimation by Experimentation 347
+5.6.3 Estimation by Modeling 347
+5.7 Inverse Filtering 351
+5.8 Minimum Mean Square Error (Wiener) Filtering 352
+5.9 Constrained Least Squares Filtering 357
+5.10 Geometric Mean Filter 361
+5.11 Image Reconstruction from Projections 362
+5.11.1 Introduction 362
+5.11.2 Principles of Computed Tomography (CT) 365
+5.11.3 Projections and the Radon Transform 368
+5.11.4 The Fourier-Slice Theorem 374
+5.11.5 Reconstruction Using Parallel-Beam Filtered Backprojections
+375
+5.11.6 Reconstruction Using Fan-Beam Filtered Backprojections 381
+Summary 387
+References and Further Reading 388
+Problems 389
+
+6 Color Image Processing 394
+6.1
+6.2
+
+6.3
+
+6.4
+6.5
+
+Color Fundamentals 395
+Color Models 401
+6.2.1 The RGB Color Model 402
+6.2.2 The CMY and CMYK Color Models 406
+6.2.3 The HSI Color Model 407
+Pseudocolor Image Processing 414
+6.3.1 Intensity Slicing 415
+6.3.2 Intensity to Color Transformations 418
+Basics of Full-Color Image Processing 424
+Color Transformations 426
+6.5.1 Formulation 426
+6.5.2 Color Complements 430
+
+www.EBooksWorld.ir
+
+ix
+
+x
+
+■ Contents
+
+6.6
+
+6.7
+
+6.8
+6.9
+
+6.5.3 Color Slicing 431
+6.5.4 Tone and Color Corrections 433
+6.5.5 Histogram Processing 438
+Smoothing and Sharpening 439
+6.6.1 Color Image Smoothing 439
+6.6.2 Color Image Sharpening 442
+Image Segmentation Based on Color 443
+6.7.1 Segmentation in HSI Color Space 443
+6.7.2 Segmentation in RGB Vector Space 445
+6.7.3 Color Edge Detection 447
+Noise in Color Images 451
+Color Image Compression 454
+Summary 455
+References and Further Reading 456
+Problems 456
+
+7 Wavelets and Multiresolution Processing 461
+7.1
+
+7.2
+
+7.3
+
+7.4
+7.5
+7.6
+
+Background 462
+7.1.1 Image Pyramids 463
+7.1.2 Subband Coding 466
+7.1.3 The Haar Transform 474
+Multiresolution Expansions 477
+7.2.1 Series Expansions 477
+7.2.2 Scaling Functions 479
+7.2.3 Wavelet Functions 483
+Wavelet Transforms in One Dimension 486
+7.3.1 The Wavelet Series Expansions 486
+7.3.2 The Discrete Wavelet Transform 488
+7.3.3 The Continuous Wavelet Transform 491
+The Fast Wavelet Transform 493
+Wavelet Transforms in Two Dimensions 501
+Wavelet Packets 510
+Summary 520
+References and Further Reading 520
+Problems 521
+
+8 Image Compression 525
+8.1
+
+Fundamentals 526
+8.1.1 Coding Redundancy 528
+8.1.2 Spatial and Temporal Redundancy 529
+8.1.3 Irrelevant Information 530
+8.1.4 Measuring Image Information 531
+8.1.5 Fidelity Criteria 534
+
+www.EBooksWorld.ir
+
+■ Contents
+
+8.2
+
+8.3
+
+8.1.6 Image Compression Models 536
+8.1.7 Image Formats, Containers, and Compression Standards
+Some Basic Compression Methods 542
+8.2.1 Huffman Coding 542
+8.2.2 Golomb Coding 544
+8.2.3 Arithmetic Coding 548
+8.2.4 LZW Coding 551
+8.2.5 Run-Length Coding 553
+8.2.6 Symbol-Based Coding 559
+8.2.7 Bit-Plane Coding 562
+8.2.8 Block Transform Coding 566
+8.2.9 Predictive Coding 584
+8.2.10 Wavelet Coding 604
+Digital Image Watermarking 614
+Summary 621
+References and Further Reading 622
+Problems 623
+
+538
+
+9 Morphological Image Processing 627
+9.1
+9.2
+
+9.3
+9.4
+9.5
+
+9.6
+
+Preliminaries 628
+Erosion and Dilation 630
+9.2.1 Erosion 631
+9.2.2 Dilation 633
+9.2.3 Duality 635
+Opening and Closing 635
+The Hit-or-Miss Transformation 640
+Some Basic Morphological Algorithms 642
+9.5.1 Boundary Extraction 642
+9.5.2 Hole Filling 643
+9.5.3 Extraction of Connected Components 645
+9.5.4 Convex Hull 647
+9.5.5 Thinning 649
+9.5.6 Thickening 650
+9.5.7 Skeletons 651
+9.5.8 Pruning 654
+9.5.9 Morphological Reconstruction 656
+9.5.10 Summary of Morphological Operations on Binary Images
+Gray-Scale Morphology 665
+9.6.1 Erosion and Dilation 666
+9.6.2 Opening and Closing 668
+9.6.3 Some Basic Gray-Scale Morphological Algorithms 670
+9.6.4 Gray-Scale Morphological Reconstruction 676
+Summary 679
+References and Further Reading 679
+Problems 680
+
+www.EBooksWorld.ir
+
+664
+
+xi
+
+xii
+
+■ Contents
+
+10 Image Segmentation 689
+
+10.1 Fundamentals 690
+10.2 Point, Line, and Edge Detection 692
+10.2.1 Background 692
+10.2.2 Detection of Isolated Points 696
+10.2.3 Line Detection 697
+10.2.4 Edge Models 700
+10.2.5 Basic Edge Detection 706
+10.2.6 More Advanced Techniques for Edge Detection 714
+10.2.7 Edge Linking and Boundary Detection 725
+10.3 Thresholding 738
+10.3.1 Foundation 738
+10.3.2 Basic Global Thresholding 741
+10.3.3 Optimum Global Thresholding Using Otsu’s Method 742
+10.3.4 Using Image Smoothing to Improve Global Thresholding 747
+10.3.5 Using Edges to Improve Global Thresholding 749
+10.3.6 Multiple Thresholds 752
+10.3.7 Variable Thresholding 756
+10.3.8 Multivariable Thresholding 761
+10.4 Region-Based Segmentation 763
+10.4.1 Region Growing 763
+10.4.2 Region Splitting and Merging 766
+10.5 Segmentation Using Morphological Watersheds 769
+10.5.1 Background 769
+10.5.2 Dam Construction 772
+10.5.3 Watershed Segmentation Algorithm 774
+10.5.4 The Use of Markers 776
+10.6 The Use of Motion in Segmentation 778
+10.6.1 Spatial Techniques 778
+10.6.2 Frequency Domain Techniques 782
+Summary 785
+References and Further Reading 785
+Problems 787
+
+11 Representation and Description 795
+
+11.1 Representation 796
+11.1.1 Boundary (Border) Following 796
+11.1.2 Chain Codes 798
+11.1.3 Polygonal Approximations Using Minimum-Perimeter
+Polygons 801
+11.1.4 Other Polygonal Approximation Approaches 807
+11.1.5 Signatures 808
+
+www.EBooksWorld.ir
+
+■ Contents
+
+11.1.6 Boundary Segments 810
+11.1.7 Skeletons 812
+11.2 Boundary Descriptors 815
+11.2.1 Some Simple Descriptors 815
+11.2.2 Shape Numbers 816
+11.2.3 Fourier Descriptors 818
+11.2.4 Statistical Moments 821
+11.3 Regional Descriptors 822
+11.3.1 Some Simple Descriptors 822
+11.3.2 Topological Descriptors 823
+11.3.3 Texture 827
+11.3.4 Moment Invariants 839
+11.4 Use of Principal Components for Description
+11.5 Relational Descriptors 852
+Summary 856
+References and Further Reading 856
+Problems 857
+
+842
+
+12 Object Recognition 861
+
+12.1 Patterns and Pattern Classes 861
+12.2 Recognition Based on Decision-Theoretic Methods
+12.2.1 Matching 866
+12.2.2 Optimum Statistical Classifiers 872
+12.2.3 Neural Networks 882
+12.3 Structural Methods 903
+12.3.1 Matching Shape Numbers 903
+12.3.2 String Matching 904
+Summary 906
+References and Further Reading 906
+Problems 907
+
+Appendix A
+
+910
+
+Bibliography
+
+915
+
+Index
+
+943
+
+www.EBooksWorld.ir
+
+866
+
+xiii
+
+This page intentionally left blank
+
+www.EBooksWorld.ir
+
+Preface
+When something can be read without effort,
+great effort has gone into its writing.
+Enrique Jardiel Poncela
+
+This edition of Digital Image Processing is a major revision of the book. As in
+the 1977 and 1987 editions by Gonzalez and Wintz, and the 1992 and 2002 editions by Gonzalez and Woods, this fifth-generation edition was prepared with
+students and instructors in mind. The principal objectives of the book continue
+to be to provide an introduction to basic concepts and methodologies for digital image processing, and to develop a foundation that can be used as the basis
+for further study and research in this field. To achieve these objectives, we
+focused again on material that we believe is fundamental and whose scope of
+application is not limited to the solution of specialized problems. The mathematical complexity of the book remains at a level well within the grasp of
+college seniors and first-year graduate students who have introductory preparation in mathematical analysis, vectors, matrices, probability, statistics, linear
+systems, and computer programming. The book Web site provides tutorials to
+support readers needing a review of this background material.
+One of the principal reasons this book has been the world leader in its field
+for more than 30 years is the level of attention we pay to the changing educational needs of our readers. The present edition is based on the most extensive
+survey we have ever conducted. The survey involved faculty, students, and independent readers of the book in 134 institutions from 32 countries. The major
+findings of the survey indicated a need for:
+A more comprehensive introduction early in the book to the mathematical tools used in image processing.
+● An expanded explanation of histogram processing techniques.
+● Stating complex algorithms in step-by-step summaries.
+● An expanded explanation of spatial correlation and convolution.
+● An introduction to fuzzy set theory and its application to image processing.
+● A revision of the material dealing with the frequency domain, starting
+with basic principles and showing how the discrete Fourier transform follows from data sampling.
+● Coverage of computed tomography (CT).
+● Clarification of basic concepts in the wavelets chapter.
+● A revision of the data compression chapter to include more video compression techniques, updated standards, and watermarking.
+● Expansion of the chapter on morphology to include morphological reconstruction and a revision of gray-scale morphology.
+●
+
+xv
+www.EBooksWorld.ir
+
+xvi
+
+■ Preface
+
+Expansion of the coverage on image segmentation to include more advanced edge detection techniques such as Canny’s algorithm, and a more
+comprehensive treatment of image thresholding.
+● An update of the chapter dealing with image representation and description.
+● Streamlining the material dealing with structural object recognition.
+●
+
+The new and reorganized material that resulted in the present edition is our
+attempt at providing a reasonable degree of balance between rigor, clarity of
+presentation, and the findings of the market survey, while at the same time
+keeping the length of the book at a manageable level. The major changes in
+this edition of the book are as follows.
+Chapter 1: A few figures were updated and part of the text was rewritten to
+correspond to changes in later chapters.
+Chapter 2: Approximately 50% of this chapter was revised to include new
+images and clearer explanations. Major revisions include a new section on
+image interpolation and a comprehensive new section summarizing the
+principal mathematical tools used in the book. Instead of presenting “dry”
+mathematical concepts one after the other, however, we took this opportunity to bring into Chapter 2 a number of image processing applications that
+were scattered throughout the book. For example, image averaging and
+image subtraction were moved to this chapter to illustrate arithmetic operations. This follows a trend we began in the second edition of the book to move
+as many applications as possible early in the discussion not only as illustrations, but also as motivation for students. After finishing the newly organized
+Chapter 2, a reader will have a basic understanding of how digital images are
+manipulated and processed. This is a solid platform upon which the rest of the
+book is built.
+Chapter 3: Major revisions of this chapter include a detailed discussion of
+spatial correlation and convolution, and their application to image filtering
+using spatial masks. We also found a consistent theme in the market survey
+asking for numerical examples to illustrate histogram equalization and specification, so we added several such examples to illustrate the mechanics of these
+processing tools. Coverage of fuzzy sets and their application to image processing was also requested frequently in the survey. We included in this chapter a new section on the foundation of fuzzy set theory, and its application to
+intensity transformations and spatial filtering, two of the principal uses of this
+theory in image processing.
+Chapter 4: The topic we heard most about in comments and suggestions
+during the past four years dealt with the changes we made in Chapter 4 from
+the first to the second edition. Our objective in making those changes was to
+simplify the presentation of the Fourier transform and the frequency domain.
+Evidently, we went too far, and numerous users of the book complained that
+the new material was too superficial. We corrected that problem in the present
+edition. The material now begins with the Fourier transform of one continuous
+variable and proceeds to derive the discrete Fourier transform starting with
+basic concepts of sampling and convolution. A byproduct of the flow of this
+
+www.EBooksWorld.ir
+
+■ Preface
+
+material is an intuitive derivation of the sampling theorem and its implications. The 1-D material is then extended to 2-D, where we give a number of examples to illustrate the effects of sampling on digital images, including aliasing
+and moiré patterns. The 2-D discrete Fourier transform is then illustrated and
+a number of important properties are derived and summarized. These concepts are then used as the basis for filtering in the frequency domain. Finally,
+we discuss implementation issues such as transform decomposition and the
+derivation of a fast Fourier transform algorithm. At the end of this chapter, the
+reader will have progressed from sampling of 1-D functions through a clear
+derivation of the foundation of the discrete Fourier transform and some of its
+most important uses in digital image processing.
+Chapter 5: The major revision in this chapter was the addition of a section
+dealing with image reconstruction from projections, with a focus on computed
+tomography (CT). Coverage of CT starts with an intuitive example of the underlying principles of image reconstruction from projections and the various
+imaging modalities used in practice. We then derive the Radon transform and
+the Fourier slice theorem and use them as the basis for formulating the concept of filtered backprojections. Both parallel- and fan-beam reconstruction
+are discussed and illustrated using several examples. Inclusion of this material
+was long overdue and represents an important addition to the book.
+Chapter 6: Revisions to this chapter were limited to clarifications and a few
+corrections in notation. No new concepts were added.
+Chapter 7: We received numerous comments regarding the fact that the
+transition from previous chapters into wavelets was proving difficult for beginners. Several of the foundation sections were rewritten in an effort to make
+the material clearer.
+Chapter 8: This chapter was rewritten completely to bring it up to date. New
+coding techniques, expanded coverage of video, a revision of the section on
+standards, and an introduction to image watermarking are among the major
+changes. The new organization will make it easier for beginning students to
+follow the material.
+Chapter 9: The major changes in this chapter are the inclusion of a new section on morphological reconstruction and a complete revision of the section
+on gray-scale morphology. The inclusion of morphological reconstruction for
+both binary and gray-scale images made it possible to develop more complex
+and useful morphological algorithms than before.
+Chapter 10: This chapter also underwent a major revision. The organization
+is as before, but the new material includes greater emphasis on basic principles
+as well as discussion of more advanced segmentation techniques. Edge models
+are discussed and illustrated in more detail, as are properties of the gradient.
+The Marr-Hildreth and Canny edge detectors are included to illustrate more
+advanced edge detection techniques. The section on thresholding was rewritten
+also to include Otsu’s method, an optimum thresholding technique whose popularity has increased significantly over the past few years. We introduced this
+approach in favor of optimum thresholding based on the Bayes classification rule, not only because it is easier to understand and implement, but also
+
+www.EBooksWorld.ir
+
+xvii
+
+xviii
+
+■ Preface
+
+because it is used considerably more in practice. The Bayes approach was
+moved to Chapter 12, where the Bayes decision rule is discussed in more detail.
+We also added a discussion on how to use edge information to improve thresholding and several new adaptive thresholding examples. Except for minor clarifications, the sections on morphological watersheds and the use of motion for
+segmentation are as in the previous edition.
+Chapter 11: The principal changes in this chapter are the inclusion of a
+boundary-following algorithm, a detailed derivation of an algorithm to fit a
+minimum-perimeter polygon to a digital boundary, and a new section on cooccurrence matrices for texture description. Numerous examples in Sections
+11.2 and 11.3 are new, as are all the examples in Section 11.4.
+Chapter 12: Changes in this chapter include a new section on matching by
+correlation and a new example on using the Bayes classifier to recognize regions of interest in multispectral images. The section on structural classification now limits discussion only to string matching.
+All the revisions just mentioned resulted in over 400 new images, over 200
+new line drawings and tables, and more than 80 new homework problems.
+Where appropriate, complex processing procedures were summarized in the
+form of step-by-step algorithm formats. The references at the end of all chapters were updated also.
+The book Web site, established during the launch of the second edition, has
+been a success, attracting more than 20,000 visitors each month. The site was
+redesigned and upgraded to correspond to the launch of this edition. For more
+details on features and content, see The Book Web Site, following the
+Acknowledgments.
+This edition of Digital Image Processing is a reflection of how the educational needs of our readers have changed since 2002. As is usual in a project
+such as this, progress in the field continues after work on the manuscript stops.
+One of the reasons why this book has been so well accepted since it first appeared in 1977 is its continued emphasis on fundamental concepts—an approach that, among other things, attempts to provide a measure of stability in
+a rapidly-evolving body of knowledge. We have tried to follow the same principle in preparing this edition of the book.
+R. C. G.
+R. E. W.
+
+www.EBooksWorld.ir
+
+Acknowledgments
+We are indebted to a number of individuals in academic circles as well as in industry and government who have contributed to this edition of the book. Their
+contributions have been important in so many different ways that we find it
+difficult to acknowledge them in any other way but alphabetically. In particular, we wish to extend our appreciation to our colleagues Mongi A. Abidi,
+Steven L. Eddins, Yongmin Kim, Bryan Morse, Andrew Oldroyd, Ali M. Reza,
+Edgardo Felipe Riveron, Jose Ruiz Shulcloper, and Cameron H. G. Wright for
+their many suggestions on how to improve the presentation and/or the scope
+of coverage in the book.
+Numerous individuals and organizations provided us with valuable assistance during the writing of this edition. Again, we list them alphabetically. We
+are particularly indebted to Courtney Esposito and Naomi Fernandes at The
+Mathworks for providing us with MATLAB software and support that were
+important in our ability to create or clarify many of the examples and experimental results included in this edition of the book. A significant percentage of
+the new images used in this edition (and in some cases their history and interpretation) were obtained through the efforts of individuals whose contributions are sincerely appreciated. In particular, we wish to acknowledge the
+efforts of Serge Beucher, Melissa D. Binde, James Blankenship, Uwe Boos,
+Ernesto Bribiesca, Michael E. Casey, Michael W. Davidson, Susan L. Forsburg,
+Thomas R. Gest, Lalit Gupta, Daniel A. Hammer, Zhong He, Roger Heady,
+Juan A. Herrera, John M. Hudak, Michael Hurwitz, Chris J. Johannsen, Rhonda Knighton, Don P. Mitchell, Ashley Mohamed, A. Morris, Curtis C. Ober,
+Joseph E. Pascente, David. R. Pickens, Michael Robinson, Barrett A. Schaefer,
+Michael Shaffer, Pete Sites, Sally Stowe, Craig Watson, David K. Wehe, and
+Robert A. West. We also wish to acknowledge other individuals and organizations cited in the captions of numerous figures throughout the book for their
+permission to use that material.
+Special thanks go to Vince O’Brien, Rose Kernan, Scott Disanno, Michael
+McDonald, Joe Ruddick, Heather Scott, and Alice Dworkin, at Prentice Hall.
+Their creativity, assistance, and patience during the production of this book
+are truly appreciated.
+R.C.G.
+R.E.W.
+
+xix
+www.EBooksWorld.ir
+
+The Book Web Site
+www.prenhall.com/gonzalezwoods
+or its mirror site,
+www.imageprocessingplace.com
+
+Digital Image Processing is a completely self-contained book. However, the
+companion Web site offers additional support in a number of important areas.
+For the Student or Independent Reader the site contains
+Reviews in areas such as probability, statistics, vectors, and matrices.
+Complete solutions to selected problems.
+● Computer projects.
+● A Tutorials section containing dozens of tutorials on most of the topics
+discussed in the book.
+● A database containing all the images in the book.
+●
+●
+
+For the Instructor the site contains
+An Instructor’s Manual with complete solutions to all the problems in the
+book, as well as course and laboratory teaching guidelines. The manual is
+available free of charge to instructors who have adopted the book for
+classroom use.
+● Classroom presentation materials in PowerPoint format.
+● Material removed from previous editions, downloadable in convenient
+PDF format.
+● Numerous links to other educational resources.
+●
+
+For the Practitioner the site contains additional specialized topics such as
+Links to commercial sites.
+Selected new references.
+● Links to commercial image databases.
+●
+●
+
+The Web site is an ideal tool for keeping the book current between editions by
+including new topics, digital images, and other relevant material that has appeared after the book was published. Although considerable care was taken in
+the production of the book, the Web site is also a convenient repository for any
+errors that may be discovered between printings. References to the book Web
+site are designated in the book by the following icon:
+
+xx
+www.EBooksWorld.ir
+
+About the Authors
+Rafael C. Gonzalez
+R. C. Gonzalez received the B.S.E.E. degree from the University of Miami in
+1965 and the M.E. and Ph.D. degrees in electrical engineering from the University of Florida, Gainesville, in 1967 and 1970, respectively. He joined the Electrical and Computer Engineering Department at the University of Tennessee,
+Knoxville (UTK) in 1970, where he became Associate Professor in 1973, Professor in 1978, and Distinguished Service Professor in 1984. He served as Chairman of the department from 1994 through 1997. He is currently a Professor
+Emeritus at UTK.
+Gonzalez is the founder of the Image & Pattern Analysis Laboratory and the
+Robotics & Computer Vision Laboratory at the University of Tennessee. He
+also founded Perceptics Corporation in 1982 and was its president until 1992.
+The last three years of this period were spent under a full-time employment contract with Westinghouse Corporation, who acquired the company in 1989.
+Under his direction, Perceptics became highly successful in image processing, computer vision, and laser disk storage technology. In its initial ten years,
+Perceptics introduced a series of innovative products, including: The world’s
+first commercially-available computer vision system for automatically reading
+license plates on moving vehicles; a series of large-scale image processing and
+archiving systems used by the U.S. Navy at six different manufacturing sites
+throughout the country to inspect the rocket motors of missiles in the Trident
+II Submarine Program; the market-leading family of imaging boards for advanced Macintosh computers; and a line of trillion-byte laser disk products.
+He is a frequent consultant to industry and government in the areas of pattern recognition, image processing, and machine learning. His academic honors for work in these fields include the 1977 UTK College of Engineering
+Faculty Achievement Award; the 1978 UTK Chancellor’s Research Scholar
+Award; the 1980 Magnavox Engineering Professor Award; and the 1980 M.E.
+Brooks Distinguished Professor Award. In 1981 he became an IBM Professor
+at the University of Tennessee and in 1984 he was named a Distinguished Service Professor there. He was awarded a Distinguished Alumnus Award by the
+University of Miami in 1985, the Phi Kappa Phi Scholar Award in 1986, and
+the University of Tennessee’s Nathan W. Dougherty Award for Excellence in
+Engineering in 1992.
+Honors for industrial accomplishment include the 1987 IEEE Outstanding
+Engineer Award for Commercial Development in Tennessee; the 1988 Albert
+Rose Nat’l Award for Excellence in Commercial Image Processing; the 1989 B.
+Otto Wheeley Award for Excellence in Technology Transfer; the 1989 Coopers
+and Lybrand Entrepreneur of the Year Award; the 1992 IEEE Region 3 Outstanding Engineer Award; and the 1993 Automated Imaging Association National Award for Technology Development.
+
+xxi
+www.EBooksWorld.ir
+
+xxii
+
+■ About the Authors
+
+Gonzalez is author or co-author of over 100 technical articles, two edited
+books, and four textbooks in the fields of pattern recognition, image processing, and robotics. His books are used in over 1000 universities and research institutions throughout the world. He is listed in the prestigious Marquis Who’s
+Who in America, Marquis Who’s Who in Engineering, Marquis Who’s Who in
+the World, and in 10 other national and international biographical citations. He
+is the co-holder of two U.S. Patents, and has been an associate editor of the
+IEEE Transactions on Systems, Man and Cybernetics, and the International
+Journal of Computer and Information Sciences. He is a member of numerous
+professional and honorary societies, including Tau Beta Pi, Phi Kappa Phi, Eta
+Kappa Nu, and Sigma Xi. He is a Fellow of the IEEE.
+
+Richard E. Woods
+Richard E. Woods earned his B.S., M.S., and Ph.D. degrees in Electrical
+Engineering from the University of Tennessee, Knoxville. His professional
+experiences range from entrepreneurial to the more traditional academic,
+consulting, governmental, and industrial pursuits. Most recently, he founded
+MedData Interactive, a high technology company specializing in the development of handheld computer systems for medical applications. He was also a
+founder and Vice President of Perceptics Corporation, where he was responsible for the development of many of the company’s quantitative image analysis
+and autonomous decision-making products.
+Prior to Perceptics and MedData, Dr. Woods was an Assistant Professor of
+Electrical Engineering and Computer Science at the University of Tennessee
+and prior to that, a computer applications engineer at Union Carbide Corporation. As a consultant, he has been involved in the development of a number
+of special-purpose digital processors for a variety of space and military agencies, including NASA, the Ballistic Missile Systems Command, and the Oak
+Ridge National Laboratory.
+Dr. Woods has published numerous articles related to digital signal processing and is a member of several professional societies, including Tau Beta Pi,
+Phi Kappa Phi, and the IEEE. In 1986, he was recognized as a Distinguished
+Engineering Alumnus of the University of Tennessee.
+
+www.EBooksWorld.ir
+
+1
+
+Introduction
+One picture is worth more than ten thousand words.
+Anonymous
+
+Preview
+Interest in digital image processing methods stems from two principal application areas: improvement of pictorial information for human interpretation; and
+processing of image data for storage, transmission, and representation for autonomous machine perception.This chapter has several objectives: (1) to define
+the scope of the field that we call image processing; (2) to give a historical perspective of the origins of this field; (3) to give you an idea of the state of the art
+in image processing by examining some of the principal areas in which it is applied; (4) to discuss briefly the principal approaches used in digital image processing; (5) to give an overview of the components contained in a typical,
+general-purpose image processing system; and (6) to provide direction to the
+books and other literature where image processing work normally is reported.
+
+1.1
+
+What Is Digital Image Processing?
+
+An image may be defined as a two-dimensional function, f(x, y), where x and
+y are spatial (plane) coordinates, and the amplitude of f at any pair of coordinates (x, y) is called the intensity or gray level of the image at that point. When
+x, y, and the intensity values of f are all finite, discrete quantities, we call the
+image a digital image. The field of digital image processing refers to processing
+digital images by means of a digital computer. Note that a digital image is composed of a finite number of elements, each of which has a particular location
+
+1
+www.EBooksWorld.ir
+
+2
+
+Chapter 1 ■ Introduction
+
+and value. These elements are called picture elements, image elements, pels, and
+pixels. Pixel is the term used most widely to denote the elements of a digital
+image. We consider these definitions in more formal terms in Chapter 2.
+Vision is the most advanced of our senses, so it is not surprising that images
+play the single most important role in human perception. However, unlike humans, who are limited to the visual band of the electromagnetic (EM) spectrum, imaging machines cover almost the entire EM spectrum, ranging from
+gamma to radio waves. They can operate on images generated by sources that
+humans are not accustomed to associating with images. These include ultrasound, electron microscopy, and computer-generated images. Thus, digital
+image processing encompasses a wide and varied field of applications.
+There is no general agreement among authors regarding where image
+processing stops and other related areas, such as image analysis and computer vision, start. Sometimes a distinction is made by defining image processing
+as a discipline in which both the input and output of a process are images. We
+believe this to be a limiting and somewhat artificial boundary. For example,
+under this definition, even the trivial task of computing the average intensity
+of an image (which yields a single number) would not be considered an
+image processing operation. On the other hand, there are fields such as computer vision whose ultimate goal is to use computers to emulate human vision, including learning and being able to make inferences and take actions
+based on visual inputs. This area itself is a branch of artificial intelligence
+(AI) whose objective is to emulate human intelligence. The field of AI is in
+its earliest stages of infancy in terms of development, with progress having
+been much slower than originally anticipated. The area of image analysis
+(also called image understanding) is in between image processing and computer vision.
+There are no clear-cut boundaries in the continuum from image processing
+at one end to computer vision at the other. However, one useful paradigm is
+to consider three types of computerized processes in this continuum: low-,
+mid-, and high-level processes. Low-level processes involve primitive operations such as image preprocessing to reduce noise, contrast enhancement, and
+image sharpening. A low-level process is characterized by the fact that both
+its inputs and outputs are images. Mid-level processing on images involves
+tasks such as segmentation (partitioning an image into regions or objects), description of those objects to reduce them to a form suitable for computer processing, and classification (recognition) of individual objects. A mid-level
+process is characterized by the fact that its inputs generally are images, but its
+outputs are attributes extracted from those images (e.g., edges, contours, and
+the identity of individual objects). Finally, higher-level processing involves
+“making sense” of an ensemble of recognized objects, as in image analysis, and,
+at the far end of the continuum, performing the cognitive functions normally
+associated with vision.
+Based on the preceding comments, we see that a logical place of overlap between image processing and image analysis is the area of recognition of individual regions or objects in an image. Thus, what we call in this book digital
+image processing encompasses processes whose inputs and outputs are images
+
+www.EBooksWorld.ir
+
+1.2 ■ The Origins of Digital Image Processing
+
+3
+
+and, in addition, encompasses processes that extract attributes from images, up
+to and including the recognition of individual objects. As an illustration to clarify these concepts, consider the area of automated analysis of text. The
+processes of acquiring an image of the area containing the text, preprocessing
+that image, extracting (segmenting) the individual characters, describing the
+characters in a form suitable for computer processing, and recognizing those
+individual characters are in the scope of what we call digital image processing
+in this book. Making sense of the content of the page may be viewed as being in
+the domain of image analysis and even computer vision, depending on the level
+of complexity implied by the statement “making sense.”As will become evident
+shortly, digital image processing, as we have defined it, is used successfully in a
+broad range of areas of exceptional social and economic value. The concepts
+developed in the following chapters are the foundation for the methods used in
+those application areas.
+
+1.2
+
+The Origins of Digital Image Processing
+
+One of the first applications of digital images was in the newspaper industry, when pictures were first sent by submarine cable between London and
+New York. Introduction of the Bartlane cable picture transmission system
+in the early 1920s reduced the time required to transport a picture across
+the Atlantic from more than a week to less than three hours. Specialized
+printing equipment coded pictures for cable transmission and then reconstructed them at the receiving end. Figure 1.1 was transmitted in this way
+and reproduced on a telegraph printer fitted with typefaces simulating a
+halftone pattern.
+Some of the initial problems in improving the visual quality of these early
+digital pictures were related to the selection of printing procedures and the
+distribution of intensity levels. The printing method used to obtain Fig. 1.1 was
+abandoned toward the end of 1921 in favor of a technique based on photographic reproduction made from tapes perforated at the telegraph receiving
+terminal. Figure 1.2 shows an image obtained using this method. The improvements over Fig. 1.1 are evident, both in tonal quality and in resolution.
+
+FIGURE 1.1 A
+
+digital picture
+produced in 1921
+from a coded tape
+by a telegraph
+printer with
+special type faces.
+(McFarlane.†)
+
+†
+
+References in the Bibliography at the end of the book are listed in alphabetical order by authors’ last
+names.
+
+www.EBooksWorld.ir
+
+4
+
+Chapter 1 ■ Introduction
+
+FIGURE 1.2 A
+digital picture
+made in 1922
+from a tape
+punched after the
+signals had
+crossed the
+Atlantic twice.
+(McFarlane.)
+
+The early Bartlane systems were capable of coding images in five distinct
+levels of gray. This capability was increased to 15 levels in 1929. Figure 1.3 is
+typical of the type of images that could be obtained using the 15-tone equipment. During this period, introduction of a system for developing a film plate
+via light beams that were modulated by the coded picture tape improved the
+reproduction process considerably.
+Although the examples just cited involve digital images, they are not considered digital image processing results in the context of our definition because computers were not involved in their creation. Thus, the history of
+digital image processing is intimately tied to the development of the digital
+computer. In fact, digital images require so much storage and computational
+power that progress in the field of digital image processing has been dependent on the development of digital computers and of supporting technologies
+that include data storage, display, and transmission.
+The idea of a computer goes back to the invention of the abacus in Asia
+Minor, more than 5000 years ago. More recently, there were developments in
+the past two centuries that are the foundation of what we call a computer today.
+However, the basis for what we call a modern digital computer dates back to
+only the 1940s with the introduction by John von Neumann of two key concepts: (1) a memory to hold a stored program and data, and (2) conditional
+branching. These two ideas are the foundation of a central processing unit
+(CPU), which is at the heart of computers today. Starting with von Neumann,
+there were a series of key advances that led to computers powerful enough to
+FIGURE 1.3
+
+Unretouched
+cable picture of
+Generals Pershing
+and Foch,
+transmitted in
+1929 from
+London to New
+York by 15-tone
+equipment.
+(McFarlane.)
+
+www.EBooksWorld.ir
+
+1.2 ■ The Origins of Digital Image Processing
+
+5
+
+be used for digital image processing. Briefly, these advances may be summarized as follows: (1) the invention of the transistor at Bell Laboratories in 1948;
+(2) the development in the 1950s and 1960s of the high-level programming languages COBOL (Common Business-Oriented Language) and FORTRAN
+(Formula Translator); (3) the invention of the integrated circuit (IC) at Texas
+Instruments in 1958; (4) the development of operating systems in the early
+1960s; (5) the development of the microprocessor (a single chip consisting of
+the central processing unit, memory, and input and output controls) by Intel in
+the early 1970s; (6) introduction by IBM of the personal computer in 1981; and
+(7) progressive miniaturization of components, starting with large scale integration (LI) in the late 1970s, then very large scale integration (VLSI) in the 1980s,
+to the present use of ultra large scale integration (ULSI). Concurrent with
+these advances were developments in the areas of mass storage and display systems, both of which are fundamental requirements for digital image processing.
+The first computers powerful enough to carry out meaningful image processing tasks appeared in the early 1960s. The birth of what we call digital
+image processing today can be traced to the availability of those machines and
+to the onset of the space program during that period. It took the combination
+of those two developments to bring into focus the potential of digital image
+processing concepts. Work on using computer techniques for improving images from a space probe began at the Jet Propulsion Laboratory (Pasadena,
+California) in 1964 when pictures of the moon transmitted by Ranger 7 were
+processed by a computer to correct various types of image distortion inherent
+in the on-board television camera. Figure 1.4 shows the first image of the
+moon taken by Ranger 7 on July 31, 1964 at 9:09 A.M. Eastern Daylight Time
+(EDT), about 17 minutes before impacting the lunar surface (the markers,
+called reseau marks, are used for geometric corrections, as discussed in
+Chapter 2). This also is the first image of the moon taken by a U.S. spacecraft.
+The imaging lessons learned with Ranger 7 served as the basis for improved
+methods used to enhance and restore images from the Surveyor missions to
+the moon, the Mariner series of flyby missions to Mars, the Apollo manned
+flights to the moon, and others.
+FIGURE 1.4 The
+
+first picture of the
+moon by a U.S.
+spacecraft. Ranger
+7 took this image
+on July 31, 1964 at
+9:09 A.M. EDT,
+about 17 minutes
+before impacting
+the lunar surface.
+(Courtesy of
+NASA.)
+
+www.EBooksWorld.ir
+
+6
+
+Chapter 1 ■ Introduction
+
+In parallel with space applications, digital image processing techniques
+began in the late 1960s and early 1970s to be used in medical imaging, remote
+Earth resources observations, and astronomy. The invention in the early 1970s
+of computerized axial tomography (CAT), also called computerized tomography (CT) for short, is one of the most important events in the application of
+image processing in medical diagnosis. Computerized axial tomography is a
+process in which a ring of detectors encircles an object (or patient) and an
+X-ray source, concentric with the detector ring, rotates about the object. The
+X-rays pass through the object and are collected at the opposite end by the
+corresponding detectors in the ring. As the source rotates, this procedure is repeated. Tomography consists of algorithms that use the sensed data to construct an image that represents a “slice” through the object. Motion of the
+object in a direction perpendicular to the ring of detectors produces a set of
+such slices, which constitute a three-dimensional (3-D) rendition of the inside
+of the object. Tomography was invented independently by Sir Godfrey
+N. Hounsfield and Professor Allan M. Cormack, who shared the 1979 Nobel
+Prize in Medicine for their invention. It is interesting to note that X-rays were
+discovered in 1895 by Wilhelm Conrad Roentgen, for which he received the
+1901 Nobel Prize for Physics. These two inventions, nearly 100 years apart, led
+to some of the most important applications of image processing today.
+From the 1960s until the present, the field of image processing has grown
+vigorously. In addition to applications in medicine and the space program, digital image processing techniques now are used in a broad range of applications. Computer procedures are used to enhance the contrast or code the
+intensity levels into color for easier interpretation of X-rays and other images
+used in industry, medicine, and the biological sciences. Geographers use the
+same or similar techniques to study pollution patterns from aerial and satellite
+imagery. Image enhancement and restoration procedures are used to process
+degraded images of unrecoverable objects or experimental results too expensive to duplicate. In archeology, image processing methods have successfully
+restored blurred pictures that were the only available records of rare artifacts
+lost or damaged after being photographed. In physics and related fields, computer techniques routinely enhance images of experiments in areas such as
+high-energy plasmas and electron microscopy. Similarly successful applications of image processing concepts can be found in astronomy, biology, nuclear
+medicine, law enforcement, defense, and industry.
+These examples illustrate processing results intended for human interpretation. The second major area of application of digital image processing techniques mentioned at the beginning of this chapter is in solving problems dealing
+with machine perception. In this case, interest is on procedures for extracting
+from an image information in a form suitable for computer processing. Often,
+this information bears little resemblance to visual features that humans use in
+interpreting the content of an image. Examples of the type of information used
+in machine perception are statistical moments, Fourier transform coefficients,
+and multidimensional distance measures. Typical problems in machine perception that routinely utilize image processing techniques are automatic character
+recognition, industrial machine vision for product assembly and inspection,
+
+www.EBooksWorld.ir
+
+1.3 ■ Examples of Fields that Use Digital Image Processing
+
+7
+
+military recognizance, automatic processing of fingerprints, screening of X-rays
+and blood samples, and machine processing of aerial and satellite imagery for
+weather prediction and environmental assessment.The continuing decline in the
+ratio of computer price to performance and the expansion of networking and
+communication bandwidth via the World Wide Web and the Internet have created unprecedented opportunities for continued growth of digital image processing. Some of these application areas are illustrated in the following section.
+
+1.3
+
+Examples of Fields that Use Digital Image Processing
+
+Today, there is almost no area of technical endeavor that is not impacted in
+some way by digital image processing. We can cover only a few of these applications in the context and space of the current discussion. However, limited as
+it is, the material presented in this section will leave no doubt in your mind regarding the breadth and importance of digital image processing. We show in
+this section numerous areas of application, each of which routinely utilizes the
+digital image processing techniques developed in the following chapters. Many
+of the images shown in this section are used later in one or more of the examples given in the book. All images shown are digital.
+The areas of application of digital image processing are so varied that some
+form of organization is desirable in attempting to capture the breadth of this
+field. One of the simplest ways to develop a basic understanding of the extent of
+image processing applications is to categorize images according to their source
+(e.g., visual, X-ray, and so on).The principal energy source for images in use today
+is the electromagnetic energy spectrum. Other important sources of energy include acoustic, ultrasonic, and electronic (in the form of electron beams used in
+electron microscopy). Synthetic images, used for modeling and visualization, are
+generated by computer. In this section we discuss briefly how images are generated in these various categories and the areas in which they are applied. Methods
+for converting images into digital form are discussed in the next chapter.
+Images based on radiation from the EM spectrum are the most familiar,
+especially images in the X-ray and visual bands of the spectrum. Electromagnetic waves can be conceptualized as propagating sinusoidal waves of varying
+wavelengths, or they can be thought of as a stream of massless particles, each
+traveling in a wavelike pattern and moving at the speed of light. Each massless particle contains a certain amount (or bundle) of energy. Each bundle of
+energy is called a photon. If spectral bands are grouped according to energy
+per photon, we obtain the spectrum shown in Fig. 1.5, ranging from gamma
+rays (highest energy) at one end to radio waves (lowest energy) at the other.
+Energy of one photon (electron volts)
+6
+
+10
+
+5
+
+10
+
+Gamma rays
+
+10
+
+4
+
+3
+
+10
+
+X-rays
+
+2
+
+10
+
+101
+
+100
+
+101
+
+Ultraviolet Visible Infrared
+
+102
+
+103
+
+104
+
+105
+
+106
+
+Microwaves
+
+FIGURE 1.5 The electromagnetic spectrum arranged according to energy per photon.
+
+www.EBooksWorld.ir
+
+107
+
+108
+
+Radio waves
+
+109
+
+8
+
+Chapter 1 ■ Introduction
+
+The bands are shown shaded to convey the fact that bands of the EM spectrum are not distinct but rather transition smoothly from one to the other.
+
+1.3.1 Gamma-Ray Imaging
+Major uses of imaging based on gamma rays include nuclear medicine and astronomical observations. In nuclear medicine, the approach is to inject a patient with a radioactive isotope that emits gamma rays as it decays. Images are
+produced from the emissions collected by gamma ray detectors. Figure 1.6(a)
+shows an image of a complete bone scan obtained by using gamma-ray imaging.
+Images of this sort are used to locate sites of bone pathology, such as infections
+a b
+c d
+FIGURE 1.6
+
+Examples of
+gamma-ray
+imaging. (a) Bone
+scan. (b) PET
+image. (c) Cygnus
+Loop. (d) Gamma
+radiation (bright
+spot) from a
+reactor valve.
+(Images courtesy
+of (a) G.E.
+Medical Systems,
+(b) Dr. Michael
+E. Casey, CTI
+PET Systems,
+(c) NASA,
+(d) Professors
+Zhong He and
+David K. Wehe,
+University of
+Michigan.)
+
+www.EBooksWorld.ir
+
+1.3 ■ Examples of Fields that Use Digital Image Processing
+
+or tumors. Figure 1.6(b) shows another major modality of nuclear imaging
+called positron emission tomography (PET). The principle is the same as with
+X-ray tomography, mentioned briefly in Section 1.2. However, instead of using
+an external source of X-ray energy, the patient is given a radioactive isotope
+that emits positrons as it decays. When a positron meets an electron, both are
+annihilated and two gamma rays are given off. These are detected and a tomographic image is created using the basic principles of tomography. The image
+shown in Fig. 1.6(b) is one sample of a sequence that constitutes a 3-D rendition
+of the patient. This image shows a tumor in the brain and one in the lung, easily
+visible as small white masses.
+A star in the constellation of Cygnus exploded about 15,000 years ago, generating a superheated stationary gas cloud (known as the Cygnus Loop) that glows
+in a spectacular array of colors. Figure 1.6(c) shows an image of the Cygnus Loop
+in the gamma-ray band. Unlike the two examples in Figs. 1.6(a) and (b), this
+image was obtained using the natural radiation of the object being imaged. Finally,
+Fig. 1.6(d) shows an image of gamma radiation from a valve in a nuclear reactor.
+An area of strong radiation is seen in the lower left side of the image.
+
+1.3.2 X-Ray Imaging
+X-rays are among the oldest sources of EM radiation used for imaging. The
+best known use of X-rays is medical diagnostics, but they also are used extensively in industry and other areas, like astronomy. X-rays for medical and industrial imaging are generated using an X-ray tube, which is a vacuum tube
+with a cathode and anode. The cathode is heated, causing free electrons to be
+released. These electrons flow at high speed to the positively charged anode.
+When the electrons strike a nucleus, energy is released in the form of X-ray
+radiation. The energy (penetrating power) of X-rays is controlled by a voltage
+applied across the anode, and by a current applied to the filament in the
+cathode. Figure 1.7(a) shows a familiar chest X-ray generated simply by placing the patient between an X-ray source and a film sensitive to X-ray energy.
+The intensity of the X-rays is modified by absorption as they pass through the
+patient, and the resulting energy falling on the film develops it, much in the
+same way that light develops photographic film. In digital radiography, digital
+images are obtained by one of two methods: (1) by digitizing X-ray films; or
+(2) by having the X-rays that pass through the patient fall directly onto devices
+(such as a phosphor screen) that convert X-rays to light. The light signal in
+turn is captured by a light-sensitive digitizing system. We discuss digitization
+in more detail in Chapters 2 and 4.
+Angiography is another major application in an area called contrastenhancement radiography. This procedure is used to obtain images (called
+angiograms) of blood vessels. A catheter (a small, flexible, hollow tube) is inserted, for example, into an artery or vein in the groin. The catheter is threaded
+into the blood vessel and guided to the area to be studied. When the catheter
+reaches the site under investigation, an X-ray contrast medium is injected
+through the tube. This enhances contrast of the blood vessels and enables the
+radiologist to see any irregularities or blockages. Figure 1.7(b) shows an example of an aortic angiogram. The catheter can be seen being inserted into the
+www.EBooksWorld.ir
+
+9
+
+10
+
+Chapter 1 ■ Introduction
+
+a
+d
+b
+c e
+
+FIGURE 1.7 Examples of X-ray imaging. (a) Chest X-ray. (b) Aortic angiogram. (c) Head
+CT. (d) Circuit boards. (e) Cygnus Loop. (Images courtesy of (a) and (c) Dr. David
+R. Pickens, Dept. of Radiology & Radiological Sciences, Vanderbilt University Medical
+Center; (b) Dr. Thomas R. Gest, Division of Anatomical Sciences, University of Michigan
+Medical School; (d) Mr. Joseph E. Pascente, Lixi, Inc.; and (e) NASA.)
+
+www.EBooksWorld.ir
+
+1.3 ■ Examples of Fields that Use Digital Image Processing
+
+large blood vessel on the lower left of the picture. Note the high contrast of the
+large vessel as the contrast medium flows up in the direction of the kidneys,
+which are also visible in the image. As discussed in Chapter 2, angiography is a
+major area of digital image processing, where image subtraction is used to enhance further the blood vessels being studied.
+Another important use of X-rays in medical imaging is computerized axial tomography (CAT). Due to their resolution and 3-D capabilities, CAT scans revolutionized medicine from the moment they first became available in the early
+1970s. As noted in Section 1.2, each CAT image is a “slice” taken perpendicularly
+through the patient. Numerous slices are generated as the patient is moved in a
+longitudinal direction.The ensemble of such images constitutes a 3-D rendition of
+the inside of the body, with the longitudinal resolution being proportional to the
+number of slice images taken. Figure 1.7(c) shows a typical head CAT slice image.
+Techniques similar to the ones just discussed, but generally involving higherenergy X-rays, are applicable in industrial processes. Figure 1.7(d) shows an X-ray
+image of an electronic circuit board. Such images, representative of literally hundreds of industrial applications of X-rays, are used to examine circuit boards for
+flaws in manufacturing, such as missing components or broken traces. Industrial
+CAT scans are useful when the parts can be penetrated by X-rays, such as in
+plastic assemblies, and even large bodies, like solid-propellant rocket motors.
+Figure 1.7(e) shows an example of X-ray imaging in astronomy.This image is the
+Cygnus Loop of Fig. 1.6(c), but imaged this time in the X-ray band.
+
+1.3.3 Imaging in the Ultraviolet Band
+Applications of ultraviolet “light” are varied. They include lithography, industrial
+inspection, microscopy, lasers, biological imaging, and astronomical observations.
+We illustrate imaging in this band with examples from microscopy and astronomy.
+Ultraviolet light is used in fluorescence microscopy, one of the fastest growing areas of microscopy. Fluorescence is a phenomenon discovered in the middle of the nineteenth century, when it was first observed that the mineral
+fluorspar fluoresces when ultraviolet light is directed upon it. The ultraviolet
+light itself is not visible, but when a photon of ultraviolet radiation collides with
+an electron in an atom of a fluorescent material, it elevates the electron to a higher
+energy level. Subsequently, the excited electron relaxes to a lower level and emits
+light in the form of a lower-energy photon in the visible (red) light region. The
+basic task of the fluorescence microscope is to use an excitation light to irradiate
+a prepared specimen and then to separate the much weaker radiating fluorescent light from the brighter excitation light.Thus, only the emission light reaches
+the eye or other detector. The resulting fluorescing areas shine against a dark
+background with sufficient contrast to permit detection. The darker the background of the nonfluorescing material, the more efficient the instrument.
+Fluorescence microscopy is an excellent method for studying materials that
+can be made to fluoresce, either in their natural form (primary fluorescence) or
+when treated with chemicals capable of fluorescing (secondary fluorescence).
+Figures 1.8(a) and (b) show results typical of the capability of fluorescence
+microscopy. Figure 1.8(a) shows a fluorescence microscope image of normal
+corn, and Fig. 1.8(b) shows corn infected by “smut,” a disease of cereals, corn,
+
+www.EBooksWorld.ir
+
+11
+
+12
+
+Chapter 1 ■ Introduction
+
+a b
+c
+FIGURE 1.8
+
+Examples of
+ultraviolet
+imaging.
+(a) Normal corn.
+(b) Smut corn.
+(c) Cygnus Loop.
+(Images courtesy
+of (a) and
+(b) Dr. Michael
+W. Davidson,
+Florida State
+University,
+(c) NASA.)
+
+grasses, onions, and sorghum that can be caused by any of more than 700 species
+of parasitic fungi. Corn smut is particularly harmful because corn is one of the
+principal food sources in the world. As another illustration, Fig. 1.8(c) shows the
+Cygnus Loop imaged in the high-energy region of the ultraviolet band.
+
+1.3.4 Imaging in the Visible and Infrared Bands
+Considering that the visual band of the electromagnetic spectrum is the most
+familiar in all our activities, it is not surprising that imaging in this band outweighs by far all the others in terms of breadth of application. The infrared
+band often is used in conjunction with visual imaging, so we have grouped the
+www.EBooksWorld.ir
+
+1.3 ■ Examples of Fields that Use Digital Image Processing
+
+visible and infrared bands in this section for the purpose of illustration. We
+consider in the following discussion applications in light microscopy, astronomy, remote sensing, industry, and law enforcement.
+Figure 1.9 shows several examples of images obtained with a light microscope.
+The examples range from pharmaceuticals and microinspection to materials
+characterization. Even in microscopy alone, the application areas are too numerous to detail here. It is not difficult to conceptualize the types of processes one
+might apply to these images, ranging from enhancement to measurements.
+
+a b c
+d e f
+FIGURE 1.9 Examples of light microscopy images. (a) Taxol (anticancer agent),
+magnified 250 *. (b) Cholesterol—40 *. (c) Microprocessor—60 *. (d) Nickel oxide
+thin film—600*. (e) Surface of audio CD—1750*. (f) Organic superconductor—
+450*. (Images courtesy of Dr. Michael W. Davidson, Florida State University.)
+
+www.EBooksWorld.ir
+
+13
+
+14
+
+Chapter 1 ■ Introduction
+
+TABLE 1.1
+Thematic bands
+in NASA’s
+LANDSAT
+satellite.
+
+Band No.
+
+Name
+
+Wavelength (m)
+
+Characteristics and Uses
+Maximum water
+penetration
+Good for measuring plant
+vigor
+Vegetation discrimination
+Biomass and shoreline
+mapping
+Moisture content of soil
+and vegetation
+Soil moisture; thermal
+mapping
+Mineral mapping
+
+1
+
+Visible blue
+
+0.45–0.52
+
+2
+
+Visible green
+
+0.52–0.60
+
+3
+4
+
+Visible red
+Near infrared
+
+0.63–0.69
+0.76–0.90
+
+5
+
+Middle infrared
+
+1.55–1.75
+
+6
+
+Thermal infrared
+
+10.4–12.5
+
+7
+
+Middle infrared
+
+2.08–2.35
+
+Another major area of visual processing is remote sensing, which usually includes several bands in the visual and infrared regions of the spectrum. Table 1.1
+shows the so-called thematic bands in NASA’s LANDSAT satellite.The primary
+function of LANDSAT is to obtain and transmit images of the Earth from space
+for purposes of monitoring environmental conditions on the planet. The bands
+are expressed in terms of wavelength, with 1 m being equal to 10-6 m (we discuss the wavelength regions of the electromagnetic spectrum in more detail in
+Chapter 2). Note the characteristics and uses of each band in Table 1.1.
+In order to develop a basic appreciation for the power of this type of
+multispectral imaging, consider Fig. 1.10, which shows one image for each of
+1
+
+4
+
+2
+
+5
+
+3
+
+6
+
+7
+
+FIGURE 1.10 LANDSAT satellite images of the Washington, D.C. area. The numbers refer to the thematic
+
+bands in Table 1.1. (Images courtesy of NASA.)
+
+www.EBooksWorld.ir
+
+1.3 ■ Examples of Fields that Use Digital Image Processing
+
+15
+
+FIGURE 1.11
+
+Satellite image
+of Hurricane
+Katrina taken on
+August 29, 2005.
+(Courtesy of
+NOAA.)
+
+the spectral bands in Table 1.1. The area imaged is Washington D.C., which includes features such as buildings, roads, vegetation, and a major river (the Potomac) going though the city. Images of population centers are used routinely
+(over time) to assess population growth and shift patterns, pollution, and other
+factors harmful to the environment. The differences between visual and infrared image features are quite noticeable in these images. Observe, for example, how well defined the river is from its surroundings in Bands 4 and 5.
+Weather observation and prediction also are major applications of multispectral imaging from satellites. For example, Fig. 1.11 is an image of Hurricane
+Katrina one of the most devastating storms in recent memory in the Western
+Hemisphere. This image was taken by a National Oceanographic and Atmospheric Administration (NOAA) satellite using sensors in the visible and infrared bands. The eye of the hurricane is clearly visible in this image.
+Figures 1.12 and 1.13 show an application of infrared imaging. These images
+are part of the Nighttime Lights of the World data set, which provides a global
+inventory of human settlements. The images were generated by the infrared
+imaging system mounted on a NOAA DMSP (Defense Meteorological Satellite Program) satellite. The infrared imaging system operates in the band 10.0
+to 13.4 m, and has the unique capability to observe faint sources of visiblenear infrared emissions present on the Earth’s surface, including cities, towns,
+villages, gas flares, and fires. Even without formal training in image processing, it
+is not difficult to imagine writing a computer program that would use these images to estimate the percent of total electrical energy used by various regions of
+the world.
+A major area of imaging in the visual spectrum is in automated visual inspection of manufactured goods. Figure 1.14 shows some examples. Figure 1.14(a)
+is a controller board for a CD-ROM drive. A typical image processing task
+with products like this is to inspect them for missing parts (the black square on
+the top, right quadrant of the image is an example of a missing component).
+
+www.EBooksWorld.ir
+
+16
+
+Chapter 1 ■ Introduction
+
+FIGURE 1.12
+
+Infrared satellite
+images of the
+Americas. The
+small gray map is
+provided for
+reference.
+(Courtesy of
+NOAA.)
+
+Figure 1.14(b) is an imaged pill container. The objective here is to have a machine look for missing pills. Figure 1.14(c) shows an application in which image
+processing is used to look for bottles that are not filled up to an acceptable
+level. Figure 1.14(d) shows a clear-plastic part with an unacceptable number of
+air pockets in it. Detecting anomalies like these is a major theme of industrial
+inspection that includes other products such as wood and cloth. Figure 1.14(e)
+
+www.EBooksWorld.ir
+
+1.3 ■ Examples of Fields that Use Digital Image Processing
+
+17
+
+FIGURE 1.13
+
+Infrared satellite
+images of the
+remaining
+populated part of
+the world. The
+small gray map is
+provided for
+reference.
+(Courtesy of
+NOAA.)
+
+shows a batch of cereal during inspection for color and the presence of anomalies such as burned flakes. Finally, Fig. 1.14(f) shows an image of an intraocular
+implant (replacement lens for the human eye). A “structured light” illumination technique was used to highlight for easier detection flat lens deformations
+toward the center of the lens. The markings at 1 o’clock and 5 o’clock are
+tweezer damage. Most of the other small speckle detail is debris. The objective
+in this type of inspection is to find damaged or incorrectly manufactured implants automatically, prior to packaging.
+As a final illustration of image processing in the visual spectrum, consider
+Fig. 1.15. Figure 1.15(a) shows a thumb print. Images of fingerprints are routinely processed by computer, either to enhance them or to find features that
+aid in the automated search of a database for potential matches. Figure 1.15(b)
+shows an image of paper currency. Applications of digital image processing in
+this area include automated counting and, in law enforcement, the reading of
+the serial number for the purpose of tracking and identifying bills. The two vehicle images shown in Figs. 1.15 (c) and (d) are examples of automated license
+plate reading. The light rectangles indicate the area in which the imaging system
+
+www.EBooksWorld.ir
+
+18
+
+Chapter 1 ■ Introduction
+
+a b
+c d
+e f
+FIGURE 1.14
+
+Some examples
+of manufactured
+goods often
+checked using
+digital image
+processing.
+(a) A circuit
+board controller.
+(b) Packaged pills.
+(c) Bottles.
+(d) Air bubbles
+in a clear-plastic
+product.
+(e) Cereal.
+(f) Image of
+intraocular
+implant.
+(Fig. (f) courtesy
+of Mr. Pete Sites,
+Perceptics
+Corporation.)
+
+detected the plate. The black rectangles show the results of automated reading
+of the plate content by the system. License plate and other applications of character recognition are used extensively for traffic monitoring and surveillance.
+
+1.3.5 Imaging in the Microwave Band
+The dominant application of imaging in the microwave band is radar. The
+unique feature of imaging radar is its ability to collect data over virtually any
+region at any time, regardless of weather or ambient lighting conditions. Some
+
+www.EBooksWorld.ir
+
+1.3 ■ Examples of Fields that Use Digital Image Processing
+
+19
+
+a b
+c
+d
+FIGURE 1.15
+
+Some additional
+examples of
+imaging in the
+visual spectrum.
+(a) Thumb print.
+(b) Paper
+currency. (c) and
+(d) Automated
+license plate
+reading.
+(Figure (a)
+courtesy of the
+National Institute
+of Standards and
+Technology.
+Figures (c) and
+(d) courtesy of
+Dr. Juan Herrera,
+Perceptics
+Corporation.)
+
+radar waves can penetrate clouds, and under certain conditions can also see
+through vegetation, ice, and dry sand. In many cases, radar is the only way to
+explore inaccessible regions of the Earth’s surface. An imaging radar works
+like a flash camera in that it provides its own illumination (microwave pulses)
+to illuminate an area on the ground and take a snapshot image. Instead of a
+camera lens, a radar uses an antenna and digital computer processing to record
+its images. In a radar image, one can see only the microwave energy that was
+reflected back toward the radar antenna.
+Figure 1.16 shows a spaceborne radar image covering a rugged mountainous area of southeast Tibet, about 90 km east of the city of Lhasa. In the lower
+right corner is a wide valley of the Lhasa River, which is populated by Tibetan
+farmers and yak herders and includes the village of Menba. Mountains in this
+area reach about 5800 m (19,000 ft) above sea level, while the valley floors lie
+about 4300 m (14,000 ft) above sea level. Note the clarity and detail of the
+image, unencumbered by clouds or other atmospheric conditions that normally
+interfere with images in the visual band.
+
+www.EBooksWorld.ir
+
+20
+
+Chapter 1 ■ Introduction
+
+FIGURE 1.16
+
+Spaceborne radar
+image of
+mountains in
+southeast Tibet.
+(Courtesy of
+NASA.)
+
+1.3.6 Imaging in the Radio Band
+As in the case of imaging at the other end of the spectrum (gamma rays), the
+major applications of imaging in the radio band are in medicine and astronomy.
+In medicine, radio waves are used in magnetic resonance imaging (MRI). This
+technique places a patient in a powerful magnet and passes radio waves through
+his or her body in short pulses. Each pulse causes a responding pulse of radio
+waves to be emitted by the patient’s tissues. The location from which these signals originate and their strength are determined by a computer, which produces
+a two-dimensional picture of a section of the patient. MRI can produce pictures
+in any plane. Figure 1.17 shows MRI images of a human knee and spine.
+The last image to the right in Fig. 1.18 shows an image of the Crab Pulsar in
+the radio band. Also shown for an interesting comparison are images of the
+same region but taken in most of the bands discussed earlier. Note that each
+image gives a totally different “view” of the Pulsar.
+
+1.3.7 Examples in which Other Imaging Modalities Are Used
+Although imaging in the electromagnetic spectrum is dominant by far, there
+are a number of other imaging modalities that also are important. Specifically,
+we discuss in this section acoustic imaging, electron microscopy, and synthetic
+(computer-generated) imaging.
+Imaging using “sound” finds application in geological exploration, industry,
+and medicine. Geological applications use sound in the low end of the sound
+spectrum (hundreds of Hz) while imaging in other areas use ultrasound (millions of Hz). The most important commercial applications of image processing
+in geology are in mineral and oil exploration. For image acquisition over land,
+one of the main approaches is to use a large truck and a large flat steel plate.
+The plate is pressed on the ground by the truck, and the truck is vibrated
+through a frequency spectrum up to 100 Hz. The strength and speed of the
+
+www.EBooksWorld.ir
+
+1.3 ■ Examples of Fields that Use Digital Image Processing
+
+21
+
+a b
+FIGURE 1.17 MRI images of a human (a) knee, and (b) spine. (Image (a) courtesy of
+
+Dr. Thomas R. Gest, Division of Anatomical Sciences, University of Michigan
+Medical School, and (b) courtesy of Dr. David R. Pickens, Department of Radiology
+and Radiological Sciences, Vanderbilt University Medical Center.)
+
+returning sound waves are determined by the composition of the Earth below
+the surface. These are analyzed by computer, and images are generated from
+the resulting analysis.
+For marine acquisition, the energy source consists usually of two air guns
+towed behind a ship. Returning sound waves are detected by hydrophones
+placed in cables that are either towed behind the ship, laid on the bottom of
+the ocean, or hung from buoys (vertical cables). The two air guns are alternately pressurized to ' 2000 psi and then set off. The constant motion of the
+ship provides a transversal direction of motion that, together with the returning sound waves, is used to generate a 3-D map of the composition of the
+Earth below the bottom of the ocean.
+Figure 1.19 shows a cross-sectional image of a well-known 3-D model
+against which the performance of seismic imaging algorithms is tested. The
+arrow points to a hydrocarbon (oil and/or gas) trap. This target is brighter than
+the surrounding layers because the change in density in the target region is
+
+Gamma
+
+X-ray
+
+Optical
+
+Infrared
+
+Radio
+
+FIGURE 1.18 Images of the Crab Pulsar (in the center of each image) covering the electromagnetic spectrum.
+
+(Courtesy of NASA.)
+
+www.EBooksWorld.ir
+
+22
+
+Chapter 1 ■ Introduction
+
+FIGURE 1.19
+
+Cross-sectional
+image of a seismic
+model. The arrow
+points to a
+hydrocarbon (oil
+and/or gas) trap.
+(Courtesy of
+Dr. Curtis Ober,
+Sandia National
+Laboratories.)
+
+larger. Seismic interpreters look for these “bright spots” to find oil and gas. The
+layers above also are bright, but their brightness does not vary as strongly
+across the layers. Many seismic reconstruction algorithms have difficulty imaging this target because of the faults above it.
+Although ultrasound imaging is used routinely in manufacturing, the best
+known applications of this technique are in medicine, especially in obstetrics,
+where unborn babies are imaged to determine the health of their development. A byproduct of this examination is determining the sex of the baby. Ultrasound images are generated using the following basic procedure:
+1. The ultrasound system (a computer, ultrasound probe consisting of a
+source and receiver, and a display) transmits high-frequency (1 to 5 MHz)
+sound pulses into the body.
+2. The sound waves travel into the body and hit a boundary between tissues
+(e.g., between fluid and soft tissue, soft tissue and bone). Some of the
+sound waves are reflected back to the probe, while some travel on further
+until they reach another boundary and get reflected.
+3. The reflected waves are picked up by the probe and relayed to the computer.
+4. The machine calculates the distance from the probe to the tissue or organ
+boundaries using the speed of sound in tissue (1540 m/s) and the time of
+each echo’s return.
+5. The system displays the distances and intensities of the echoes on the
+screen, forming a two-dimensional image.
+In a typical ultrasound image, millions of pulses and echoes are sent and received each second. The probe can be moved along the surface of the body and
+angled to obtain various views. Figure 1.20 shows several examples.
+We continue the discussion on imaging modalities with some examples of
+electron microscopy. Electron microscopes function as their optical counterparts, except that they use a focused beam of electrons instead of light to
+image a specimen. The operation of electron microscopes involves the following basic steps: A stream of electrons is produced by an electron source and accelerated toward the specimen using a positive electrical potential. This stream
+
+www.EBooksWorld.ir
+
+1.3 ■ Examples of Fields that Use Digital Image Processing
+
+23
+
+a b
+c d
+FIGURE 1.20
+
+Examples of
+ultrasound
+imaging. (a) Baby.
+(b) Another
+view of baby.
+(c) Thyroids.
+(d) Muscle layers
+showing lesion.
+(Courtesy of
+Siemens Medical
+Systems, Inc.,
+Ultrasound
+Group.)
+
+is confined and focused using metal apertures and magnetic lenses into a thin,
+monochromatic beam. This beam is focused onto the sample using a magnetic
+lens. Interactions occur inside the irradiated sample, affecting the electron
+beam. These interactions and effects are detected and transformed into an
+image, much in the same way that light is reflected from, or absorbed by, objects in a scene. These basic steps are carried out in all electron microscopes.
+A transmission electron microscope (TEM) works much like a slide projector. A projector shines (transmits) a beam of light through a slide; as the light
+passes through the slide, it is modulated by the contents of the slide. This transmitted beam is then projected onto the viewing screen, forming an enlarged
+image of the slide. TEMs work the same way, except that they shine a beam of
+electrons through a specimen (analogous to the slide). The fraction of the
+beam transmitted through the specimen is projected onto a phosphor screen.
+The interaction of the electrons with the phosphor produces light and, therefore, a viewable image. A scanning electron microscope (SEM), on the other
+hand, actually scans the electron beam and records the interaction of beam
+and sample at each location. This produces one dot on a phosphor screen. A
+complete image is formed by a raster scan of the beam through the sample,
+much like a TV camera. The electrons interact with a phosphor screen and
+produce light. SEMs are suitable for “bulky” samples, while TEMs require
+very thin samples.
+Electron microscopes are capable of very high magnification. While light
+microscopy is limited to magnifications on the order 1000 *, electron microscopes
+
+www.EBooksWorld.ir
+
+24
+
+Chapter 1 ■ Introduction
+
+a b
+FIGURE 1.21
+
+(a) 250* SEM image of a tungsten filament following thermal failure
+(note the shattered pieces on the lower left). (b) 2500 * SEM image of damaged
+integrated circuit. The white fibers are oxides resulting from thermal destruction.
+(Figure (a) courtesy of Mr. Michael Shaffer, Department of Geological Sciences,
+University of Oregon, Eugene; (b) courtesy of Dr. J. M. Hudak, McMaster University,
+Hamilton, Ontario, Canada.)
+
+can achieve magnification of 10,000* or more. Figure 1.21 shows two SEM images of specimen failures due to thermal overload.
+We conclude the discussion of imaging modalities by looking briefly at images that are not obtained from physical objects. Instead, they are generated
+by computer. Fractals are striking examples of computer-generated images
+(Lu [1997]). Basically, a fractal is nothing more than an iterative reproduction
+of a basic pattern according to some mathematical rules. For instance, tiling is
+one of the simplest ways to generate a fractal image. A square can be subdivided into four square subregions, each of which can be further subdivided
+into four smaller square regions, and so on. Depending on the complexity of
+the rules for filling each subsquare, some beautiful tile images can be generated
+using this method. Of course, the geometry can be arbitrary. For instance, the
+fractal image could be grown radially out of a center point. Figure 1.22(a)
+shows a fractal grown in this way. Figure 1.22(b) shows another fractal (a
+“moonscape”) that provides an interesting analogy to the images of space
+used as illustrations in some of the preceding sections.
+Fractal images tend toward artistic, mathematical formulations of “growth”
+of subimage elements according to a set of rules. They are useful sometimes as
+random textures. A more structured approach to image generation by computer
+lies in 3-D modeling. This is an area that provides an important intersection
+between image processing and computer graphics and is the basis for many
+3-D visualization systems (e.g., flight simulators). Figures 1.22(c) and (d) show
+examples of computer-generated images. Since the original object is created in
+3-D, images can be generated in any perspective from plane projections of the
+3-D volume. Images of this type can be used for medical training and for a host
+of other applications, such as criminal forensics and special effects.
+
+www.EBooksWorld.ir
+
+1.4 ■ Fundamental Steps in Digital Image Processing
+
+25
+
+a b
+c d
+FIGURE 1.22
+
+(a) and (b) Fractal
+images. (c) and
+(d) Images
+generated from
+3-D computer
+models of the
+objects shown.
+(Figures (a) and
+(b) courtesy of
+Ms. Melissa
+D. Binde,
+Swarthmore
+College; (c) and
+(d) courtesy of
+NASA.)
+
+1.4
+
+Fundamental Steps in Digital Image Processing
+
+It is helpful to divide the material covered in the following chapters into the
+two broad categories defined in Section 1.1: methods whose input and output
+are images, and methods whose inputs may be images but whose outputs are
+attributes extracted from those images. This organization is summarized in
+Fig. 1.23. The diagram does not imply that every process is applied to an image.
+Rather, the intention is to convey an idea of all the methodologies that can be
+applied to images for different purposes and possibly with different objectives.
+The discussion in this section may be viewed as a brief overview of the material
+in the remainder of the book.
+Image acquisition is the first process in Fig. 1.23.The discussion in Section 1.3
+gave some hints regarding the origin of digital images. This topic is considered
+in much more detail in Chapter 2, where we also introduce a number of basic
+digital image concepts that are used throughout the book. Note that acquisition could be as simple as being given an image that is already in digital form.
+Generally, the image acquisition stage involves preprocessing, such as scaling.
+Image enhancement is the process of manipulating an image so that the result is more suitable than the original for a specific application. The word
+specific is important here, because it establishes at the outset that enhancement
+techniques are problem oriented. Thus, for example, a method that is quite useful for enhancing X-ray images may not be the best approach for enhancing
+satellite images taken in the infrared band of the electromagnetic spectrum.
+
+www.EBooksWorld.ir
+
+Chapter 1 ■ Introduction
+
+FIGURE 1.23
+
+Outputs of these processes generally are images
+
+Fundamental
+steps in digital
+image processing.
+The chapter(s)
+indicated in the
+boxes is where the
+material
+described in the
+box is discussed.
+
+CHAPTER 6
+
+CHAPTER 7
+
+CHAPTER 8
+
+CHAPTER 9
+
+Color image
+processing
+
+Wavelets and
+multiresolution
+processing
+
+Compression
+
+Morphological
+processing
+
+CHAPTER 5
+
+CHAPTER 10
+
+Image
+restoration
+
+Segmentation
+
+CHAPTER 11
+
+CHAPTERS 3 & 4
+
+Image
+filtering and
+enhancement
+
+Problem
+domain
+
+Knowledge base
+
+Representation
+& description
+
+CHAPTER 2
+
+CHAPTER 12
+
+Image
+acquisition
+
+Object
+recognition
+
+Outputs of these processes generally are image attributes
+
+26
+
+There is no general “theory” of image enhancement. When an image is
+processed for visual interpretation, the viewer is the ultimate judge of how
+well a particular method works. Enhancement techniques are so varied, and
+use so many different image processing approaches, that it is difficult to assemble a meaningful body of techniques suitable for enhancement in one
+chapter without extensive background development. For this reason, and also
+because beginners in the field of image processing generally find enhancement applications visually appealing, interesting, and relatively simple to understand, we use image enhancement as examples when introducing new
+concepts in parts of Chapter 2 and in Chapters 3 and 4. The material in the
+latter two chapters span many of the methods used traditionally for image enhancement. Therefore, using examples from image enhancement to introduce
+new image processing methods developed in these early chapters not only
+saves having an extra chapter in the book dealing with image enhancement
+but, more importantly, is an effective approach for introducing newcomers to
+the details of processing techniques early in the book. However, as you will
+see in progressing through the rest of the book, the material developed in
+these chapters is applicable to a much broader class of problems than just
+image enhancement.
+Image restoration is an area that also deals with improving the appearance
+of an image. However, unlike enhancement, which is subjective, image restoration is objective, in the sense that restoration techniques tend to be based on
+mathematical or probabilistic models of image degradation. Enhancement, on
+the other hand, is based on human subjective preferences regarding what constitutes a “good” enhancement result.
+
+www.EBooksWorld.ir
+
+1.4 ■ Fundamental Steps in Digital Image Processing
+
+Color image processing is an area that has been gaining in importance because of the significant increase in the use of digital images over the Internet.
+Chapter 6 covers a number of fundamental concepts in color models and basic
+color processing in a digital domain. Color is used also in later chapters as the
+basis for extracting features of interest in an image.
+Wavelets are the foundation for representing images in various degrees of
+resolution. In particular, this material is used in this book for image data compression and for pyramidal representation, in which images are subdivided
+successively into smaller regions.
+Compression, as the name implies, deals with techniques for reducing the
+storage required to save an image, or the bandwidth required to transmit it. Although storage technology has improved significantly over the past decade, the
+same cannot be said for transmission capacity. This is true particularly in uses of
+the Internet, which are characterized by significant pictorial content. Image
+compression is familiar (perhaps inadvertently) to most users of computers in
+the form of image file extensions, such as the jpg file extension used in the
+JPEG (Joint Photographic Experts Group) image compression standard.
+Morphological processing deals with tools for extracting image components
+that are useful in the representation and description of shape. The material in
+this chapter begins a transition from processes that output images to processes
+that output image attributes, as indicated in Section 1.1.
+Segmentation procedures partition an image into its constituent parts or
+objects. In general, autonomous segmentation is one of the most difficult
+tasks in digital image processing. A rugged segmentation procedure brings
+the process a long way toward successful solution of imaging problems that
+require objects to be identified individually. On the other hand, weak or erratic segmentation algorithms almost always guarantee eventual failure. In
+general, the more accurate the segmentation, the more likely recognition is
+to succeed.
+Representation and description almost always follow the output of a segmentation stage, which usually is raw pixel data, constituting either the boundary of
+a region (i.e., the set of pixels separating one image region from another) or all
+the points in the region itself. In either case, converting the data to a form suitable for computer processing is necessary. The first decision that must be made
+is whether the data should be represented as a boundary or as a complete region.
+Boundary representation is appropriate when the focus is on external shape
+characteristics, such as corners and inflections. Regional representation is appropriate when the focus is on internal properties, such as texture or skeletal
+shape. In some applications, these representations complement each other.
+Choosing a representation is only part of the solution for transforming raw
+data into a form suitable for subsequent computer processing. A method must
+also be specified for describing the data so that features of interest are highlighted. Description, also called feature selection, deals with extracting attributes
+that result in some quantitative information of interest or are basic for differentiating one class of objects from another.
+Recognition is the process that assigns a label (e.g., “vehicle”) to an object
+based on its descriptors. As detailed in Section 1.1, we conclude our coverage of
+
+www.EBooksWorld.ir
+
+27
+
+

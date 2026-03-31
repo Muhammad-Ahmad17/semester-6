@@ -1,0 +1,132 @@
+Lecture - 8
+Chapter 4
+FILTERING IN THE FREQUENCY DOMAIN
+
+Fourier Series
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+2
+
+FFT Computational Advantage over Spatial
+Filters
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+3
+
+Preliminary Concepts (Unit Impulse)
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+4
+
+Preliminary Concepts (Box Function)
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+5
+
+Sampling
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+6
+
+Fourier Transform of a Sampled Function
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+7
+
+Fourier Transform of a Sampled Function
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+8
+
+Fourier Transform of a Sampled Function
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+9
+
+Aliasing
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+10
+
+Aliasing
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+11
+
+Aliasing
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+12
+
+Sampling Interval
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+13
+
+2-D Impulse
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+14
+
+2-D Box Function
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+15
+
+2-D Sampling
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+16
+
+2-D Sampling
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+17
+
+Aliasing in Images
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+18
+
+Aliasing in Images
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+19
+
+Aliasing in Images
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+20
+
+Moire Patterns
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+21
+
+Moire Patterns
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+22
+
+

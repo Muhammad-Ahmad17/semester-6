@@ -1,0 +1,232 @@
+Lecture - 3
+Chapter 2
+DIGITAL IMAGE FUNDAMENTALS
+
+Digital Image Representation
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+2
+
+Digital Image Representation
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+3
+
+Dynamic Range
+• L = 2k gray levels, gray scales [0,…,L-1]
+• The dynamic range of an imaging system is the range between minimum and maximum detectable
+intensity in the scene.
+– Saturation: maximum measurable intensity (beyond which all intensities are clipped)
+– Noise: minimum detectable intensity (noise)
+If the dynamic range of an image spans a significant
+portion of the gray scale → high contrast
+– Otherwise, low dynamic range results in a washed out gray look.
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+4
+
+Noise and Saturation
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+5
+
+Image Storage
+bits to store the image = N x M x k
+gray level = L = 2k
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+6
+
+Image Storage
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+7
+
+Spatial and Intensity Resolution
+• Spatial Resolution: Spatial resolution is the
+smallest detectable detail in an image. (typicaly dpi dots per inch)
+• dpi – resolution of an image printed on paper
+• ppi – resolution of an image displayed on screen
+(dpi also used)
+
+Resolution
+
+Size (Width ×
+Height)
+
+SD
+
+720 × 576
+
+HD (720p)
+
+1280 × 720
+
+Full HD
+(1080p)
+
+1920 × 1080
+
+Ultra HD (4K)
+
+3840 × 2160
+
+UHD-2 (8K)
+
+7680 × 4320
+
+• Grey level Resolution: Gray-level resolution
+similarly refers to the smallest detectable change in
+gray level.
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+8
+
+Spatial Resolution
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+9
+
+Intensity Resolution
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+10
+
+Intensity Resolution
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+11
+
+Spatial and Intensity Resolution (isopreference curves)
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+12
+
+Spatial and Intensity Resolution (isopreference curves)
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+13
+
+Image Interpolation
+Zooming: Oversampling
+Creation of new pixel locations
+The assignment of gray levels to those new locations
+Nearest Neighbor Interpolation
+Special case : Pixel Replication, if the size of new image is
+integer multiple of the original image size
+NN is fast but produces checker-board effect
+Bilinear Interpolation: uses four nearest neighbors of a point
+Bi-cubic Interpolation: uses sixteen nearest neighbors of a point
+Shrinking: Under sampling
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+14
+
+Image Interpolation
+
+Bilinear interpolation
+
+Bicubic interpolation
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+15
+
+Nearest Neighbor (Zero Order hold) Interpolation
+f(n)
+
+n
+
+f(x)
+x
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+16
+
+st
+Linear (1 Order hold) Interpolation
+
+f(n)
+
+f(n+a)
+
+f(n)
+
+f(n+1)
+
+n
+a
+
+1-a
+
+f(n+a)=(1-a)f(n)+af(n+1), 0<a<1
+
+f(x)
+
+x
+
+Note: when a=0.5, we simply have the average of two
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+17
+
+st
+Linear (1 Order hold) Interpolation - Example
+
+f(n)=[0,120,180,120,0]
+
+Interpolate at 1/2-pixel
+f(x)=[0,60,120,150,180,150,120,60,0], x=n/2
+Interpolate at 1/3-pixel
+f(x)=[0,20,40,60,80,100,120,130,140,150,160,170,180,…], x=n/6
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+18
+
+Cubic Interpolation
+f(n)
+n
+f(x)
+
+x
+
+Cubic spline fitting
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+19
+
+Image Interpolation
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+20
+
+Image Interpolation
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+21
+
+Image Interpolation
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+22
+
+

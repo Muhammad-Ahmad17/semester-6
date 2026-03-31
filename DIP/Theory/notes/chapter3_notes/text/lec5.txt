@@ -1,0 +1,121 @@
+Lecture - 5
+Chapter 3
+
+INTENSITY TRANSFORMATION
+AND SPATIAL FILTERING
+
+Spatial Filtering
+
+Depending on the size of a
+neighborhood and its location, part of
+the neighborhood may lie
+outside the image. There are two
+solutions to this: (1) to ignore the values
+outside the image, or (2) to pad image
+The second approach is preferred.
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+2
+
+Contrast Stretching & Thresholding
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+3
+
+Some Basic Intensity Transformation
+Functions
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+4
+
+Negative Transformation
+
+s = L −1− r
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+5
+
+Log Transformation
+
+s = c log (1+ r )
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+6
+
+Power Law (Gamma) Transformation
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+7
+
+Gamma Correction/Encoding
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+8
+
+Power Law (Gamma)
+Transformation
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+9
+
+Power Law (Gamma)
+Transformation
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+10
+
+Contrast Stretching
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+11
+
+Intensity Level Slicing
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+12
+
+Bit Plane Slicing
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+13
+
+Bit Plane Slicing
+Binary
+Representation
+
+3-bit Image
+Gray levels: 0-7
+
+3rd bit (MSB) Plane
+
+2nd bit Plane
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+1st bit (LSB) Plane
+14
+
+Bit Plane Slicing
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+15
+
+Image Reconstruction using Bit planes
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+16
+
+

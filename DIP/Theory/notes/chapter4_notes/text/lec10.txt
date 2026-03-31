@@ -1,0 +1,172 @@
+Lecture - 10
+Chapter 4
+FILTERING IN THE FREQUENCY DOMAIN
+
+Ideal Low Pass Filter
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+2
+
+Ideal Low Pass Filter
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+3
+
+Ideal Low Pass Filter
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+4
+
+Ideal Low Pass Filter
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+5
+
+Gaussian Low Pass Filter
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+6
+
+Gaussian Low Pass Filter
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+7
+
+Butterworth Low Pass Filter
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+8
+
+Butterworth Low Pass Filter
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+9
+
+Butterworth Low Pass Filter
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+10
+
+Low Pass Filter Transfer Functions
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+11
+
+Low Pass Filter Applications
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+12
+
+Low Pass Filter Applications
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+13
+
+Low Pass Filter Applications
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+14
+
+High Pass
+Filtering
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+15
+
+High Pass Filtering
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+16
+
+High Pass Filter Transfer Functions
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+17
+
+High Pass Filtering
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+18
+
+High Pass Filtering
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+19
+
+High Pass Filter Applications
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+20
+
+High Pass Filter Applications
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+21
+
+High (frequency Emphasis) Pass Filter
+Applications
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+22
+
+Band Reject Filtering
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+23
+
+Band Reject Filtering
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+24
+
+Band Reject Filtering
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+25
+
+Notch
+(Frequency
+Selective)
+Filtering
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+26
+
+Notch (Frequency Selective) Filtering
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+27
+
+Notch (Frequency Selective) Filtering
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+28
+
+

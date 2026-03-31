@@ -1,0 +1,379 @@
+Lecture 1
+Chapter 1
+INTRODUCTION
+
+A Few Historical Images
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+2
+
+A Few Historical Images
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+3
+
+A Few Historical Images
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+4
+
+Electromagnetic Spectrum (Energy Source)
+
+• Human being can see only visual band of EM spectrum
+• Images can be generated from the entire EM spectrum, ranging from Gamma to Radio waves
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+5
+
+Gamma Ray
+Imaging
+• Imaging based on gamma rays: Nuclear
+medicine injected into the patient with a
+radioactive isotope emits gamma rays.
+Images are produced from the emissions
+collected by gamma ray detectors.
+• Positron Emission Tomography (PET): the
+patient is given a radioactive isotope that
+emits positron. Positron meets electron and
+two gamma rays are emitted which are
+detected by gamma ray detector.
+• Constellation Sygnus: star exploded and
+produced a superheated gas cloud emitting
+energy in the entire EM spectrum
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+6
+
+X-Ray Imaging
+• X-ray tube: a cathode which is heated and releases
+electrons. Electrons fly at high speed to the positively
+charged anode. When the electrons strike a nucleus, energy
+is released in the form of X-ray radiation. The intensity of the
+X-ray is modified by absorption as it passes through the
+patient.
+• Angiography: To obtain the images of blood vessels
+(Angiograms); used in Contrast-Enhancement Radiography.
+Catheter (a small, flexible, hollow tube) is inserted into
+artery/vein. When reached into area to be observed, a high
+contrast medium is inserted to enhance contrast to examine
+any irregularity/blockage.
+• Computerized Tomography (CT) is an x-ray imaging
+procedure in which a narrow beam of x-rays is aimed at a
+patient and quickly rotated around the body, producing
+signals that are processed by the machine’s computer to
+generate cross-sectional images, or “slices.” These slices
+are called tomographic images.
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+7
+
+Imaging in Ultraviolet Band
+
+• X-ray Ultraviolet light is used in fluorescence microscopy
+• Fluorescence: a phenomena in which a material called fluorescent emits visible light when ultraviolet light is directed at it
+• Ultraviolet light is invisible, when directed on fluorescent material (photon on electron, energy level transition) visible light is emitted which is observed.
+High contrast in image w.r.t fluorescent to non-fluorescent region
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+8
+
+Imaging in
+Visible Band
+–
+Light
+Microscopy
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+9
+
+Imaging in Infrared/Visible Band
+
+• Remote sensing: to obtain images of
+the earth from space for purposes of
+monitoring environmental conditions
+• Usually a scene is imaged in several
+bands
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+10
+
+Imaging in Infrared Band
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+11
+
+Infrared
+Imaging
+• Images captured by infrared imaging
+system mounted on NOAA DMSP
+(Defense Military Satellite Program)
+satellite, provides a global inventory
+of human settlements
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+12
+
+Imaging in Infrared Band
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+13
+
+Imaging in Visible Band
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+14
+
+Imaging in Visible Band
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+15
+
+Imaging in Microwave Band
+• The
+dominant
+application of imaging
+in the microwave band
+is RADAR where radar
+works like a flash
+camera
+(transmit
+microwave pulses and
+receive energy)
+• Unique feature: able to
+collect
+data
+over
+virtually any region at
+any time regardless of
+weather or lighting
+condition
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+16
+
+Imaging in Radio Wave Band
+• Magnetic
+Resonance
+Imaging (MRI): The radio
+waves pass through a
+patient’ body in short
+pulses, which is kept in a
+high magnetic field.
+• Each pulse causes a
+responding
+pulse
+emitted by the patient’s
+tissue.
+• The signal origin and
+strength are determined
+by a computer which
+produces
+a
+two
+dimensional image of a
+section of the patient.
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+17
+
+Crab Pulsar (a neutron star emitting energy in multiple EM spectrum bands)
+
+Gamma
+
+X -ray
+
+Optical
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+Infrared
+
+Radio
+
+18
+
+Imaging using Sound Waves
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+19
+
+Ultrasound Imaging
+1.
+
+Ultrasound system transmits
+high-frequency (1 to 5 MHz)
+sound pulses into the body
+
+2.
+
+The sound waves travel into
+the body and hit a boundary
+between tissues (e.g., soft
+tissue and bone). Some of the
+sound waves are reflected
+back to the probe, while
+some travel on further until
+they reach another boundary
+
+3. The reflected waves are
+picked by the probe and
+relayed to a computer
+4. The computer calculates
+the distance from the probe
+to the tissue using the
+speed
+of
+sound
+in
+tissue(1540 m/s)
+5. The system displays the
+distance and intensities of
+the echoes on the screen,
+forming a two-dimensional
+image
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+20
+
+Electron Microscopy
+• TEM (Transmission
+Electron Microscope)
+• SEM (Scanning Electron
+Microscope)
+• Beam of electron pass
+though the slide projected
+on phosphor screen.
+Electrons interact with
+phosphor screen and
+produce light.
+• Light Microscope:
+magnification 1000x
+• Electron Microscope:
+magnification up to
+10,000x and more
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+21
+
+Computer Generated Images
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+22
+
+Fundamental Steps in Digital Image Processing
+CH A PTER 6
+
+CH A PTER 7
+
+CH A PTER 8
+
+CH A PTER 9
+
+Wavelets
+Waveletsand
+and
+other
+image
+multiresolution
+transforms
+processing
+
+Color image
+processing
+
+Compression and
+watermarking
+
+Morphological
+processing
+
+CH A PTER 5
+
+CH A PTERS 10 & 11
+
+I mage
+restoration
+
+Segmentation
+
+CH A PTERS 3 & 4
+
+CH A PTER 12
+
+I mage
+filtering and
+enhancement
+
+Problem
+domain
+
+K nowledge base
+
+Feature
+extraction
+
+CH A PTER 2
+
+CH A PTER 13
+
+I mage
+acquisition
+
+I mage
+pattern
+classification
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+Outputs of these processes generally are image attributes
+
+Outputs of these processes generally are images
+
+23
+
+Components of a Digital Image Processing System
+Cloud
+Cloud
+
+Network
+
+Image displays
+
+Computer
+
+M ass storage
+
+H ardcopy
+
+Specialized
+image processing
+hardware
+
+Image processing
+software
+
+Image sensors
+
+CPE415 Digital Image Processing
+| Dr. Ikramullah Khosa
+Problem
+domain
+
+24
+
+

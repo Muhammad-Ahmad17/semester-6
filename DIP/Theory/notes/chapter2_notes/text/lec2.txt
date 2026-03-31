@@ -1,0 +1,275 @@
+Lecture - 2
+Chapter 2
+DIGITAL IMAGE FUNDAMENTALS
+
+Structure of the Human Eye
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+2
+
+Structure of the Human Eye
+Light enters the eye through the
+transparent cornea, passing through
+the pupil at the center of the iris.
+The lens adjusts to focus the light on
+the retina.
+Receptor cells on the retina send
+information via the optic nerve to the
+visual cortex.
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+3
+
+Structure of the Human Eye
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+4
+
+Structure of the Human Eye
+Retina contains light receptors: Cones & rods
+Cones:
+6 to 7 million
+located mainly in central part of retina (fovea)
+
+Rods
+75 to 150 million
+Distributed on a wide region of the retina
+
+Sensitive to color
+Can resolve fine details
+
+No color vision, responsible for low light vision
+Gives overall picture of field of view
+
+Cone vision: photopic or bright-light vision,
+
+Rod vision: scotopic or dim-light
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+5
+
+Structure of the Human Eye
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+6
+
+Structure of the Human Eye
+Blind Spot: a region of retina without receptors, optic nerves go through this part.
+Fovea: An area of about 1.77 mm2 (a circular region of diameter 1.5 mm)
+
+Density of cones on the Fovea = 150,000 elements per mm2
+Total number of cones on the Fovea approximately = 265,000
+Modern electronics imaging chips exceed this number by a large factor
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+7
+
+Color Test
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+8
+
+Image Formation in the Eye
+
+The image appears upside down on the retina.
+15/100 = h/17
+
+h = 2.5 mm
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+9
+
+Brightness Adaptation & Discrimination
+• The dynamic range of light intensity
+to which eye
+can adapt is
+enormous – (on the order of 1010)
+from the scotopic threshold to the
+glare limit
+• HVS can not operate over the entire
+range simultaneously.
+• It accomplishes large variations due
+to brightness adaptation.
+• Brightness Ability of the eye to
+discriminate between changes in
+brightness
+at
+any
+specific
+adaptation level.
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+10
+
+Weber Experiment for Brightness Discrimination
+I : Intensity at some point
+ΔI : Increment of illumination
+If ΔI is not bright, the subject says “no”
+If ΔI is strong enough, the subject says “yes”
+Weber ratio : ΔI / I
+ΔI : Increment discriminable
+A small Weber ratio means good brightness
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+11
+
+Weber Experiment for Brightness Discrimination
+
+• Brightness Discrimination is the
+ability of the eye to discriminate
+between changes in brightness at
+any specific adaptation level.
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+12
+
+Mach Band Effect
+
+• Perceived brightness is not a
+simple function of actual intensity.
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+13
+
+Simultaneous Contrast
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+14
+
+Optical Illusion
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+15
+
+Visible Band of Electromagnetic Spectrum
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+16
+
+Radiance, Luminance & Brightness
+Radiance is the total amount of energy that flows from the light source
+(Watts).
+
+Luminance (measured in lumens lm), gives a measure of the amount of
+energy an observer perceives from a light source. In case of far infrared,
+luminance is zero.
+Brightness is a subjective descriptor of light perception that is practically
+impossible to measure.
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+17
+
+Sensors
+• Sensors are used to transform illumination energy into digital images.
+• In principle, if a sensor can be developed that is capable of detecting
+energy radiated by a band of the EM spectrum, we can image events of
+interest in that band.
+• The wavelength of an EM wave required to “see” an object must be of the
+same size as or smaller than the object.
+Size of water molecule has a diameter on the order of 10-10m. To study water
+molecule, a source emitting in soft x-ray region is required.
+
+• This limitation + physical properties of the sensor material establishes
+the fundamental limits on the capability of imaging sensors, such as
+visible, infrared and other sensors in use today.
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+18
+
+Types of Sensors
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+19
+
+Image Acquisition using Single Sensor
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+20
+
+Image Acquisition using Line Sensor
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+21
+
+Image Acquisition using Array Sensor
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+22
+
+Image Model
+f(x,y) can be characterized by two components:
+1. The amount of source light incident on the scene being viewed
+Illumination component = i(x,y)
+2. Amount of light reflected by the objects in the scene
+Reflectance component = r(x,y)
+
+f ( x, y ) = i ( x, y ) r ( x, y )
+0  i ( x, y )  
+0  r ( x, y )  1
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+23
+
+Image Model
+Reflectance is bounded by 0 (total absorption) and 1 (total reflectance)
+The nature of i(x,y) is determined by the light source and r(x,y) is determined by
+the characteristics of the objects in a scene.
+i(x,y):
+Clear Day – 90,000 lm/m2
+Cloudy day – 10,000 lm/m2
+Full moon – 0.01 lm/m2
+Commercial office - 1000 lm/m2
+
+Typical values of r(x,y):
+Black Velvet - 0.01
+Stainless Steel - 0.65
+Flat-White wall paint - 0.80
+Silver plated metal - 0.90
+Snow - 0.93
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+24
+
+Gray Scale
+Intensity of monochrome image f at coordinates (x,y)
+
+Lmin  l  Lmax
+
+l = f ( x0 , y0 )
+
+Lmin = imin rmin
+
+Lmax = imax rmax
+
+The interval Lmin Lmax  is called the gray scale
+Commonly, [0, L-1] interval is used.
+0 > Black, & L-1 > White
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+25
+
+Image Sampling and Quantization
+
+Image Sampling and Quantization
+
+

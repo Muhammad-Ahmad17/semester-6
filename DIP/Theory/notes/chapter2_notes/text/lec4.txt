@@ -1,0 +1,280 @@
+Lecture - 4
+Chapter 2
+DIGITAL IMAGE FUNDAMENTALS
+
+Pixel Adjacency
+0 1 0 
+N4 = 1 1 1 
+0 1 0 
+
+• Adjacency:
+– p and q are 4-adjacent:
+
+q  N4 ( p )
+
+– p and q are 8-adjacent:
+
+q  N8 ( p )
+
+1 0 1 
+N D =  0 1 0 
+1 0 1 
+
+
+
+1 1 1
+N 8 = 1 1 1
+1 1 1
+
+
+
+– p and q are m-adjacent: q  N 4 ( p )or q  N D ( p )andN 4 ( p ) N 4 (q )= 
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+2
+
+Pixel Adjacency
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+3
+
+Distance between Pixels
+–
+–
+–
+
+Euclidean: De ( p, q ) = (x − s )2 + ( y − t )2
+D4 (City Block or Manhattan): D4 ( p, q ) = x − s + y − t
+D8 (Chessboard): D8 ( p, q ) = Max x − s , y − t 
+
+• Constant Distance Contour:
+– D4 (Left)
+– D8 (Right)
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+4
+
+Pixel Connectivity
+Connectivity forms the basis for establishing the boundaries of an objects and also components of regions
+in an image. Two pixels are connected if :
+1. if the pixels are adjacent (e.g., they are 4-neighbours)
+2. if their gray levels satisfy a specified criterion of similarity. For example, in a binary image with
+values 0 and 1, two-pixels may be 4-neighbors, but they are said to be connected only if they have
+the same value (Pixels in grayscale image will be connected if they belongs to a set V defining
+grayscale range e.g., V={50-100})
+Connected Set - S
+Two pixels are said to be connected in S (subset of pixels in an image) if there exists a path between
+them consisting entirely of pixels in S
+For any pixel p in S, the set of pixels that are connected to it in S is called a connected component of S.
+If it only has one connected component, then set S is called a connected set.
+Region - R
+R is a region of the image if R is a connected set.
+The boundary (border or contour) of a region R is the set of pixels in the region that have one or more
+neighbors that are not in R.
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+5
+
+Image
+Averaging
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+6
+
+Image Subtraction
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+7
+
+Image Subtraction
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+8
+
+Image Subtraction
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+9
+
+Shading Correction
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+10
+
+Region of Interest (RoI) Masking
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+11
+
+SET Operations
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+12
+
+SET Operations
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+13
+
+SET Operations on Grayscale Images
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+14
+
+Logical Operations
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+15
+
+Pixel Processing (Intensity Transformation)
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+16
+
+Neighborhood Processing (Local Averaging)
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+17
+
+Image
+Geometric
+Transformation
+(Affine)
+•
+
+Geometric Spatial Transform
+–
+
+General Formulation:
+
+(x, y ) = T (u,v )
+–
+
+Example (Affine Transform)
+
+ x  a b
+ y  = d e
+  
+ 1  0 0
+  
+
+c u 
+f v
+ 
+1   1 
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+18
+
+Image
+Rotation
+
+255
+
+255
+
+255
+255
+
+0
+
+255
+
+255
+
+247
+
+0
+
+168
+
+154
+
+0
+
+77
+
+45
+
+0
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+0
+
+0
+
+0
+
+19
+
+Image
+Rotation
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+20
+
+Image
+Registration
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+21
+
+Pixel Intensity Vector of Color Image
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+22
+
+Image Transformation
+
+T(u, v)
+
+f (x, y)
+Spatial
+domain
+
+Transform
+
+Operation
+R
+
+R[T(u, v)]
+
+Transform domain
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+Inverse
+transform
+
+g(x, y)
+Spatial
+domain
+
+23
+
+Sinusoidal Noise Removal (frequency domain)
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+24
+
+
