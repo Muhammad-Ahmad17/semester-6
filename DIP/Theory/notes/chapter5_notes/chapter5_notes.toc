@@ -1,0 +1,39 @@
+\contentsline {section}{\numberline {1}Introduction: Enhancement vs. Restoration}{2}{section.1}%
+\contentsline {section}{\numberline {2}Periodic Noise Reduction in Frequency Domain}{2}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Bandreject and Notch Filtering}{2}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Optimum Notch Filtering}{4}{subsection.2.2}%
+\contentsline {section}{\numberline {3}Linear, Position-Invariant Degradation Model}{5}{section.3}%
+\contentsline {section}{\numberline {4}Estimating the Degradation Function $H(u,v)$}{6}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Estimation by Observation}{6}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Estimation by Experimentation}{6}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Estimation by Modeling}{6}{subsection.4.3}%
+\contentsline {section}{\numberline {5}Inverse Filtering}{8}{section.5}%
+\contentsline {section}{\numberline {6}Minimum Mean Square Error (Wiener) Filtering}{9}{section.6}%
+\contentsline {section}{\numberline {7}Constrained Least Squares (CLS) Filtering}{11}{section.7}%
+\contentsline {section}{\numberline {8}Geometric Mean Filter}{12}{section.8}%
+\contentsline {section}{\numberline {9}Practical Restoration Workflow (Exam-Friendly)}{12}{section.9}%
+\contentsline {section}{\numberline {10}Lecture 12: Critical Slide-by-Slide Explanation}{12}{section.10}%
+\contentsline {subsection}{\numberline {10.1}Slide 1: Title Slide (Chapter 5)}{12}{subsection.10.1}%
+\contentsline {subsection}{\numberline {10.2}Slide 2: Periodic Noise Reduction Overview}{13}{subsection.10.2}%
+\contentsline {subsection}{\numberline {10.3}Slide 3: Periodic Noise Reduction (Visual Transition)}{13}{subsection.10.3}%
+\contentsline {subsection}{\numberline {10.4}Slide 4: Notch Pass vs Notch Reject Demonstration}{13}{subsection.10.4}%
+\contentsline {subsection}{\numberline {10.5}Slide 5: Repeated Notch Demonstration}{13}{subsection.10.5}%
+\contentsline {subsection}{\numberline {10.6}Slide 6: Optimum Notch Filtering (Section Start)}{13}{subsection.10.6}%
+\contentsline {subsection}{\numberline {10.7}Slide 7: Ideal vs Estimated Noise Subtraction}{13}{subsection.10.7}%
+\contentsline {subsection}{\numberline {10.8}Slide 8: Modulation Function and Local Variance Objective}{13}{subsection.10.8}%
+\contentsline {subsection}{\numberline {10.9}Slide 9: Constant-$w$ Neighborhood Assumption}{13}{subsection.10.9}%
+\contentsline {subsection}{\numberline {10.10}Slide 10: Closed-Form Optimal $w(x,y)$}{14}{subsection.10.10}%
+\contentsline {subsection}{\numberline {10.11}Slide 11: Block Diagram of Optimal Notch Filtering}{14}{subsection.10.11}%
+\contentsline {subsection}{\numberline {10.12}Slide 12: Optimum Notch Filtering Example Output}{14}{subsection.10.12}%
+\contentsline {subsection}{\numberline {10.13}Slide 13: Degradation Model and Estimation Routes}{14}{subsection.10.13}%
+\contentsline {subsection}{\numberline {10.14}Slide 14: Estimation by Image Observation}{14}{subsection.10.14}%
+\contentsline {subsection}{\numberline {10.15}Slide 15: Estimation by Experimentation}{14}{subsection.10.15}%
+\contentsline {subsection}{\numberline {10.16}Slide 16: Atmospheric Turbulence Modeling}{14}{subsection.10.16}%
+\contentsline {subsection}{\numberline {10.17}Slide 17: Motion Blur Derivation (Single-Axis Case)}{14}{subsection.10.17}%
+\contentsline {subsection}{\numberline {10.18}Slide 18: Motion Blur Derivation (General 2D Motion)}{15}{subsection.10.18}%
+\contentsline {subsection}{\numberline {10.19}Slide 19: Inverse Filtering and Its Instability}{15}{subsection.10.19}%
+\contentsline {subsection}{\numberline {10.20}Slide 20: Radius-Limited Inverse Filtering Results}{15}{subsection.10.20}%
+\contentsline {subsection}{\numberline {10.21}Slide 21: MMSE Objective (Wiener Foundation)}{15}{subsection.10.21}%
+\contentsline {subsection}{\numberline {10.22}Slide 22: Full Inverse vs Limited Inverse vs Wiener}{15}{subsection.10.22}%
+\contentsline {subsection}{\numberline {10.23}Slide 23: Wiener Under Reduced Noise Variance}{15}{subsection.10.23}%
+\contentsline {section}{\numberline {11}Quick Formula Sheet}{16}{section.11}%

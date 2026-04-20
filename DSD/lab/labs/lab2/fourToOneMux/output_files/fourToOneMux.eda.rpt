@@ -1,6 +1,6 @@
 EDA Netlist Writer report for fourToOneMux
-Sat Dec 06 02:25:18 2025
-Quartus II 64-Bit Version 13.1.0 Build 162 10/23/2013 SJ Web Edition
+Thu Mar 26 23:21:08 2026
+Quartus Prime Version 25.1std.0 Build 1129 10/21/2025 SC Lite Edition
 
 
 ---------------------
@@ -17,26 +17,27 @@ Quartus II 64-Bit Version 13.1.0 Build 162 10/23/2013 SJ Web Edition
 ----------------
 ; Legal Notice ;
 ----------------
-Copyright (C) 1991-2013 Altera Corporation
+Copyright (C) 2025  Altera Corporation. All rights reserved.
 Your use of Altera Corporation's design tools, logic functions 
-and other software and tools, and its AMPP partner logic 
+and other software and tools, and any partner logic 
 functions, and any output files from any of the foregoing 
 (including device programming or simulation files), and any 
 associated documentation or information are expressly subject 
 to the terms and conditions of the Altera Program License 
-Subscription Agreement, Altera MegaCore Function License 
-Agreement, or other applicable license agreement, including, 
-without limitation, that your use is for the sole purpose of 
-programming logic devices manufactured by Altera and sold by 
-Altera or its authorized distributors.  Please refer to the 
-applicable agreement for further details.
+Subscription Agreement, the Altera Quartus Prime License Agreement,
+the Altera IP License Agreement, or other applicable license
+agreement, including, without limitation, that your use is for
+the sole purpose of programming logic devices manufactured by
+Altera and sold by Altera or its authorized distributors.  Please
+refer to the Altera Software License Subscription Agreements 
+on the Quartus Prime software download page.
 
 
 
 +-------------------------------------------------------------------+
 ; EDA Netlist Writer Summary                                        ;
 +---------------------------+---------------------------------------+
-; EDA Netlist Writer Status ; Successful - Sat Dec 06 02:25:18 2025 ;
+; EDA Netlist Writer Status ; Successful - Thu Mar 26 23:21:08 2026 ;
 ; Revision Name             ; fourToOneMux                          ;
 ; Top-level Entity Name     ; fourToOneMux                          ;
 ; Family                    ; Cyclone IV E                          ;
@@ -49,8 +50,8 @@ applicable agreement for further details.
 +---------------------------------------------------------------------------------------------------+---------------------------+
 ; Option                                                                                            ; Setting                   ;
 +---------------------------------------------------------------------------------------------------+---------------------------+
-; Tool Name                                                                                         ; ModelSim-Altera (Verilog) ;
-; Generate netlist for functional simulation only                                                   ; On                        ;
+; Tool Name                                                                                         ; Questa Altera FPGA (VHDL) ;
+; Generate functional simulation netlist                                                            ; On                        ;
 ; Truncate long hierarchy paths                                                                     ; Off                       ;
 ; Map illegal HDL characters                                                                        ; Off                       ;
 ; Flatten buses into individual nodes                                                               ; Off                       ;
@@ -65,41 +66,43 @@ applicable agreement for further details.
 +---------------------------------------------------------------------------------------------------+---------------------------+
 
 
-+--------------------------------------------------------+
-; Simulation Generated Files                             ;
-+--------------------------------------------------------+
-; Generated Files                                        ;
-+--------------------------------------------------------+
-; E:/Ahmad/fourToOneMux/simulation/qsim//fourToOneMux.vo ;
-+--------------------------------------------------------+
++----------------------------------------------------------------------------------------------------------+
+; Simulation Generated Files                                                                               ;
++----------------------------------------------------------------------------------------------------------+
+; Generated Files                                                                                          ;
++----------------------------------------------------------------------------------------------------------+
+; /home/muhammad-ahmad/Desktop/semester-6/DSD/lab/labs/lab2/fourToOneMux/simulation/qsim//fourToOneMux.vho ;
++----------------------------------------------------------------------------------------------------------+
 
 
 +-----------------------------+
 ; EDA Netlist Writer Messages ;
 +-----------------------------+
 Info: *******************************************************************
-Info: Running Quartus II 64-Bit EDA Netlist Writer
-    Info: Version 13.1.0 Build 162 10/23/2013 SJ Web Edition
-    Info: Copyright (C) 1991-2013 Altera Corporation. All rights reserved.
+Info: Running Quartus Prime EDA Netlist Writer
+    Info: Version 25.1std.0 Build 1129 10/21/2025 SC Lite Edition
+    Info: Copyright (C) 2025  Altera Corporation. All rights reserved.
     Info: Your use of Altera Corporation's design tools, logic functions 
-    Info: and other software and tools, and its AMPP partner logic 
+    Info: and other software and tools, and any partner logic 
     Info: functions, and any output files from any of the foregoing 
     Info: (including device programming or simulation files), and any 
     Info: associated documentation or information are expressly subject 
     Info: to the terms and conditions of the Altera Program License 
-    Info: Subscription Agreement, Altera MegaCore Function License 
-    Info: Agreement, or other applicable license agreement, including, 
-    Info: without limitation, that your use is for the sole purpose of 
-    Info: programming logic devices manufactured by Altera and sold by 
-    Info: Altera or its authorized distributors.  Please refer to the 
-    Info: applicable agreement for further details.
-    Info: Processing started: Sat Dec 06 02:25:17 2025
-Info: Command: quartus_eda --functional=on --flatten_buses=off --simulation=on --tool=modelsim_oem --format=verilog --output_directory=E:/Ahmad/fourToOneMux/simulation/qsim/ fourToOneMux -c fourToOneMux
-Info (204019): Generated file fourToOneMux.vo in folder "E:/Ahmad/fourToOneMux/simulation/qsim//" for EDA simulation tool
-Info: Quartus II 64-Bit EDA Netlist Writer was successful. 0 errors, 0 warnings
-    Info: Peak virtual memory: 4551 megabytes
-    Info: Processing ended: Sat Dec 06 02:25:18 2025
-    Info: Elapsed time: 00:00:01
-    Info: Total CPU time (on all processors): 00:00:01
+    Info: Subscription Agreement, the Altera Quartus Prime License Agreement,
+    Info: the Altera IP License Agreement, or other applicable license
+    Info: agreement, including, without limitation, that your use is for
+    Info: the sole purpose of programming logic devices manufactured by
+    Info: Altera and sold by Altera or its authorized distributors.  Please
+    Info: refer to the Altera Software License Subscription Agreements 
+    Info: on the Quartus Prime software download page.
+    Info: Processing started: Thu Mar 26 23:21:08 2026
+Info: Command: quartus_eda --write_settings_files=off --simulation=on --functional=on --flatten_buses=off --tool=modelsim_oem --format=vhdl --output_directory=/home/muhammad-ahmad/Desktop/semester-6/DSD/lab/labs/lab2/fourToOneMux/simulation/qsim/ fourToOneMux -c fourToOneMux
+Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
+Info (204019): Generated file fourToOneMux.vho in folder "/home/muhammad-ahmad/Desktop/semester-6/DSD/lab/labs/lab2/fourToOneMux/simulation/qsim//" for EDA simulation tool
+Info: Quartus Prime EDA Netlist Writer was successful. 0 errors, 1 warning
+    Info: Peak virtual memory: 594 megabytes
+    Info: Processing ended: Thu Mar 26 23:21:08 2026
+    Info: Elapsed time: 00:00:00
+    Info: Total CPU time (on all processors): 00:00:00
 
 

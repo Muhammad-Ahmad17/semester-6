@@ -2,7 +2,7 @@
 ignition => andGate:U2.a
 door => orGate:U1.b
 sbelt => notGate:U0.a
-warning <= andGate:U2.x
+warning << andGate:U2.x
 
 
 |warningAlaram|notGate:U0

@@ -1,0 +1,25 @@
+{
+	"partitions" : [
+		{
+			"name" : "Top",
+			"pins" : [
+				{
+					"name" : "warning",
+					"strict" : false
+				},
+				{
+					"name" : "ignition",
+					"strict" : false
+				},
+				{
+					"name" : "door",
+					"strict" : false
+				},
+				{
+					"name" : "sbelt",
+					"strict" : false
+				}
+			]
+		}
+	]
+}

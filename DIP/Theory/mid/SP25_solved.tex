@@ -1,0 +1,296 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage{setspace}
+
+\onehalfspacing
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{CPE 415 -- Digital Image Processing}
+\fancyhead[R]{Mid Term SP25 -- Solutions}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.5pt}
+
+\title{\textbf{Mid Term Examination -- Spring 2025} \\ \textbf{Complete Solutions}}
+\author{CPE 415: Digital Image Processing \\ Instructor: Mr. Moazzam Ali}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section*{Solution to Question 1}
+
+\subsection*{Part (a): Transformation Application}
+
+First, construct the transformation lookup table by evaluating $T(r)$ for each 4-bit intensity value:
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{Input } $r$ & \textbf{Condition} & \textbf{Computation} & \textbf{Output } $T(r)$ \\
+\hline
+0 & $r < 3$ & $T(0) = 0$ & 0 \\
+1 & $r < 3$ & $T(1) = 0$ & 0 \\
+2 & $r < 3$ & $T(2) = 0$ & 0 \\
+3 & $3 \le r \le 7$ & $T(3) = 2(3 - 3) = 0$ & 0 \\
+4 & $3 \le r \le 7$ & $T(4) = 2(4 - 3) = 2$ & 2 \\
+5 & $3 \le r \le 7$ & $T(5) = 2(5 - 3) = 4$ & 4 \\
+6 & $3 \le r \le 7$ & $T(6) = 2(6 - 3) = 6$ & 6 \\
+7 & $3 \le r \le 7$ & $T(7) = 2(7 - 3) = 8$ & 8 \\
+$\ge 8$ & $r > 7$ & $T(r) = 15$ & 15 \\
+\hline
+\end{tabular}
+\end{center}
+
+Applying the lookup table to each pixel in the original image matrix:
+
+\begin{equation*}
+T'(I) = \begin{pmatrix}
+0 & 0 & 0 & 6 & 15 & 2 & 0 & 0 & 0 & 0 \\
+0 & 2 & 6 & 15 & 15 & 15 & 2 & 0 & 0 & 0 \\
+6 & 15 & 15 & 15 & 15 & 15 & 15 & 2 & 0 & 0 \\
+2 & 6 & 15 & 15 & 15 & 15 & 6 & 0 & 0 & 0 \\
+0 & 2 & 6 & 15 & 15 & 15 & 2 & 0 & 0 & 0 \\
+0 & 0 & 2 & 15 & 15 & 6 & 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 6 & 15 & 2 & 0 & 0 & 0 & 0
+\end{pmatrix}
+\end{equation*}
+
+\subsection*{Part (b): Histogram Comparison and Analysis}
+
+The frequency distribution of the original and transformed images is as follows:
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{Intensity} & \textbf{Count (Before)} & \textbf{Intensity} & \textbf{Count (After)} \\
+\hline
+0 & 25 & 0 & 33 \\
+2 & 8 & 2 & 9 \\
+4 & 9 & 6 & 8 \\
+6 & 8 & 15 & 20 \\
+8 & 8 & -- & -- \\
+15 & 12 & -- & -- \\
+\hline
+\end{tabular}
+\end{center}
+
+\textbf{Effect Analysis:}
+
+The transformation produces significant changes in the image histogram. The intensity values below 3 are compressed into 0, resulting in an increase of dark pixels from 25 to 33. The middle-range values (4--7) are linearly stretched to 2--8, maintaining relative proportions. Most significantly, all intensities 8 and above are mapped to 15, creating a substantial accumulation of bright pixels that increases from 12 to 20.
+
+The overall effect enhances global contrast by polarizing the image: darker regions become uniformly darker, while brighter regions become uniformly brighter. This transformation sacrifices mid-level detail preservation in favor of global contrast improvement.
+
+\vspace{1.0cm}
+\section*{Solution to Question 2}
+
+\subsection*{Part (a): Histogram Equalization}
+
+The histogram equalization transformation is computed using:
+\begin{equation*}
+s_k = \text{round}\left[\frac{L - 1}{MN} \sum_{j=0}^{k} n_j\right]
+\end{equation*}
+
+where $L = 8$ (for a 3-bit image), $L - 1 = 7$, and $MN = 1000$.
+
+The cumulative distribution function and equalization mapping:
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+$k$ & $n_k$ & $\sum_{j=0}^k n_j$ & $7 \times \text{CDF}/1000$ & $s_k$ & Mapping \\
+\hline
+0 & 50 & 50 & 0.368 & 0 & $0 \to 0$ \\
+1 & 100 & 150 & 1.105 & 1 & $1 \to 1$ \\
+2 & 100 & 250 & 1.842 & 2 & $2 \to 2$ \\
+3 & 150 & 400 & 2.947 & 3 & $3 \to 3$ \\
+4 & 300 & 700 & 5.158 & 5 & $4 \to 5$ \\
+5 & 150 & 850 & 6.263 & 6 & $5 \to 6$ \\
+6 & 100 & 950 & 7.000 & 7 & $6 \to 7$ \\
+7 & 0 & 950 & 7.000 & 7 & $7 \to 7$ \\
+\hline
+\end{tabular}
+\end{center}
+
+The equalized histogram contains the following distribution:
+
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+\textbf{Equalized Level } $s_k$ & \textbf{Source Intensity} & \textbf{Pixel Count} \\
+\hline
+0 & 0 & 50 \\
+1 & 1 & 100 \\
+2 & 2 & 100 \\
+3 & 3 & 150 \\
+4 & -- & 0 \\
+5 & 4 & 300 \\
+6 & 5 & 150 \\
+7 & 6, 7 & 100 \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection*{Part (b): Visual Change Analysis}
+
+Prior to equalization, the histogram exhibits significant concentration at intensity level 4, which accounts for approximately 31.6\% of all pixels. The image consequently displays predominantly mid-grey tones with limited contrast separation between regions.
+
+Following equalization, the concentrated pixel mass at intensity 4 is remapped to level 5 and distributed across a wider range. Darker intensity values (0--3) maintain similar levels, while brighter values are stretched toward level 7. This redistribution enhances perceived image contrast and reveals previously obscured detail in the concentrated mid-range, while simultaneously increasing overall image brightness.
+
+\subsection*{Part (c): Histogram Uniformity}
+
+\textbf{Answer:} The resulting histogram will not be completely uniform.
+
+\textbf{Justification:} Histogram equalization produces a perfectly uniform distribution only for continuous-valued images. For discrete images, the cumulative distribution function exhibits a staircase structure, and rounding to integer intensity levels causes multiple source levels to map to the same output level. Consequently, certain intensity levels receive zero pixels (as exemplified by level 4 in this case), while others receive multiple pixels. This inherent limitation of discrete quantization prevents the achievement of perfect histogram uniformity.
+
+\vspace{1.0cm}
+\section*{Solution to Question 3}
+
+\subsection*{Part (a): Laplacian Convolution}
+
+The Laplacian convolution formula for interior pixels is:
+\begin{equation*}
+L(r,c) = -\Pi(r-1,c) - \Pi(r+1,c) - \Pi(r,c-1) - \Pi(r,c+1) + 4\Pi(r,c)
+\end{equation*}
+
+Computing the response at each interior position (valid convolution):
+
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline
+\textbf{Position} & \textbf{Laplacian Response} \\
+\hline
+(2,2) & $L(2,2) = 4(14) - 12 - 15 - 12 - 16 = 1$ \\
+(2,3) & $L(2,3) = 4(16) - 13 - 18 - 14 - 17 = 2$ \\
+(2,4) & $L(2,4) = 4(17) - 15 - 19 - 16 - 15 = 3$ \\
+(3,2) & $L(3,2) = 4(15) - 14 - 16 - 13 - 18 = -1$ \\
+(3,3) & $L(3,3) = 4(18) - 16 - 18 - 15 - 19 = 4$ \\
+(3,4) & $L(3,4) = 4(19) - 17 - 20 - 18 - 16 = 5$ \\
+(4,2) & $L(4,2) = 4(16) - 15 - 14 - 14 - 18 = 3$ \\
+(4,3) & $L(4,3) = 4(18) - 18 - 15 - 16 - 20 = 3$ \\
+(4,4) & $L(4,4) = 4(20) - 19 - 17 - 18 - 17 = 9$ \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection*{Part (b): Sharpened Image}
+
+The sharpening formula combines the original image with its Laplacian response:
+\begin{equation*}
+g(r,c) = \Pi(r,c) + L(r,c)
+\end{equation*}
+
+The sharpened image is:
+
+\begin{equation*}
+g = \begin{pmatrix}
+12 & 12 & 13 & 15 & 14 \\
+12 & 15 & 18 & 20 & 15 \\
+13 & 14 & 22 & 24 & 16 \\
+14 & 19 & 21 & 29 & 17 \\
+13 & 14 & 15 & 17 & 16
+\end{pmatrix}
+\end{equation*}
+
+\subsection*{Part (c): Analysis of High-Frequency Effects}
+
+The Laplacian operator functions as a high-pass filter, detecting second-order intensity variations corresponding to edges and sharp transitions. In regions of gradual intensity change, the Laplacian response approaches zero, causing minimal modification. Conversely, at boundaries and edges exhibiting rapid intensity changes, the Laplacian response becomes substantial.
+
+The maximum response occurs at position (4,4) with $L = 9$, indicating the strongest gradient region. This location exhibits the most pronounced sharpening effect, increasing from 20 to 29. In contrast, smooth regions such as position (3,2) with $L = -1$ experience slight reduction, consistent with the concave curvature of the local intensity profile.
+
+The sharpening operation emphasizes high-frequency components, enhancing edge definition and visual acuity. However, this amplification affects all high-frequency content including noise, necessitating judicious application or preceding noise reduction in practical applications.
+
+\vspace{1.0cm}
+\section*{Solution to Question 4}
+
+\subsection*{Part (a): Justification for Fourier Transform}
+
+The Convolution Theorem establishes the fundamental principle:
+\begin{equation*}
+g(x,y) = f(x,y) \star h(x,y) \quad \Leftrightarrow \quad G(u,v) = F(u,v) \cdot H(u,v)
+\end{equation*}
+
+This relationship transforms computationally expensive spatial-domain convolution into simple pointwise multiplication in the frequency domain. For large kernels, the frequency-domain approach reduces computational complexity from $O(M \cdot N \cdot K^2)$ to $O(MN \log(MN))$ via the Fast Fourier Transform, delivering significant efficiency gains.
+
+Furthermore, frequency-domain representation provides intuitive frequency control, directly revealing present frequency components. Certain filter designs, such as idealized sharp low-pass filtering, remain impractical as finite spatial kernels but are trivially defined in the frequency domain.
+
+\subsection*{Part (b): Low-Pass vs High-Pass Filters}
+
+\begin{center}
+\begin{tabular}{|l|c|c|}
+\hline
+\textbf{Characteristic} & \textbf{Low-Pass Filter} & \textbf{High-Pass Filter} \\
+\hline
+Action & Passes low frequencies & Passes high frequencies \\
+Attenuates & High frequencies & Low frequencies \\
+Spatial Effect & Blurring, smoothing & Sharpening, edge enhancement \\
+Application & Noise reduction & Edge detection \\
+Example & Gaussian LPF & Laplacian HPF \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection*{Part (c): Frequency vs Spatial Domain Comparison}
+
+\begin{center}
+\begin{tabular}{|p{4cm}|p{4cm}|p{4cm}|}
+\hline
+\textbf{Criterion} & \textbf{Frequency Domain} & \textbf{Spatial Domain} \\
+\hline
+\textbf{Advantages} &
+  \begin{itemize}
+  \item Efficient for large kernels
+  \item Precise frequency control
+  \item Ideal filters realizable
+  \end{itemize}
+&
+  \begin{itemize}
+  \item Simple implementation
+  \item No boundary artifacts
+  \item Intuitive interpretation
+  \end{itemize} \\
+\hline
+\textbf{Disadvantages} &
+  \begin{itemize}
+  \item Requires DFT overhead
+  \item Ringing artifacts
+  \item Circular convolution issues
+  \end{itemize}
+&
+  \begin{itemize}
+  \item Computationally slow for large kernels
+  \item Ideal filters unrealizable
+  \item No frequency insight
+  \end{itemize} \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection*{Part (d): Application Scenarios}
+
+Frequency domain filtering demonstrates superiority in several specific scenarios:
+
+\begin{enumerate}
+\item \textbf{Periodic Noise Removal:} Images contaminated with periodic patterns (such as scan-line interference) exhibit distinct peaks in the frequency spectrum. Notch filters applied directly in the DFT domain provide clean suppression impossible to achieve through spatial-domain methods.
+
+\item \textbf{Large-Kernel Gaussian Blurring:} When substantial blur parameters are required (e.g., $\sigma = 30$ pixels), spatial kernels become prohibitively large (approximately 180 pixels). FFT-based multiplication offers dramatic computational advantages.
+
+\item \textbf{Bandpass and Bandreject Filtering:} Selective retention or suppression of specific frequency ranges is straightforward to implement and control in the frequency domain, whereas spatial-domain equivalents are complex and difficult to specify precisely.
+
+\item \textbf{Image Restoration:} Wiener filtering for deblurring and restoration of images degraded by known degradation functions is naturally formulated and efficiently implemented in the frequency domain through application of the inverse transfer function.
+\end{enumerate}
+
+\vspace{2.0cm}
+\noindent\rule{\textwidth}{0.5pt}
+\begin{center}
+\textit{End of Solutions}
+\end{center}
+
+\end{document}

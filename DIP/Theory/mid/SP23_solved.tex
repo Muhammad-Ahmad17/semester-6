@@ -1,0 +1,202 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage{setspace}
+
+\onehalfspacing
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{CPE 415 -- Digital Image Processing}
+\fancyhead[R]{Mid Term SP23 -- Solutions}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.5pt}
+
+\title{\textbf{Mid Term Examination -- Spring 2023} \\ \textbf{Complete Solutions}}
+\author{CPE 415: Digital Image Processing \\ Instructor: Dr. Ikramullah Khosa}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section*{Solution to Question 1}
+
+\subsection*{Part A: Linear Interpolation}
+
+Linear interpolation computes values between existing data points using the formula:
+\begin{equation*}
+f(x_0 + \Delta x) = f(x_0) + \Delta x \cdot [f(x_0 + 1) - f(x_0)]
+\end{equation*}
+
+For interpolation at $\frac{1}{4}$ pixel, $\Delta x = \frac{1}{4}$.
+
+Between pixels 3 and 10 (at position $0.25$):
+\begin{align*}
+f(0.25) &= 3 + \frac{1}{4}(10 - 3) \\
+&= 3 + 1.75 = 4.75 \\
+&\approx 5 \text{ (rounded)}
+\end{align*}
+
+Between pixels 10 and 2 (at position $1.25$):
+\begin{align*}
+f(1.25) &= 10 + \frac{1}{4}(2 - 10) \\
+&= 10 - 2 = 8 \\
+&\approx 8
+\end{align*}
+
+\textbf{Result:} The interpolated values at quarter-pixel intervals are 5 and 8.
+
+\subsection*{Part B: CCD Chip Resolution}
+
+The resolving power of a camera depends on the spatial frequency capabilities determined by the imaging geometry.
+
+Given parameters:
+\begin{itemize}
+\item CCD chip dimensions: $14 \times 14$ mm
+\item CCD resolution: $2048 \times 2048$ pixels
+\item Pixel pitch: $\frac{14 \text{ mm}}{2048} = 0.00684$ mm/pixel
+\item Object distance: 0.5 m
+\item Focal length: 35 mm
+\end{itemize}
+
+The magnification is:
+\begin{equation*}
+M = \frac{f}{s_o - f} = \frac{35 \text{ mm}}{500 \text{ mm} - 35 \text{ mm}} \approx 0.0757
+\end{equation*}
+
+The effective spatial sampling at the object plane:
+\begin{equation*}
+\text{Pixel size at object} = \frac{0.00684 \text{ mm}}{0.0757} \approx 0.0904 \text{ mm}
+\end{equation*}
+
+The maximum resolvable frequency (line pairs per mm):
+\begin{equation*}
+\text{Resolution} = \frac{1}{2 \times 0.0904} \approx 5.53 \text{ line pairs/mm}
+\end{equation*}
+
+\textbf{Answer:} The camera can resolve approximately 5.5 line pairs per mm.
+
+\vspace{1.0cm}
+\section*{Solution to Question 2}
+
+\subsection*{Part A: First and Second Derivatives}
+
+The first and second derivatives are computed using finite difference approximations:
+
+First derivative (forward difference):
+\begin{equation*}
+\frac{\partial f}{\partial x}\bigg|_{x_i} \approx f(x_{i+1}) - f(x_i)
+\end{equation*}
+
+Second derivative (central difference):
+\begin{equation*}
+\frac{\partial^2 f}{\partial x^2}\bigg|_{x_i} \approx f(x_{i+1}) - 2f(x_i) + f(x_{i-1})
+\end{equation*}
+
+Given sequence: 4, 5, 6, 7, 7, 0, 6, 5, 1, 1
+
+First derivative:
+\begin{equation*}
+\text{First} = [1, 1, 1, 0, -7, 6, -1, -4, 0]
+\end{equation*}
+
+Second derivative:
+\begin{equation*}
+\text{Second} = [0, 0, -1, -7, 13, -7, -3, 4]
+\end{equation*}
+
+\subsection*{Part B: Histogram Equalization}
+
+The histogram equalization transformation is:
+\begin{equation*}
+s_k = \text{round}\left[(L-1) \sum_{j=0}^{k} p_r(r_j)\right]
+\end{equation*}
+
+where $L = 8$ (for 3-bit images).
+
+Computing the cumulative probabilities and transformations:
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+$r_k$ & $p_r(r_k)$ & $\sum p_r$ & $7 \times \sum p_r$ & $s_k$ & Mapping \\
+\hline
+0 & 0.19 & 0.19 & 1.33 & 1 & $0 \to 1$ \\
+1 & 0.25 & 0.44 & 3.08 & 3 & $1 \to 3$ \\
+2 & 0.21 & 0.65 & 4.55 & 5 & $2 \to 5$ \\
+3 & 0.16 & 0.81 & 5.67 & 6 & $3 \to 6$ \\
+4 & 0.08 & 0.89 & 6.23 & 6 & $4 \to 6$ \\
+5 & 0.06 & 0.95 & 6.65 & 7 & $5 \to 7$ \\
+6 & 0.03 & 0.98 & 6.86 & 7 & $6 \to 7$ \\
+7 & 0.02 & 1.00 & 7.00 & 7 & $7 \to 7$ \\
+\hline
+\end{tabular}
+\end{center}
+
+The equalized histogram is:
+
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+\textbf{Equalized Level} & \textbf{Source Levels} & \textbf{Probability} \\
+\hline
+0 & -- & 0.00 \\
+1 & 0 & 0.19 \\
+2 & -- & 0.00 \\
+3 & 1 & 0.25 \\
+4 & -- & 0.00 \\
+5 & 2 & 0.21 \\
+6 & 3, 4 & 0.24 \\
+7 & 5, 6, 7 & 0.11 \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection*{Part C: Laplacian and Unsharp Masking Equivalence}
+
+The Laplacian operator is defined as:
+\begin{equation*}
+\nabla^2 f = \frac{\partial^2 f}{\partial x^2} + \frac{\partial^2 f}{\partial y^2}
+\end{equation*}
+
+For a slowly varying smooth image, the Laplacian represents the difference between a pixel and its local average. Consequently:
+\begin{equation*}
+f(x, y) - \nabla^2 f(x, y) \approx f(x, y) - [f(x, y) - \bar{f}(x, y)] = \bar{f}(x, y)
+\end{equation*}
+
+Therefore:
+\begin{equation*}
+f(x, y) - \nabla^2 f(x, y) \sim f(x, y) - \bar{f}(x, y)
+\end{equation*}
+
+This equivalence demonstrates that subtracting the Laplacian performs the same enhancement operation as unsharp masking, which subtracts a blurred version from the original image.
+
+\subsection*{Part D: Nyquist Sampling Rate for Checkerboard}
+
+For a checkerboard pattern with square dimensions of $0.5 \times 0.5$ mm, each square represents one complete cycle of the spatial pattern.
+
+The fundamental frequency of the checkerboard pattern:
+\begin{equation*}
+f_{\max} = \frac{1}{0.5 \text{ mm}} = 2 \text{ cycles/mm}
+\end{equation*}
+
+By the Nyquist sampling theorem, the minimum sampling rate must be at least twice the maximum frequency:
+\begin{equation*}
+f_s \ge 2 \times f_{\max} = 2 \times 2 = 4 \text{ samples/mm}
+\end{equation*}
+
+\textbf{Answer:} The minimum sampling rate required is 4 samples per mm.
+
+\vspace{2.0cm}
+\noindent\rule{\textwidth}{0.5pt}
+\begin{center}
+\textit{End of Solutions}
+\end{center}
+
+\end{document}

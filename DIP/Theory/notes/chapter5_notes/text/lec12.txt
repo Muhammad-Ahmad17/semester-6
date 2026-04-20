@@ -1,0 +1,364 @@
+Lecture - 12
+Chapter 5
+IMAGE RESTORATION
+AND
+RECONSTRUCTION
+
+Periodic Noise Reduction by Frequency
+Domain Filtering
+• Bandreject, bandpass, and notch filters as tools for periodic noise reduction
+
+• Bandreject filters remove or attenuate a band of frequencies about the
+origin of the Fourier transform. Similar to those LPFs and HPFs studied, we
+can construct ideal, Butterworth, and Gaussian bandreject filters
+• Notch filters that pass, rather than suppress: H np (u, v) = 1 − H nr (u , v)
+• NR filters become highpass filters if u0 = v0 = 0
+• NP filters become lowpass filters if u0 = v0 = 0
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+2
+
+Periodic Noise Reduction by Frequency
+Domain Filtering
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+3
+
+Periodic Noise Reduction by Frequency
+Domain Filtering
+Notch Pass
+Filtering
+
+Notch Reject
+Filter
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+Notch Reject
+Filtering
+
+4
+
+Periodic Noise Reduction by Frequency
+Domain Filtering
+Notch Pass
+Filtering
+
+Notch Reject
+Filter
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+Notch Reject
+Filtering
+
+5
+
+Optimum Notch Filtering
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+6
+
+Optimum Notch Filtering
+• In the ideal case, the original image can be restored if the
+noise can be estimated completely.
+• That is:
+
+f ( x, y ) = g ( x, y ) −  ( x , y )
+
+• However, the noise can be only partially estimated. This
+means the restored image is not exact.
+• Which means
+
+fˆ ( x, y ) = g ( x, y ) − ˆ ( x, y )
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+7
+
+Optimum Notch Filtering
+• In this section, we try to improve the restored image by introducing a
+modulation function
+
+fˆ ( x, y ) = g ( x, y ) − w( x, y )ˆ ( x, y )
+
+• Here the modulation function is a constant within a neighborhood of size (2a+1) by
+(2b+1) about a point (x,y)
+• We optimize its performance by minimizing the local variance of the restored image at
+the position (x,y)
+2
+a
+b
+1
+ fˆ ( x + s, y + t ) − fˆ ( x, y )
+ 2 ( x, y ) =
+
+
+(2a + 1)( 2b + 1) s = − at =−b 
+a
+b
+1
+fˆ ( x, y ) =
+fˆ ( x + s, y + t )
+
+
+(2a + 1)( 2b + 1) s = − at = −b
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+8
+
+Optimum Notch Filtering
+a
+b
+1
+ ( x, y ) =
+{[ g ( x + s, y + t )
+
+
+(2a + 1)( 2b + 1) s = − at = − b
+− w( x + s, y + t )ˆ ( x + s, y + t )]
+2
+
+− [ g ( x, y ) − w( x, y )ˆ ( x, y ]}2
+Assumption: w( x + s, y + t ) = w( x, y ) for − a  s  a and − b  t  b
+
+ w( x, y )ˆ ( x, y ) = w( x, y )ˆ ( x, y )
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+9
+
+Optimum Notch Filtering
+b
+1
+a
+ ( x, y ) =
+{[ g ( x + s, y + t )
+
+s =− a 
+(2a + 1)( 2b + 1)
+t =−b
+− w( x + s, y + t )ˆ ( x + s, y + t )]
+2
+
+− [ g ( x, y ) − w( x, y )ˆ ( x, y )}2
+To minimize  2 ( x, y)
+
+ 2 ( x, y)
+=0
+w( x, y)
+ w( x, y) =
+
+g ( x, y)ˆ ( x, y) − g ( x, y)ˆ ( x, y)
+
+ˆ 2 ( x, y) −ˆ 2 ( x, y)
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+10
+
+Optimum Notch Filtering
+
+g ( x, y )
+
+ˆ( x, y)
+
+w( x , y )
+
+fˆ ( x, y ) = g ( x, y ) − w( x, y )ˆ ( x, y )
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+11
+
+Optimum Notch Filtering
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+12
+
+Estimating the Image Degradation Function
+• Degradation Model (with noise)
+g ( x, y ) = H [ f ( x, y )] +  ( x, y )
+
+• Principal way to estimate the degradation function for use in image restoration:
+▪ Observation
+▪ Experimentation
+▪ Mathematical modeling
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+13
+
+Estimating by Image Observation
+• We look for a small section of the image that has strong signal
+content ( g s ( x, y ) ) and then construct an un-degradation of this
+section by using sample gray levels ( fˆs ( x, y) ).
+Gs (u, v)
+H s (u, v) =
+Fˆs (u, v)
+
+• Now, we construct a function H (u, v) on a large scale, but having
+the same shape.
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+14
+
+Estimating by Experimentation
+• We try to obtain impulse response of the degradation by imaging
+an impulse (small dot of light) using the system. Therefore
+G (u, v)
+H (u, v) =
+A
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+15
+
+Estimating by Modeling
+• Atmospheric turbulence model: H (u, v) = e
+
+− k ( u 2 + v 2 )5 / 6
+
+Severe
+turbulence
+k=0.0025
+
+Negligible
+turbulence
+
+Mild
+turbulence
+k=0.001
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+Low
+turbulence
+k=0.00025
+
+16
+
+Estimating by Modeling
+Blurring by linear motion:
+T
+
+g ( x, y) =  f [ x − x0 (t ), y − y0 (t )]dt
+0
+
+T
+
+G(u, v) = F (u, v)  e − j 2 [ux0 (t )+vy0 (t )]dt
+0
+T
+
+ H (u, v) =  e − j 2 [ux0 (t )+vy0 (t )]dt
+0
+
+T
+
+if x0 (t ) = at / T and y0 (t ) = 0  H (u, v) =  e −2uat / T dt
+0
+
+=
+
+T
+sin(  ua)e − j ua
+ ua
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+17
+
+Estimating by Modeling
+if x0 (t ) = at / T and y0 (t ) = bt / T 
+T
+H (u, v) =
+sin[  (ua + vb)]e − j (ua+vb )
+ (ua + vb)
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+18
+
+Inverse Filtering
+• The simplest approach to restoration is direct inverse filtering:
+G(u, v)
+ˆ
+F (u, v) =
+H (u, v)
+
+Even if we know the degradation
+function, we cannot recover the
+un-degraded image
+
+N (u, v)
+ˆ
+F (u, v) = F (u, v) +
+H (u, v)
+If the degradation has zero or very small values, then the ratio
+N/H could easily dominate our estimation of F .
+
+One approach to get around the zero or small-value problem
+is to limit the filter frequencies to value near the origin.
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+19
+
+Inverse Filtering
+
+40
+
+Degraded
+Image
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+70
+
+85
+
+20
+
+Minimum Mean Square Error Filtering
+(Wiener Filtering)
+This approach incorporate both the degradation function and
+statistical characteristic of noise into the restoration process.
+e 2 = E[( f − fˆ ) 2 ]
+
+The objective is to find an estimation for f such that minimized
+e2
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+21
+
+Wiener Filtering
+Full inverse
+filtering
+
+Radially limited
+inverse filtering
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+Wiener filtering
+
+22
+
+Wiener Filtering
+
+Inverse filtering
+
+Wiener filtering
+
+Reduced
+noise
+variance
+
+CPE415 Digital Image Processing | Dr. Ikramullah Khosa
+
+23
+
+

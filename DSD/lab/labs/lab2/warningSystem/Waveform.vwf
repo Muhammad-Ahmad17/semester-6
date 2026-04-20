@@ -1,3 +1,46 @@
+/*<simulation_settings>
+<ftestbench_cmd>quartus_eda --gen_testbench --tool=modelsim_oem --format=vhdl --write_settings_files=off warningAlaram -c warningAlaram --vector_source="/home/muhammad-ahmad/Desktop/semester-6/DSD/lab/labs/lab2/warningSystem/Waveform2.vwf" --testbench_file="/home/muhammad-ahmad/Desktop/semester-6/DSD/lab/labs/lab2/warningSystem/simulation/qsim/Waveform2.vwf.vht"</ftestbench_cmd>
+<ttestbench_cmd>quartus_eda --gen_testbench --tool=modelsim_oem --format=vhdl --write_settings_files=off warningAlaram -c warningAlaram --vector_source="/home/muhammad-ahmad/Desktop/semester-6/DSD/lab/labs/lab2/warningSystem/Waveform2.vwf" --testbench_file="/home/muhammad-ahmad/Desktop/semester-6/DSD/lab/labs/lab2/warningSystem/simulation/qsim/Waveform2.vwf.vht"</ttestbench_cmd>
+<fnetlist_cmd>quartus_eda --write_settings_files=off --simulation --functional=on --flatten_buses=off --tool=modelsim_oem --format=vhdl --output_directory="/home/muhammad-ahmad/Desktop/semester-6/DSD/lab/labs/lab2/warningSystem/simulation/qsim/" warningAlaram -c warningAlaram</fnetlist_cmd>
+<tnetlist_cmd>quartus_eda --write_settings_files=off --simulation --functional=off --flatten_buses=off --timescale=1ps --tool=modelsim_oem --format=vhdl --output_directory="/home/muhammad-ahmad/Desktop/semester-6/DSD/lab/labs/lab2/warningSystem/simulation/qsim/" warningAlaram -c warningAlaram</tnetlist_cmd>
+<modelsim_script>onerror {exit -code 1}
+vlib work
+vcom -work work warningAlaram.vho
+vcom -work work Waveform2.vwf.vht
+vsim -novopt -c -t 1ps -L cycloneive -L altera -L altera_mf -L 220model -L sgate -L altera_lnsim work.warningAlaram_vhd_vec_tst
+vcd file -direction warningAlaram.msim.vcd
+vcd add -internal warningAlaram_vhd_vec_tst/*
+vcd add -internal warningAlaram_vhd_vec_tst/i1/*
+proc simTimestamp {} {
+    echo "Simulation time: $::now ps"
+    if { [string equal running [runStatus]] } {
+        after 2500 simTimestamp
+    }
+}
+after 2500 simTimestamp
+run -all
+quit -f
+</modelsim_script>
+<modelsim_script_timing>onerror {exit -code 1}
+vlib work
+vcom -work work warningAlaram.vho
+vcom -work work Waveform2.vwf.vht
+vsim -novopt -c -t 1ps -sdfmax warningAlaram_vhd_vec_tst/i1=warningAlaram_vhd.sdo -L cycloneive -L altera -L altera_mf -L 220model -L sgate -L altera_lnsim work.warningAlaram_vhd_vec_tst
+vcd file -direction warningAlaram.msim.vcd
+vcd add -internal warningAlaram_vhd_vec_tst/*
+vcd add -internal warningAlaram_vhd_vec_tst/i1/*
+proc simTimestamp {} {
+    echo "Simulation time: $::now ps"
+    if { [string equal running [runStatus]] } {
+        after 2500 simTimestamp
+    }
+}
+after 2500 simTimestamp
+run -all
+quit -f
+</modelsim_script_timing>
+<hdl_lang>vhdl</hdl_lang>
+</simulation_settings>*/
 /*
 WARNING: Do NOT edit the input and output ports in this file in a text
 editor if you plan to continue editing the block that represents it in
@@ -5,19 +48,20 @@ the Block Editor! File corruption is VERY likely to occur.
 */
 
 /*
-Copyright (C) 1991-2013 Altera Corporation
+Copyright (C) 2025  Altera Corporation. All rights reserved.
 Your use of Altera Corporation's design tools, logic functions 
-and other software and tools, and its AMPP partner logic 
+and other software and tools, and any partner logic 
 functions, and any output files from any of the foregoing 
 (including device programming or simulation files), and any 
 associated documentation or information are expressly subject 
 to the terms and conditions of the Altera Program License 
-Subscription Agreement, Altera MegaCore Function License 
-Agreement, or other applicable license agreement, including, 
-without limitation, that your use is for the sole purpose of 
-programming logic devices manufactured by Altera and sold by 
-Altera or its authorized distributors.  Please refer to the 
-applicable agreement for further details.
+Subscription Agreement, the Altera Quartus Prime License Agreement,
+the Altera IP License Agreement, or other applicable license
+agreement, including, without limitation, that your use is for
+the sole purpose of programming logic devices manufactured by
+Altera and sold by Altera or its authorized distributors.  Please
+refer to the Altera Software License Subscription Agreements 
+on the Quartus Prime software download page.
 */
 
 HEADER
@@ -77,12 +121,7 @@ TRANSITION_LIST("door")
 	NODE
 	{
 		REPEAT = 1;
-		NODE
-		{
-			REPEAT = 8;
-			LEVEL 0 FOR 62.5;
-			LEVEL 1 FOR 62.5;
-		}
+		LEVEL 0 FOR 1000.0;
 	}
 }
 
@@ -91,12 +130,7 @@ TRANSITION_LIST("ignition")
 	NODE
 	{
 		REPEAT = 1;
-		NODE
-		{
-			REPEAT = 4;
-			LEVEL 0 FOR 125.0;
-			LEVEL 1 FOR 125.0;
-		}
+		LEVEL 0 FOR 1000.0;
 	}
 }
 
@@ -105,12 +139,7 @@ TRANSITION_LIST("sbelt")
 	NODE
 	{
 		REPEAT = 1;
-		NODE
-		{
-			REPEAT = 16;
-			LEVEL 0 FOR 31.25;
-			LEVEL 1 FOR 31.25;
-		}
+		LEVEL 0 FOR 1000.0;
 	}
 }
 
@@ -125,7 +154,7 @@ TRANSITION_LIST("warning")
 
 DISPLAY_LINE
 {
-	CHANNEL = "ignition";
+	CHANNEL = "door";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
 	TREE_INDEX = 0;
@@ -134,7 +163,7 @@ DISPLAY_LINE
 
 DISPLAY_LINE
 {
-	CHANNEL = "door";
+	CHANNEL = "ignition";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
 	TREE_INDEX = 1;

@@ -1,0 +1,106 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage{setspace}
+
+\onehalfspacing
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{CPE 415 -- Digital Image Processing}
+\fancyhead[R]{Mid Term SP23}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.5pt}
+
+\title{\textbf{Mid Term Examination -- Spring 2023}}
+\author{CPE 415: Digital Image Processing}
+\date{}
+
+\begin{document}
+
+\section*{Examination Details}
+\vspace{-0.5cm}
+\noindent\begin{tabular}{l@{\hspace{3cm}}l}
+\textbf{Course Title:} & Digital Image Processing (CPE 415) \\
+\textbf{Credit Hours:} & 4(3,1) \\
+\textbf{Instructor:} & Dr. Ikramullah Khosa \\
+\textbf{Program:} & Bachelor of Engineering, Computer Engineering \\
+\textbf{Batch:} & FA19-BCE \\
+\textbf{Section:} & A/B \\
+\textbf{Date:} & 03-05-2023 \\
+\textbf{Total Marks:} & 25 \\
+\textbf{Time Allowed:} & 90 Minutes \\
+\textbf{Institution:} & COMSATS University Islamabad, Lahore Campus
+\end{tabular}
+
+\vspace{1.0cm}
+\noindent\textbf{Examination Instructions:}
+\begin{enumerate}
+\item This is a closed-book and closed-notes examination.
+\end{enumerate}
+
+\vspace{1.0cm}
+\section*{Question 1 \quad [CLO-1, PLO-1, C3] \quad 8 Marks}
+
+Apply the concepts of image fundamentals and image enhancement to solve the following questions.
+
+\textbf{Part A:} A sample row consisting of four pixels with gray levels is provided. Compute the values of new samples by performing linear interpolation at $\frac{1}{4}$ pixel. Round the answer to the nearest integer value. \quad \textit{(6 Marks)}
+
+\begin{center}
+\fbox{3 \quad 10 \quad 2}
+\end{center}
+
+\textbf{Part B:} A CCD chip with dimensions $14 \times 14$ mm and containing $2048 \times 2048$ elements is focused on a square, flat area located 0.5 m away. Determine the number of line pairs per mm that this camera will be capable of resolving. The camera is equipped with a 35 mm lens. \quad \textit{(2 Marks)}
+
+\vspace{1.0cm}
+\section*{Question 2 \quad [CLO-1, PLO-1, C3] \quad 17 Marks}
+
+Relate the concepts of image enhancement in spatial and frequency domains to solve the following questions.
+
+\textbf{Part A:} The following row represents the gray levels of a 3-bit grayscale image. Compute the first and second derivatives. Additionally, demonstrate the mathematical expressions used for the computation of derivatives. \quad \textit{(6 Marks)}
+
+\begin{center}
+\fbox{4 \quad 5 \quad 6 \quad 7 \quad 7 \quad 0 \quad 6 \quad 5 \quad 1 \quad 1}
+\end{center}
+
+\textbf{Part B:} The gray level probabilities of a 3-bit image are presented in the following table. Display the gray level probability histogram. Perform histogram equalization. Compute and display the equalized histogram. Also demonstrate the transformation function. \quad \textit{(5 Marks)}
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline
+$r_k$ & $n_k$ & $p_r(r_k) = n_k/MN$ & \\
+\hline
+$r_0 = 0$ & 790 & 0.19 & \\
+$r_1 = 1$ & 1023 & 0.25 & \\
+$r_2 = 2$ & 850 & 0.21 & \\
+$r_3 = 3$ & 656 & 0.16 & \\
+$r_4 = 4$ & 329 & 0.08 & \\
+$r_5 = 5$ & 245 & 0.06 & \\
+$r_6 = 6$ & 122 & 0.03 & \\
+$r_7 = 7$ & 81 & 0.02 & \\
+\hline
+\textbf{Total} & \textbf{4096} & \textbf{1.00} & \\
+\hline
+\end{tabular}
+\end{center}
+
+\textbf{Part C:} Demonstrate that subtracting a Laplacian from an image is proportional to unsharp masking: \quad \textit{(4 Marks)}
+
+\begin{equation*}
+f(x, y) - \nabla^2 f(x, y) \sim f(x, y) - \bar{f}(x, y)
+\end{equation*}
+
+\textbf{Part D:} Consider a checkerboard image in which each square has dimensions $0.5 \times 0.5$ mm. Assuming the image extends to infinity in both coordinate directions, determine the minimum sampling rate (samples/mm) required to prevent aliasing. \quad \textit{(2 Marks)}
+
+\vspace{2.0cm}
+\noindent\rule{\textwidth}{0.5pt}
+\begin{center}
+\textit{End of Examination Paper}
+\end{center}
+
+\end{document}

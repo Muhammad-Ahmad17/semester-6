@@ -1,0 +1,540 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+
+% Header/Footer
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{FA23-BCE-113}
+\lhead{CPE314 DCCN - Assignment 1}
+\cfoot{\thepage}
+
+% Custom boxes for context
+\newtcolorbox{contextbox}[1][]{
+    colback=blue!5!white,
+    colframe=blue!50!black,
+    fonttitle=\bfseries,
+    title=Concept Background,
+    #1
+}
+
+\newtcolorbox{formulabox}[1][]{
+    colback=green!5!white,
+    colframe=green!50!black,
+    fonttitle=\bfseries,
+    title=Formula Used,
+    #1
+}
+
+\newtcolorbox{answerbox}[1][]{
+    colback=yellow!10!white,
+    colframe=orange!70!black,
+    fonttitle=\bfseries,
+    title=Final Answer,
+    #1
+}
+
+\title{\textbf{CPE314 Data Communications and Computer Networks}\\
+\Large Assignment 1 - Spring 2026}
+\author{Muhammad Ahmad\\FA23-BCE-113}
+\date{March 2026}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+\newpage
+
+%=============================================================================
+\section{Introduction and Key Concepts}
+%=============================================================================
+
+Before solving the problems, let's review the fundamental concepts from Lectures 1--5 that are essential for this assignment.
+
+%-----------------------------------------------------------------------------
+\subsection{Delay Components in Network Communication}
+%-----------------------------------------------------------------------------
+
+\begin{contextbox}
+When data travels from source to destination, it experiences several types of delays:
+
+\begin{enumerate}
+    \item \textbf{Transmission Delay ($d_{trans}$):} Time to push all bits of a packet onto the link.
+    \[d_{trans} = \frac{\text{Packet Size (bits)}}{\text{Data Rate (bps)}}\]
+    
+    \item \textbf{Propagation Delay ($d_{prop}$):} Time for a signal to travel through the medium.
+    \[d_{prop} = \frac{\text{Distance}}{\text{Propagation Speed}}\]
+    
+    \item \textbf{Processing Delay ($d_{proc}$):} Time for a router/node to process packet headers.
+    
+    \item \textbf{Queuing Delay ($d_{queue}$):} Time a packet waits in buffer before transmission.
+\end{enumerate}
+
+\textbf{Total End-to-End Delay:}
+\[d_{total} = d_{trans} + d_{prop} + \sum(\text{all router delays})\]
+\end{contextbox}
+
+%-----------------------------------------------------------------------------
+\subsection{Channel Capacity: Shannon and Nyquist}
+%-----------------------------------------------------------------------------
+
+\begin{contextbox}
+\textbf{Shannon Capacity (Noisy Channel):}\\
+The maximum theoretical data rate considering noise:
+\[C = B \log_2(1 + SNR)\]
+where:
+\begin{itemize}
+    \item $C$ = Channel capacity (bps)
+    \item $B$ = Bandwidth (Hz)
+    \item $SNR$ = Signal-to-Noise Ratio (linear, not in dB)
+\end{itemize}
+
+\vspace{0.5em}
+\textbf{Nyquist Capacity (Noiseless Channel):}\\
+The maximum data rate for a noiseless channel with $L$ signal levels:
+\[C = 2B \log_2(L)\]
+For binary signaling ($L = 2$): $C = 2B$ bps
+
+\vspace{0.5em}
+\textbf{Converting SNR from dB to Linear:}
+\[SNR_{linear} = 10^{SNR_{dB}/10}\]
+\end{contextbox}
+
+%-----------------------------------------------------------------------------
+\subsection{Attenuation and Decibels}
+%-----------------------------------------------------------------------------
+
+\begin{contextbox}
+\textbf{Attenuation} is the loss of signal power as it travels through a medium.
+
+\textbf{Decibel Formula (Power):}
+\[\text{Attenuation (dB)} = 10 \log_{10}\left(\frac{P_{received}}{P_{transmitted}}\right)\]
+
+If $P_{received} < P_{transmitted}$, the result is negative (signal loss).
+\end{contextbox}
+
+\newpage
+
+%=============================================================================
+\section{Scenario 1: Performance Analysis of a Wired Monitoring Link}
+%=============================================================================
+
+\subsection{Given Data}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{ll}
+\toprule
+\textbf{Parameter} & \textbf{Value} \\
+\midrule
+Distance & 500 km = $500 \times 10^3$ m \\
+Packet Size & 1000 bytes = $1000 \times 8 = 8000$ bits \\
+Data Rate & 500 kbps = $500 \times 10^3$ bps \\
+Available Bandwidth & 100 kHz = $100 \times 10^3$ Hz \\
+Signal-to-Noise Ratio & 20 dB \\
+Propagation Speed & $2 \times 10^8$ m/s \\
+Number of Routers & 4 \\
+Queuing Delay per Router & 5 $\mu$s = $5 \times 10^{-6}$ s \\
+Processing Delay per Router & 2 $\mu$s = $2 \times 10^{-6}$ s \\
+Transmitter Power ($P_t$) & 50 W \\
+Receiver Power ($P_r$) & 40 W \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+%-----------------------------------------------------------------------------
+\subsection{Part (a): Transmission Delay}
+%-----------------------------------------------------------------------------
+
+\begin{formulabox}
+\[d_{trans} = \frac{\text{Packet Size}}{\text{Data Rate}}\]
+\end{formulabox}
+
+\textbf{Solution:}
+\begin{align*}
+d_{trans} &= \frac{8000 \text{ bits}}{500 \times 10^3 \text{ bps}} \\[1em]
+&= \frac{8000}{500000} \\[1em]
+&= 0.016 \text{ seconds}
+\end{align*}
+
+\begin{answerbox}
+\textbf{Transmission Delay = 0.016 s = 16 ms}
+\end{answerbox}
+
+%-----------------------------------------------------------------------------
+\subsection{Part (b): Total End-to-End Delay}
+%-----------------------------------------------------------------------------
+
+\begin{formulabox}
+\[d_{total} = d_{trans} + d_{prop} + n \cdot (d_{queue} + d_{proc})\]
+where $n$ = number of routers
+\end{formulabox}
+
+\textbf{Solution:}
+
+\textbf{Step 1:} Calculate Propagation Delay
+\begin{align*}
+d_{prop} &= \frac{\text{Distance}}{\text{Propagation Speed}} \\[1em]
+&= \frac{500 \times 10^3 \text{ m}}{2 \times 10^8 \text{ m/s}} \\[1em]
+&= \frac{500000}{200000000} \\[1em]
+&= 0.0025 \text{ s} = 2.5 \text{ ms}
+\end{align*}
+
+\textbf{Step 2:} Calculate Total Router Delays
+\begin{align*}
+d_{routers} &= 4 \times (5 \times 10^{-6} + 2 \times 10^{-6}) \\[1em]
+&= 4 \times 7 \times 10^{-6} \\[1em]
+&= 28 \times 10^{-6} \text{ s} = 28 \text{ } \mu\text{s} = 0.000028 \text{ s}
+\end{align*}
+
+\textbf{Step 3:} Calculate Total End-to-End Delay
+\begin{align*}
+d_{total} &= d_{trans} + d_{prop} + d_{routers} \\[1em]
+&= 0.016 + 0.0025 + 0.000028 \\[1em]
+&= 0.018528 \text{ s}
+\end{align*}
+
+\begin{answerbox}
+\textbf{Total End-to-End Delay = 0.018528 s $\approx$ 18.528 ms}
+\end{answerbox}
+
+%-----------------------------------------------------------------------------
+\subsection{Part (c): Maximum Achievable Data Rate (Shannon Capacity)}
+%-----------------------------------------------------------------------------
+
+\begin{formulabox}
+\[C = B \log_2(1 + SNR)\]
+First convert SNR from dB to linear: $SNR_{linear} = 10^{SNR_{dB}/10}$
+\end{formulabox}
+
+\textbf{Solution:}
+
+\textbf{Step 1:} Convert SNR from dB to Linear
+\begin{align*}
+SNR_{linear} &= 10^{20/10} \\[1em]
+&= 10^2 \\[1em]
+&= 100
+\end{align*}
+
+\textbf{Step 2:} Apply Shannon Capacity Formula
+\begin{align*}
+C &= B \log_2(1 + SNR) \\[1em]
+&= 100 \times 10^3 \times \log_2(1 + 100) \\[1em]
+&= 100000 \times \log_2(101)
+\end{align*}
+
+Using $\log_2(101) = \frac{\ln(101)}{\ln(2)} = \frac{4.615}{0.693} \approx 6.658$
+\begin{align*}
+C &= 100000 \times 6.658 \\[1em]
+&= 665800 \text{ bps}
+\end{align*}
+
+\begin{answerbox}
+\textbf{Maximum Achievable Data Rate (Shannon) = 665,800 bps $\approx$ 665.8 kbps}
+\end{answerbox}
+
+%-----------------------------------------------------------------------------
+\subsection{Part (d): Minimum Bandwidth for Binary Signaling}
+%-----------------------------------------------------------------------------
+
+\begin{formulabox}
+For Nyquist capacity with $L$ signal levels:
+\[C = 2B \log_2(L)\]
+For binary signaling ($L = 2$): $C = 2B \cdot 1 = 2B$
+
+Therefore: $B = \frac{C}{2}$
+\end{formulabox}
+
+\textbf{Solution:}
+
+Given data rate $C = 500$ kbps, for binary signaling ($L = 2$):
+\begin{align*}
+C &= 2B \log_2(2) \\[1em]
+500 \times 10^3 &= 2B \times 1 \\[1em]
+B &= \frac{500 \times 10^3}{2} \\[1em]
+B &= 250000 \text{ Hz}
+\end{align*}
+
+\begin{answerbox}
+\textbf{Minimum Bandwidth Required = 250,000 Hz = 250 kHz}
+\end{answerbox}
+
+%-----------------------------------------------------------------------------
+\subsection{Part (e): Signal Attenuation}
+%-----------------------------------------------------------------------------
+
+\begin{formulabox}
+\[\text{Attenuation (dB)} = 10 \log_{10}\left(\frac{P_{received}}{P_{transmitted}}\right)\]
+\end{formulabox}
+
+\textbf{Solution:}
+\begin{align*}
+\text{Attenuation} &= 10 \log_{10}\left(\frac{40}{50}\right) \\[1em]
+&= 10 \log_{10}(0.8) \\[1em]
+&= 10 \times (-0.0969) \\[1em]
+&= -0.969 \text{ dB}
+\end{align*}
+
+\begin{answerbox}
+\textbf{Attenuation = $-0.969$ dB $\approx$ $-0.97$ dB}
+
+(Negative value indicates signal loss/attenuation)
+\end{answerbox}
+
+\newpage
+
+%=============================================================================
+\section{Scenario 2: Design of a Wireless Surveillance Communication Link}
+%=============================================================================
+
+\subsection{Given Data}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{ll}
+\toprule
+\textbf{Parameter} & \textbf{Value} \\
+\midrule
+Distance & 50 km = $50 \times 10^3$ m \\
+Available Bandwidth & 5 MHz = $5 \times 10^6$ Hz \\
+Signal-to-Noise Ratio & 30 dB \\
+Target Data Rate & 20 Mbps = $20 \times 10^6$ bps \\
+Packet Size & 125,000 bytes = $125000 \times 8 = 1,000,000$ bits \\
+Propagation Speed & $3 \times 10^8$ m/s \\
+Number of Relay Nodes & 2 \\
+Queuing Delay per Node & 1 ms = $1 \times 10^{-3}$ s \\
+Processing Delay per Node & 0.5 ms = $0.5 \times 10^{-3}$ s \\
+Maximum Tolerable Delay & 10 ms = $10 \times 10^{-3}$ s \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+%-----------------------------------------------------------------------------
+\subsection{Part (a): Maximum Achievable Data Rate (Shannon Capacity)}
+%-----------------------------------------------------------------------------
+
+\begin{formulabox}
+\[C = B \log_2(1 + SNR)\]
+First convert SNR from dB to linear: $SNR_{linear} = 10^{SNR_{dB}/10}$
+\end{formulabox}
+
+\textbf{Solution:}
+
+\textbf{Step 1:} Convert SNR from dB to Linear
+\begin{align*}
+SNR_{linear} &= 10^{30/10} \\[1em]
+&= 10^3 \\[1em]
+&= 1000
+\end{align*}
+
+\textbf{Step 2:} Apply Shannon Capacity Formula
+\begin{align*}
+C &= B \log_2(1 + SNR) \\[1em]
+&= 5 \times 10^6 \times \log_2(1 + 1000) \\[1em]
+&= 5 \times 10^6 \times \log_2(1001)
+\end{align*}
+
+Using $\log_2(1001) = \frac{\ln(1001)}{\ln(2)} = \frac{6.909}{0.693} \approx 9.97$
+\begin{align*}
+C &= 5 \times 10^6 \times 9.97 \\[1em]
+&= 49.85 \times 10^6 \text{ bps}
+\end{align*}
+
+\begin{answerbox}
+\textbf{Maximum Achievable Data Rate (Shannon) = 49.85 Mbps $\approx$ 49.85 Mbps}
+\end{answerbox}
+
+%-----------------------------------------------------------------------------
+\subsection{Part (b): Minimum Number of Signal Levels (L)}
+%-----------------------------------------------------------------------------
+
+\begin{formulabox}
+Using Nyquist formula:
+\[C = 2B \log_2(L)\]
+Solving for $L$:
+\[\log_2(L) = \frac{C}{2B} \quad \Rightarrow \quad L = 2^{C/(2B)}\]
+\end{formulabox}
+
+\textbf{Solution:}
+
+For target data rate $C = 20$ Mbps:
+\begin{align*}
+\log_2(L) &= \frac{C}{2B} \\[1em]
+&= \frac{20 \times 10^6}{2 \times 5 \times 10^6} \\[1em]
+&= \frac{20 \times 10^6}{10 \times 10^6} \\[1em]
+&= 2
+\end{align*}
+
+Therefore:
+\begin{align*}
+L &= 2^2 \\[1em]
+&= 4
+\end{align*}
+
+\begin{answerbox}
+\textbf{Minimum Number of Signal Levels = 4}
+
+(This corresponds to 2 bits per signal element since $\log_2(4) = 2$)
+\end{answerbox}
+
+%-----------------------------------------------------------------------------
+\subsection{Part (c): Minimum SNR Required for Target Data Rate}
+%-----------------------------------------------------------------------------
+
+\begin{formulabox}
+From Shannon capacity:
+\[C = B \log_2(1 + SNR)\]
+Solving for SNR:
+\[\log_2(1 + SNR) = \frac{C}{B} \quad \Rightarrow \quad SNR = 2^{C/B} - 1\]
+Then convert to dB: $SNR_{dB} = 10 \log_{10}(SNR_{linear})$
+\end{formulabox}
+
+\textbf{Solution:}
+
+For target data rate $C = 20$ Mbps:
+\begin{align*}
+\frac{C}{B} &= \frac{20 \times 10^6}{5 \times 10^6} = 4
+\end{align*}
+
+\begin{align*}
+1 + SNR &= 2^4 \\[1em]
+1 + SNR &= 16 \\[1em]
+SNR_{linear} &= 15
+\end{align*}
+
+Convert to dB:
+\begin{align*}
+SNR_{dB} &= 10 \log_{10}(15) \\[1em]
+&= 10 \times 1.176 \\[1em]
+&= 11.76 \text{ dB}
+\end{align*}
+
+\begin{answerbox}
+\textbf{Minimum SNR Required = 11.76 dB $\approx$ 11.76 dB}
+\end{answerbox}
+
+%-----------------------------------------------------------------------------
+\subsection{Part (d): Total End-to-End Delay}
+%-----------------------------------------------------------------------------
+
+\begin{formulabox}
+\[d_{total} = d_{trans} + d_{prop} + n \cdot (d_{queue} + d_{proc})\]
+\end{formulabox}
+
+\textbf{Solution:}
+
+\textbf{Step 1:} Calculate Transmission Delay
+\begin{align*}
+d_{trans} &= \frac{\text{Packet Size}}{\text{Data Rate}} \\[1em]
+&= \frac{1000000 \text{ bits}}{20 \times 10^6 \text{ bps}} \\[1em]
+&= \frac{1000000}{20000000} \\[1em]
+&= 0.05 \text{ s} = 50 \text{ ms}
+\end{align*}
+
+\textbf{Step 2:} Calculate Propagation Delay
+\begin{align*}
+d_{prop} &= \frac{\text{Distance}}{\text{Propagation Speed}} \\[1em]
+&= \frac{50 \times 10^3 \text{ m}}{3 \times 10^8 \text{ m/s}} \\[1em]
+&= \frac{50000}{300000000} \\[1em]
+&= 0.000167 \text{ s} \approx 0.167 \text{ ms}
+\end{align*}
+
+\textbf{Step 3:} Calculate Total Relay Node Delays
+\begin{align*}
+d_{relays} &= 2 \times (1 \times 10^{-3} + 0.5 \times 10^{-3}) \\[1em]
+&= 2 \times 1.5 \times 10^{-3} \\[1em]
+&= 3 \times 10^{-3} \text{ s} = 3 \text{ ms}
+\end{align*}
+
+\textbf{Step 4:} Calculate Total End-to-End Delay
+\begin{align*}
+d_{total} &= d_{trans} + d_{prop} + d_{relays} \\[1em]
+&= 0.05 + 0.000167 + 0.003 \\[1em]
+&= 0.053167 \text{ s}
+\end{align*}
+
+\begin{answerbox}
+\textbf{Total End-to-End Delay = 0.053167 s $\approx$ 53.17 ms}
+\end{answerbox}
+
+%-----------------------------------------------------------------------------
+\subsection{Part (e): Delay Margin}
+%-----------------------------------------------------------------------------
+
+\begin{formulabox}
+\[\text{Delay Margin} = \text{Maximum Tolerable Delay} - \text{Actual Delay}\]
+\end{formulabox}
+
+\textbf{Solution:}
+\begin{align*}
+\text{Delay Margin} &= 10 \text{ ms} - 53.17 \text{ ms} \\[1em]
+&= -43.17 \text{ ms}
+\end{align*}
+
+\begin{answerbox}
+\textbf{Delay Margin = $-43.17$ ms}
+
+\vspace{0.5em}
+\textbf{Interpretation:} The negative delay margin indicates that the system \textbf{does NOT meet} the delay requirement. The actual delay (53.17 ms) exceeds the maximum tolerable delay (10 ms) by 43.17 ms. Design changes are needed (e.g., smaller packets, higher data rate, or fewer relay nodes).
+\end{answerbox}
+
+\newpage
+
+%=============================================================================
+\section{Summary of Results}
+%=============================================================================
+
+\subsection{Scenario 1: Wired Monitoring Link}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{clc}
+\toprule
+\textbf{Part} & \textbf{Parameter} & \textbf{Value} \\
+\midrule
+(a) & Transmission Delay & \textbf{0.016 s (16 ms)} \\
+(b) & Total End-to-End Delay & \textbf{0.018528 s (18.528 ms)} \\
+(c) & Maximum Data Rate (Shannon) & \textbf{665,800 bps (665.8 kbps)} \\
+(d) & Minimum Bandwidth (Binary) & \textbf{250,000 Hz (250 kHz)} \\
+(e) & Attenuation & \textbf{$-0.97$ dB} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Scenario 2: Wireless Surveillance Link}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{clc}
+\toprule
+\textbf{Part} & \textbf{Parameter} & \textbf{Value} \\
+\midrule
+(a) & Maximum Data Rate (Shannon) & \textbf{49.85 Mbps} \\
+(b) & Minimum Signal Levels (L) & \textbf{4} \\
+(c) & Minimum SNR Required & \textbf{11.76 dB} \\
+(d) & Total End-to-End Delay & \textbf{0.053167 s (53.17 ms)} \\
+(e) & Delay Margin & \textbf{$-43.17$ ms} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\vspace{1em}
+
+\begin{tcolorbox}[colback=red!5!white, colframe=red!50!black, title=Important Note for Scenario 2]
+The wireless surveillance system as designed \textbf{cannot meet} the 10 ms delay requirement due to the large packet size (125,000 bytes) causing a 50 ms transmission delay alone. To meet the requirement, the system would need:
+\begin{itemize}
+    \item Smaller packet sizes, OR
+    \item Higher data rate, OR
+    \item Packet fragmentation
+\end{itemize}
+\end{tcolorbox}
+
+\end{document}
