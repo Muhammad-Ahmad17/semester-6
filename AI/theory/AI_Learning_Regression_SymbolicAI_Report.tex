@@ -1,0 +1,457 @@
+\documentclass[12pt,a4paper]{article}
+
+\usepackage[margin=0.9in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+
+% Neutral palette for formal academic presentation
+\definecolor{primary}{RGB}{0,0,0}
+\definecolor{secondary}{RGB}{60,60,60}
+\definecolor{accent}{RGB}{85,85,85}
+\definecolor{highlight}{RGB}{110,110,110}
+\definecolor{danger}{RGB}{140,140,140}
+\definecolor{light}{RGB}{245,245,245}
+
+\hypersetup{
+    hidelinks,
+    pdftitle={Artificial Intelligence: Learning Algorithms, Regression, and Symbolic AI},
+    pdfauthor={Department of Computing}
+}
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{Artificial Intelligence Notes}
+\rhead{Learning and Symbolic AI}
+\rfoot{Page \thepage}
+
+\setlength{\parskip}{0.5em}
+\setlength{\parindent}{0pt}
+\setlength{\headheight}{15pt}
+
+\begin{document}
+
+\begin{titlepage}
+\centering
+\vspace*{0.7cm}
+{\Large\color{primary}\textbf{Academic Report}}\\[0.3cm]
+\rule{\textwidth}{1.6pt}\\[0.5cm]
+{\Huge\bfseries\color{primary}Artificial Intelligence}\\[0.2cm]
+{\Large Learning Algorithms, Linear Regression, and Symbolic AI}\\[0.4cm]
+\rule{\textwidth}{1.6pt}\\[0.9cm]
+
+\begin{tabular}{rl}
+\textbf{Course Focus:} & AI Fundamentals and Machine Learning \\
+\textbf{Coverage:} & Supervised, Unsupervised, Semi-Supervised Learning \\
+\textbf{} & Gradient Descent, Regression, Symbolic AI, Turing Test \\
+\textbf{Prepared For:} & Formal Academic Review with Worked Examples
+\end{tabular}
+
+\vfill
+{\large Department of Computing}\\
+{\large \today}
+\end{titlepage}
+
+\tableofcontents
+\newpage
+
+\section{\textcolor{primary}{Introduction to AI and Contemporary Applications}}
+
+Artificial Intelligence (AI) is the field of creating systems that can perform tasks that usually require human intelligence, such as perception, decision-making, language understanding, and learning from data.
+
+\textbf{Contemporary applications of AI include:}
+\begin{itemize}[noitemsep]
+    \item Healthcare diagnostics and medical image analysis
+    \item Recommendation systems (e.g., streaming and e-commerce)
+    \item Fraud detection in banking
+    \item Autonomous driving and driver assistance
+    \item Smart assistants and conversational systems
+    \item Predictive maintenance in industry
+\end{itemize}
+
+\textbf{AI in real life:} AI is often embedded in everyday tools, from spam filtering to route optimization in maps.
+
+\section{\textcolor{primary}{History of AI, Controversies, and Strong vs Weak AI}}
+
+\subsection*{Brief history}
+\begin{itemize}[noitemsep]
+    \item \textbf{1950s--1960s:} Early optimism, symbolic reasoning, and logic-based systems.
+    \item \textbf{1970s--1980s:} AI winters due to limited compute and unmet expectations.
+    \item \textbf{1990s--2010s:} Statistical learning and data-driven AI rise.
+    \item \textbf{2010s--present:} Deep learning breakthroughs and large-scale AI deployment.
+\end{itemize}
+
+\subsection*{AI controversies}
+Key concerns include bias, explainability, privacy, surveillance, misuse, and job displacement.
+
+\subsection*{Strong AI vs Weak AI}
+\begin{itemize}[noitemsep]
+    \item \textbf{Weak AI (Narrow AI):} Built for specific tasks (current practical systems).
+    \item \textbf{Strong AI (General AI):} Hypothetical human-level general intelligence across domains.
+\end{itemize}
+
+\section{\textcolor{primary}{Categories of Learning Algorithms}}
+
+\subsection*{1) Supervised Learning}
+Model learns from labeled data $(x, y)$.
+
+\textbf{Typical tasks:}
+\begin{itemize}[noitemsep]
+    \item \textbf{Regression:} Predicting continuous values (house price, sales forecast, temperature).
+    \item \textbf{Classification:} Predicting categorical labels (spam/non-spam, disease/no disease).
+    \item \textbf{Ranking:} Ordering items by relevance (search engines, recommendation feeds).
+\end{itemize}
+
+\textbf{Common algorithms:}
+\begin{itemize}[noitemsep]
+    \item Linear Regression, Logistic Regression
+    \item Decision Trees, Random Forests, Gradient Boosting
+    \item Support Vector Machines, Neural Networks
+\end{itemize}
+
+\subsection*{2) Unsupervised Learning}
+Model learns patterns from unlabeled data $x$.
+
+\textbf{Typical tasks:}
+\begin{itemize}[noitemsep]
+    \item \textbf{Clustering:} Grouping similar records (customer segmentation with K-Means, hierarchical clustering).
+    \item \textbf{Dimensionality reduction:} Compressing feature space while preserving structure (PCA, t-SNE, UMAP).
+    \item \textbf{Association mining:} Discovering co-occurrence rules (market basket analysis).
+    \item \textbf{Anomaly detection:} Identifying rare or abnormal samples.
+\end{itemize}
+
+\textbf{Why it matters:}
+\begin{itemize}[noitemsep]
+    \item Useful for exploratory data analysis when labels are unavailable.
+    \item Helps feature engineering before supervised learning.
+\end{itemize}
+
+\subsection*{3) Semi-Supervised Learning}
+Uses a small labeled set and a large unlabeled set.
+
+\textbf{Use case:} When labeling is expensive (medical images, legal documents, satellite data, speech transcripts).
+
+\textbf{Common strategies:}
+\begin{itemize}[noitemsep]
+    \item \textbf{Self-training / pseudo-labeling:} Train on labeled data, label high-confidence unlabeled data, retrain.
+    \item \textbf{Consistency regularization:} Model should produce stable predictions under small input perturbations.
+    \item \textbf{Graph-based methods:} Nearby points in feature space are encouraged to share labels.
+\end{itemize}
+
+\textbf{Example:} Train initial classifier on labeled emails, then pseudo-label high-confidence unlabeled emails and retrain.
+
+\subsection*{4) Reinforcement Learning (contextual category)}
+Although not in the previous three, reinforcement learning is another major category.
+An agent interacts with an environment and learns a policy to maximize cumulative reward.
+\begin{itemize}[noitemsep]
+    \item Examples: game playing, robotics control, resource scheduling.
+    \item Core terms: state, action, reward, policy, value function.
+\end{itemize}
+
+\section{\textcolor{primary}{Datasets, Variables, and Features}}
+
+\begin{itemize}[noitemsep]
+    \item \textbf{Dataset:} Collection of observations/records.
+    \item \textbf{Variable:} Any measurable quantity in the dataset.
+    \item \textbf{Feature:} Input variable used by model to predict output.
+    \item \textbf{Target/Label:} Output variable to be predicted in supervised learning.
+\end{itemize}
+
+\textbf{Simple example:} Predict salary from years of experience.
+\begin{itemize}[noitemsep]
+    \item Feature: Years of experience
+    \item Target: Salary
+\end{itemize}
+
+\section{\textcolor{primary}{Linear Regression and Regression Model}}
+
+Linear regression models relationship between target $y$ and one or more features $x$.
+
+\subsection*{Simple Linear Regression}
+\begin{equation}
+\hat{y} = w x + b
+\end{equation}
+where $w$ is weight (slope) and $b$ is bias (intercept).
+
+\subsection*{Multiple Linear Regression}
+\begin{equation}
+\hat{y} = w_1x_1 + w_2x_2 + \cdots + w_nx_n + b
+\end{equation}
+
+\textbf{Model parameter estimation:} Find $w$ and $b$ values that minimize prediction error.
+
+\section{\textcolor{primary}{Loss Function, Cost Function, and Optimization Terms}}
+
+\textbf{Loss function:} Error for a single training example.
+\begin{equation}
+L^{(i)} = (\hat{y}^{(i)} - y^{(i)})^2
+\end{equation}
+
+\textbf{Cost function:} Average loss over all $m$ examples.
+\begin{equation}
+J(w,b) = \frac{1}{2m}\sum_{i=1}^{m}(\hat{y}^{(i)} - y^{(i)})^2
+\end{equation}
+
+\textbf{Objective function:} General function to minimize or maximize.
+
+\textbf{Optimization problem:}
+\begin{itemize}[noitemsep]
+    \item \textbf{Unconstrained:} Minimize $J(\theta)$ without restrictions.
+    \item \textbf{Constrained:} Minimize $J(\theta)$ subject to constraints (e.g., $g(\theta) \le 0$).
+\end{itemize}
+
+\section{\textcolor{primary}{Gradient Descent and Gradient Ascent}}
+
+\subsection*{Gradient Descent (Minimization)}
+Used to minimize cost function:
+\begin{equation}
+w \leftarrow w - \alpha \frac{\partial J}{\partial w}, \quad b \leftarrow b - \alpha \frac{\partial J}{\partial b}
+\end{equation}
+where $\alpha$ is learning rate.
+
+\subsection*{Gradient Ascent (Maximization)}
+Used to maximize objective function:
+\begin{equation}
+\theta \leftarrow \theta + \alpha \nabla f(\theta)
+\end{equation}
+
+\subsection*{Why descent works}
+Gradient points in direction of steepest increase, so subtracting it moves toward lower cost.
+
+\section{\textcolor{primary}{Simple Linear Regression Cost Using MSE}}
+
+For simple regression, prediction is $\hat{y}^{(i)} = wx^{(i)} + b$, and MSE-based cost is:
+\begin{equation}
+J(w,b) = \frac{1}{2m}\sum_{i=1}^{m}(wx^{(i)} + b - y^{(i)})^2
+\end{equation}
+
+Gradients:
+\begin{equation}
+\frac{\partial J}{\partial w} = \frac{1}{m}\sum_{i=1}^{m}(wx^{(i)} + b - y^{(i)})x^{(i)}, \quad
+\frac{\partial J}{\partial b} = \frac{1}{m}\sum_{i=1}^{m}(wx^{(i)} + b - y^{(i)})
+\end{equation}
+
+\section{\textcolor{primary}{Worked Example: Iterations of Gradient Descent}}
+
+Given dataset points: $(1,2)$, $(2,3)$, $(3,4)$. Initialize $w=0$, $b=0$, learning rate $\alpha = 0.1$.
+
+\subsection*{Iteration 0 (initial)}
+Predictions: $[0,0,0]$\newline
+Errors: $[-2,-3,-4]$
+\begin{align}
+\frac{\partial J}{\partial w} &= \frac{1}{3}[(-2)(1)+(-3)(2)+(-4)(3)] = -\frac{20}{3} \approx -6.6667 \\
+\frac{\partial J}{\partial b} &= \frac{1}{3}[(-2)+(-3)+(-4)] = -3
+\end{align}
+Update:
+\begin{equation}
+w=0-0.1(-6.6667)=0.6667,\quad b=0-0.1(-3)=0.3
+\end{equation}
+
+\subsection*{Iteration 1}
+Using $w=0.6667$, $b=0.3$:
+\begin{itemize}[noitemsep]
+    \item Predictions: $[0.9667,1.6334,2.3001]$
+    \item Errors: $[-1.0333,-1.3666,-1.6999]$
+\end{itemize}
+
+New gradients:
+\begin{align}
+\frac{\partial J}{\partial w} &\approx -3.6221 \\
+\frac{\partial J}{\partial b} &\approx -1.3666
+\end{align}
+Update:
+\begin{equation}
+w\approx1.0289,\quad b\approx0.4367
+\end{equation}
+
+\subsection*{Iteration summary table}
+\begin{center}
+\begin{tabular}{cccc}
+\toprule
+Iteration & $w$ & $b$ & Cost $J(w,b)$ (approx) \\
+\midrule
+0 & 0.0000 & 0.0000 & 4.8333 \\
+1 & 0.6667 & 0.3000 & 1.0123 \\
+2 & 1.0289 & 0.4367 & 0.3168 \\
+3 & 1.2255 & 0.4933 & 0.1770 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\textbf{Observation:} Cost decreases each iteration, demonstrating minimization.
+
+\section{\textcolor{primary}{Minimization of Cost Function: Practical Notes}}
+
+\begin{itemize}[noitemsep]
+    \item If $\alpha$ is too small, convergence is very slow.
+    \item If $\alpha$ is too large, updates may overshoot and diverge.
+    \item Feature scaling often improves convergence speed.
+\end{itemize}
+
+\section{\textcolor{primary}{Explained and Unexplained Variation}}
+
+Let mean of target be $\bar{y}$.
+
+\textbf{Total deviation / total sum of squares (SST):}
+\begin{equation}
+SST = \sum_{i=1}^{m}(y_i - \bar{y})^2
+\end{equation}
+
+\textbf{Unexplained variation / sum of squared errors (SSE):}
+\begin{equation}
+SSE = \sum_{i=1}^{m}(y_i - \hat{y}_i)^2
+\end{equation}
+
+\textbf{Explained variation (SSR):}
+\begin{equation}
+SSR = \sum_{i=1}^{m}(\hat{y}_i - \bar{y})^2
+\end{equation}
+
+For linear regression with intercept: $SST = SSR + SSE$.
+
+\subsection*{Intuition}
+\begin{itemize}[noitemsep]
+    \item $SST$ tells us total spread of observed values around the mean.
+    \item $SSR$ is the part of spread captured by the model (signal explained by predictors).
+    \item $SSE$ is leftover spread not captured by the model (noise, missing factors, model mismatch).
+\end{itemize}
+
+\subsection*{Numerical example}
+Suppose observed values are $y=[3,5,7]$, predicted values are $\hat{y}=[2.5,5.5,7]$.
+Then $\bar{y}=5$.
+\begin{align}
+SST &= (3-5)^2 + (5-5)^2 + (7-5)^2 = 8 \\
+SSE &= (3-2.5)^2 + (5-5.5)^2 + (7-7)^2 = 0.5 \\
+SSR &= (2.5-5)^2 + (5.5-5)^2 + (7-5)^2 = 10.5
+\end{align}
+
+In exact arithmetic for OLS with intercept, fitted values satisfy orthogonality and decomposition constraints.
+For hand-rounded predictions or non-OLS estimates, direct computed $SSR$ may not perfectly satisfy $SST=SSR+SSE$ due to approximation effects.
+
+\subsection*{Coefficient of determination ($R^2$)}
+\begin{equation}
+R^2 = 1 - \frac{SSE}{SST}
+\end{equation}
+
+Interpretation: proportion of target variance explained by the model.
+\begin{itemize}[noitemsep]
+    \item $R^2=1$: perfect fit.
+    \item $R^2=0$: model is no better than predicting the mean.
+    \item $R^2<0$: model performs worse than mean predictor (possible on test data or poorly specified models).
+\end{itemize}
+
+\subsection*{Correlation coefficient ($r$)}
+For simple linear regression:
+\begin{equation}
+r = \frac{\sum (x_i-\bar{x})(y_i-\bar{y})}{\sqrt{\sum (x_i-\bar{x})^2\sum (y_i-\bar{y})^2}},\quad R^2 = r^2
+\end{equation}
+
+\textbf{Sign of $r$:} positive means both variables increase together; negative means one increases while the other decreases.
+
+\section{\textcolor{primary}{Comprehensive Terminology Quick List}}
+
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.28\textwidth}p{0.66\textwidth}}
+\toprule
+\textbf{Term} & \textbf{Meaning} \\
+\midrule
+Weights & Parameters multiplying input features (importance of each feature). \\
+Bias & Constant term shifting prediction function up or down. \\
+Loss Function & Error for one example. \\
+Cost Function & Average (or aggregate) loss across dataset. \\
+Objective Function & Function being optimized (minimized or maximized). \\
+Optimization & Process of finding best parameter values for objective. \\
+Constraints & Restrictions on feasible parameter values. \\
+Constrained Optimization & Optimization with explicit restrictions. \\
+Unconstrained Optimization & Optimization without explicit restrictions. \\
+Regression Model & Mathematical mapping from features to continuous target. \\
+\bottomrule
+\end{longtable}
+
+\section{\textcolor{primary}{Symbolic AI and Physical Symbol System Hypothesis}}
+
+\subsection*{Symbolic AI}
+Symbolic AI represents knowledge using symbols and explicit rules (if-then logic), unlike pure statistical pattern matching.
+
+\textbf{How symbolic AI represents knowledge:}
+\begin{itemize}[noitemsep]
+    \item \textbf{Logic formulas:} Facts and rules in propositional or predicate logic.
+    \item \textbf{Production rules:} IF condition THEN action.
+    \item \textbf{Semantic networks / ontologies:} Concepts and relations.
+    \item \textbf{Frames/scripts:} Structured templates for stereotyped situations.
+\end{itemize}
+
+\textbf{Reasoning styles:}
+\begin{itemize}[noitemsep]
+    \item \textbf{Deductive reasoning:} General rule to specific conclusion.
+    \item \textbf{Abductive reasoning:} Best explanation for observed evidence.
+    \item \textbf{Rule chaining:} Forward chaining (data-driven) and backward chaining (goal-driven).
+\end{itemize}
+
+\textbf{Example (rule-based medical triage):}
+\begin{itemize}[noitemsep]
+    \item Rule 1: IF fever \texttt{\&} cough THEN possible respiratory infection.
+    \item Rule 2: IF respiratory infection \texttt{\&} low oxygen THEN urgent referral.
+\end{itemize}
+Given facts \{fever, cough, low oxygen\}, the inference engine derives urgent referral.
+
+\textbf{Strengths of symbolic AI:}
+\begin{itemize}[noitemsep]
+    \item Transparent and interpretable decision process.
+    \item Easy to encode domain knowledge from experts.
+    \item Works well in domains with clear logic and constraints (law, configuration, planning).
+\end{itemize}
+
+\textbf{Limitations:}
+\begin{itemize}[noitemsep]
+    \item Knowledge acquisition bottleneck (manual rule engineering is expensive).
+    \item Fragility in noisy, ambiguous, real-world perception tasks.
+    \item Limited scalability compared to modern data-driven learning for high-dimensional inputs.
+\end{itemize}
+
+\textbf{Neuro-symbolic direction:} Hybrid systems combine neural perception with symbolic reasoning for better robustness and explainability.
+
+\subsection*{Physical Symbol System Hypothesis}
+Proposed by Newell and Simon: a physical symbol system has the necessary and sufficient means for general intelligent action.
+
+\textbf{Core idea:} Intelligence can emerge from symbol manipulation through formal rules.
+
+\textbf{Interpretation in AI history:}
+\begin{itemize}[noitemsep]
+    \item Motivated early expert systems and theorem provers.
+    \item Emphasized cognition as computation over symbolic structures.
+    \item Sparked ongoing debate with connectionist approaches (neural networks).
+\end{itemize}
+
+\textbf{Modern view:} Symbol manipulation is powerful for reasoning and structure, while sub-symbolic learning is powerful for perception; practical AI often benefits from combining both.
+
+\section{\textcolor{primary}{Classical Chatbots and the Turing Test}}
+
+\subsection*{Classical chatbots}
+\begin{itemize}[noitemsep]
+    \item \textbf{ELIZA:} Pattern-matching therapist-style responses.
+    \item \textbf{ALICE:} Rule-based chatbot using AIML.
+    \item \textbf{Kuki (Mitsuku):} Competition-winning conversational bot with scripted/rule components.
+\end{itemize}
+
+\subsection*{Turing Test}
+Proposed by Alan Turing (1950): if a human evaluator cannot reliably distinguish machine from human in text conversation, machine is considered intelligent under this test.
+
+\subsection*{Common objections to Turing Test}
+\begin{itemize}[noitemsep]
+    \item Passing conversation test does not prove understanding or consciousness.
+    \item Systems may mimic language without real semantic grounding.
+    \item It measures imitation, not necessarily general intelligence.
+\end{itemize}
+
+\section{\textcolor{primary}{Conclusion}}
+
+This document reviewed key AI foundations, major learning paradigms, and detailed linear regression parameter estimation with gradient descent. It also covered optimization vocabulary, variation-based evaluation metrics ($SSE$, $SST$, $R^2$, correlation), and foundational symbolic AI concepts including classical chatbots and the Turing test.
+
+\textbf{Revision note:} Combine precise definitions with one worked numerical example (e.g., gradient descent iterations) and one conceptual critique (e.g., limits of the Turing test).
+
+\end{document}

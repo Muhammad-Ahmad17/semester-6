@@ -1,0 +1,15 @@
+\contentsline {section}{\numberline {1}\textcolor {primary}{Introduction to AI and Contemporary Applications}}{2}{section.1}%
+\contentsline {section}{\numberline {2}\textcolor {primary}{History of AI, Controversies, and Strong vs Weak AI}}{2}{section.2}%
+\contentsline {section}{\numberline {3}\textcolor {primary}{Categories of Learning Algorithms}}{2}{section.3}%
+\contentsline {section}{\numberline {4}\textcolor {primary}{Datasets, Variables, and Features}}{4}{section.4}%
+\contentsline {section}{\numberline {5}\textcolor {primary}{Linear Regression and Regression Model}}{4}{section.5}%
+\contentsline {section}{\numberline {6}\textcolor {primary}{Loss Function, Cost Function, and Optimization Terms}}{4}{section.6}%
+\contentsline {section}{\numberline {7}\textcolor {primary}{Gradient Descent and Gradient Ascent}}{5}{section.7}%
+\contentsline {section}{\numberline {8}\textcolor {primary}{Simple Linear Regression Cost Using MSE}}{5}{section.8}%
+\contentsline {section}{\numberline {9}\textcolor {primary}{Worked Example: Iterations of Gradient Descent}}{5}{section.9}%
+\contentsline {section}{\numberline {10}\textcolor {primary}{Minimization of Cost Function: Practical Notes}}{6}{section.10}%
+\contentsline {section}{\numberline {11}\textcolor {primary}{Explained and Unexplained Variation}}{7}{section.11}%
+\contentsline {section}{\numberline {12}\textcolor {primary}{Comprehensive Terminology Quick List}}{8}{section.12}%
+\contentsline {section}{\numberline {13}\textcolor {primary}{Symbolic AI and Physical Symbol System Hypothesis}}{8}{section.13}%
+\contentsline {section}{\numberline {14}\textcolor {primary}{Classical Chatbots and the Turing Test}}{9}{section.14}%
+\contentsline {section}{\numberline {15}\textcolor {primary}{Conclusion}}{10}{section.15}%

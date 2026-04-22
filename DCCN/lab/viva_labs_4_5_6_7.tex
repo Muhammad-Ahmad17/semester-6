@@ -1,0 +1,1278 @@
+\documentclass[12pt,a4paper]{article}
+
+\usepackage[margin=0.9in]{geometry}
+\usepackage{tikz}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{colortbl}
+\usepackage{multirow}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{float}
+\usepackage{tcolorbox}
+\usepackage{listings}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning}
+\tcbuselibrary{skins,breakable}
+
+% Colors
+\definecolor{primary}{RGB}{0,82,147}
+\definecolor{secondary}{RGB}{52,152,219}
+\definecolor{accent}{RGB}{39,174,96}
+\definecolor{highlight}{RGB}{230,126,34}
+\definecolor{danger}{RGB}{231,76,60}
+\definecolor{light}{RGB}{236,240,241}
+\definecolor{codebg}{RGB}{245,245,245}
+
+% Section formatting
+\titleformat{\section}{\Large\bfseries\color{primary}}{\thesection}{1em}{}
+\titleformat{\subsection}{\large\bfseries\color{secondary}}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}{\normalsize\bfseries\color{secondary}}{\thesubsubsection}{1em}{}
+
+% Header/Footer
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\textcolor{primary}{DCCN Lab Viva - Labs 4-7}}
+\rhead{\textcolor{primary}{CPE314}}
+\rfoot{Page \thepage}
+
+\hypersetup{colorlinks=true,linkcolor=primary,urlcolor=secondary}
+
+% Custom boxes
+\newtcolorbox{theorybox}[1]{
+    colback=accent!5, colframe=accent,
+    title=#1, fonttitle=\bfseries,
+    rounded corners, boxrule=1.5pt, breakable
+}
+
+\newtcolorbox{commandbox}[1]{
+    colback=codebg, colframe=primary,
+    title=#1, fonttitle=\bfseries,
+    rounded corners, boxrule=1.5pt, breakable
+}
+
+\newtcolorbox{notebox}{
+    colback=highlight!10, colframe=highlight,
+    rounded corners, boxrule=1pt, breakable
+}
+
+% Code listing style
+\lstset{
+    basicstyle=\ttfamily\small,
+    backgroundcolor=\color{codebg},
+    breaklines=true,
+    frame=single,
+    rulecolor=\color{primary},
+    xleftmargin=10pt,
+    xrightmargin=10pt,
+    aboveskip=10pt,
+    belowskip=10pt,
+    columns=flexible
+}
+
+\begin{document}
+
+%===============================================================================
+% TITLE PAGE
+%===============================================================================
+\begin{titlepage}
+\centering
+\vspace*{0.5cm}
+{\Large\color{primary}\textbf{DCCN Lab Viva Preparation}}\\[0.3cm]
+\rule{\textwidth}{2pt}\\[0.5cm]
+{\Huge\bfseries\color{primary} Labs 4, 5, 6, 7}\\[0.3cm]
+{\Large Router Configuration \& Routing Protocols}\\[0.2cm]
+\rule{\textwidth}{2pt}\\[1.5cm]
+
+\begin{tcolorbox}[colback=light,colframe=primary,rounded corners,width=0.8\textwidth]
+\begin{center}
+\textbf{\large Lab Topics Covered}\\[0.3cm]
+\begin{itemize}[leftmargin=*, itemsep=5pt]
+    \item \textbf{Lab 4:} Basic Router Configuration \& Layer 3 Connectivity
+    \item \textbf{Lab 5:} Static \& Default Routing Configuration
+    \item \textbf{Lab 6:} RIP Dynamic Routing Protocol
+    \item \textbf{Lab 7:} OSPF Link-State Routing Protocol
+\end{itemize}
+\end{center}
+\end{tcolorbox}
+
+\vfill
+{\large \textbf{Course:} CPE314 - Data Communication and Computer Networks}\\[0.2cm]
+{\large \textbf{Tool:} Cisco Packet Tracer}\\[0.3cm]
+{\large Spring 2025}
+\end{titlepage}
+
+\tableofcontents
+\newpage
+
+%===============================================================================
+\section{Lab 4: Basic Router Configuration \& Layer 3 Connectivity}
+%===============================================================================
+
+\subsection{Objectives}
+\begin{itemize}[noitemsep]
+    \item To trace configuration procedures for basic layer 3 devices using CLI
+    \item To explain and show network connectivity using Cisco Packet Tracer
+\end{itemize}
+
+%-------------------------------------------------------------------------------
+\subsection{Theory}
+%-------------------------------------------------------------------------------
+
+\begin{theorybox}{Cisco Packet Tracer Overview}
+\textbf{Cisco Packet Tracer} is a powerful network simulation program that:
+\begin{itemize}[noitemsep]
+    \item Allows students to experiment with network behavior
+    \item Provides simulation, visualization, and assessment capabilities
+    \item Enables creation of networks with unlimited devices
+    \item Encourages practice, discovery, and troubleshooting
+\end{itemize}
+\end{theorybox}
+
+\begin{theorybox}{Command Line Interface (CLI) - Operating Modes}
+The Cisco IOS has three primary operating modes:
+
+\vspace{0.2cm}
+\textbf{1. User EXEC Mode}
+\begin{itemize}[noitemsep]
+    \item \textbf{Prompt:} \texttt{Router>} or \texttt{Switch>}
+    \item \textbf{Access:} Direct login
+    \item \textbf{Purpose:} Limited monitoring commands only
+    \item \textbf{Limitation:} Cannot configure or restart devices
+\end{itemize}
+
+\vspace{0.2cm}
+\textbf{2. Privileged EXEC Mode}
+\begin{itemize}[noitemsep]
+    \item \textbf{Prompt:} \texttt{Router\#} or \texttt{Switch\#}
+    \item \textbf{Access:} Enter \texttt{enable} from User EXEC mode
+    \item \textbf{Purpose:} View configuration, restart system, enter configuration mode
+    \item \textbf{Features:} Access to all router commands
+\end{itemize}
+
+\vspace{0.2cm}
+\textbf{3. Global Configuration Mode}
+\begin{itemize}[noitemsep]
+    \item \textbf{Prompt:} \texttt{Router(config)\#}
+    \item \textbf{Access:} Enter \texttt{configure terminal} from Privileged mode
+    \item \textbf{Purpose:} Commands affect entire system
+    \item \textbf{Sub-modes:} Interface config, line config, router config, etc.
+\end{itemize}
+\end{theorybox}
+
+\begin{theorybox}{Enhanced Editing Commands}
+\begin{center}
+\begin{tabular}{ll}
+\toprule
+\textbf{Command} & \textbf{Function} \\
+\midrule
+\texttt{Ctrl+A} & Move cursor to beginning of line \\
+\texttt{Ctrl+E} & Move cursor to end of line \\
+\texttt{Esc+B} & Move back one word \\
+\texttt{Ctrl+B} & Move back one character \\
+\texttt{Ctrl+F} & Move forward one character \\
+\texttt{Esc+F} & Move forward one word \\
+\texttt{Ctrl+D} / \texttt{Backspace} & Delete a single character \\
+\texttt{Ctrl+R} & Redisplay a line \\
+\texttt{Ctrl+U} & Erase a line \\
+\texttt{Ctrl+W} & Erase a word \\
+\texttt{Ctrl+Z} & End configuration mode, return to EXEC \\
+\bottomrule
+\end{tabular}
+\end{center}
+\end{theorybox}
+
+\begin{theorybox}{Serial Links: DCE vs DTE}
+\textbf{DCE (Data Communication Equipment):}
+\begin{itemize}[noitemsep]
+    \item Provides clocking signal for synchronization
+    \item \textbf{Requires} clock rate configuration
+    \item Command: \texttt{clock rate 64000}
+\end{itemize}
+
+\vspace{0.2cm}
+\textbf{DTE (Data Terminal Equipment):}
+\begin{itemize}[noitemsep]
+    \item Receives clock signal from DCE
+    \item \textbf{Does NOT} require clock rate configuration
+\end{itemize}
+\end{theorybox}
+
+%-------------------------------------------------------------------------------
+\subsection{Configuration Commands by Topic}
+%-------------------------------------------------------------------------------
+
+\begin{commandbox}{Process 1: Entering Configuration Mode}
+\begin{lstlisting}
+Router>enable                           # Enter privileged EXEC mode
+Router#configure terminal               # Enter global configuration mode
+\end{lstlisting}
+\end{commandbox}
+
+\begin{commandbox}{Process 2: Basic Router Configuration}
+\begin{lstlisting}
+Router(config)#hostname R1              # Set router hostname
+R1(config)#no ip domain-lookup          # Disable DNS lookup
+
+# Password Configuration
+R1(config)#enable secret class          # Set encrypted EXEC password (preferred)
+R1(config)#enable password class        # Set unencrypted EXEC password
+
+# Console Password
+R1(config)#line console 0
+R1(config-line)#password cisco
+R1(config-line)#login
+R1(config-line)#exit
+
+# Virtual Terminal (Telnet) Password
+R1(config)#line vty 0 4
+R1(config-line)#password cisco
+R1(config-line)#login
+R1(config-line)#exit
+\end{lstlisting}
+\end{commandbox}
+
+\begin{notebox}
+\textbf{Important:} \texttt{enable secret} creates an encrypted password (more secure) while \texttt{enable password} is unencrypted. If both are configured, the secret password takes precedence.
+\end{notebox}
+
+\begin{commandbox}{Process 3: FastEthernet Interface Configuration}
+\begin{lstlisting}
+R1(config)#interface fastethernet 0/0
+R1(config-if)#ip address 192.168.1.1 255.255.255.0
+R1(config-if)#no shutdown               # Activate interface
+R1(config-if)#description Link to LAN   # Optional description
+R1(config-if)#exit
+\end{lstlisting}
+\end{commandbox}
+
+\begin{commandbox}{Process 4: Serial Interface Configuration (DCE Side)}
+\begin{lstlisting}
+R1(config)#interface serial 0/0/0
+R1(config-if)#ip address 192.168.2.1 255.255.255.0
+R1(config-if)#clock rate 64000          # Set clock rate (DCE only)
+R1(config-if)#no shutdown               # Activate interface
+R1(config-if)#description Link to R2    # Optional description
+R1(config-if)#exit
+\end{lstlisting}
+\end{commandbox}
+
+\begin{commandbox}{Process 5: Serial Interface Configuration (DTE Side)}
+\begin{lstlisting}
+R2(config)#interface serial 0/0/0
+R2(config-if)#ip address 192.168.2.2 255.255.255.0
+R2(config-if)#no shutdown               # Activate interface
+R2(config-if)#exit
+# Note: NO clock rate command on DTE side
+\end{lstlisting}
+\end{commandbox}
+
+\begin{commandbox}{Process 6: Saving Configuration}
+\begin{lstlisting}
+R1#copy running-config startup-config   # Save to NVRAM (long form)
+R1#write memory                         # Save to NVRAM (short form)
+R1#wr                                   # Shortest form
+\end{lstlisting}
+\end{commandbox}
+
+\begin{commandbox}{Process 7: Verification Commands}
+\begin{lstlisting}
+Router#show ip route                    # Display routing table
+Router#show ip interface brief          # Verify interface status
+Router#show running-config              # Display current configuration
+Router#show startup-config              # Display saved configuration
+Router#ping <IP_address>                # Test connectivity (ICMP)
+\end{lstlisting}
+\end{commandbox}
+
+\begin{commandbox}{Process 8: Configuration Management}
+\begin{lstlisting}
+Router#erase startup-config             # Delete saved configuration
+Router#reload                           # Restart router
+
+# When prompted "Save configuration?", answer "no" to discard changes
+\end{lstlisting}
+\end{commandbox}
+
+%-------------------------------------------------------------------------------
+\subsection{Network Topology Example}
+%-------------------------------------------------------------------------------
+
+\begin{center}
+\begin{tcolorbox}[colback=light,colframe=primary,width=0.9\textwidth]
+\textbf{Typical Lab 4 Topology:}\\[0.2cm]
+\texttt{PC1 (192.168.1.10) --- [Fa0/0] R1 [S0/0/0] --- [S0/0/0] R2 [Fa0/0] --- PC2 (192.168.3.10)}\\[0.3cm]
+\begin{itemize}[noitemsep]
+    \item \textbf{R1 Fa0/0:} 192.168.1.1/24 (LAN side)
+    \item \textbf{R1 S0/0/0:} 192.168.2.1/24 (DCE - requires clock rate)
+    \item \textbf{R2 S0/0/0:} 192.168.2.2/24 (DTE - no clock rate)
+    \item \textbf{R2 Fa0/0:} 192.168.3.1/24 (LAN side)
+    \item \textbf{PC1:} 192.168.1.10/24, Gateway 192.168.1.1
+    \item \textbf{PC2:} 192.168.3.10/24, Gateway 192.168.3.1
+\end{itemize}
+\end{tcolorbox}
+\end{center}
+
+%-------------------------------------------------------------------------------
+\subsection{Key Concepts}
+%-------------------------------------------------------------------------------
+
+\begin{itemize}
+    \item \textbf{No Shutdown:} Interfaces are administratively down by default; use \texttt{no shutdown} to activate
+    \item \textbf{Clock Rate:} Only configured on DCE side of serial links (typically 64000 bps)
+    \item \textbf{Administrative Distance:} Directly connected networks have AD = 0 (most trusted)
+    \item \textbf{Running-config:} Active configuration in RAM (lost on reboot)
+    \item \textbf{Startup-config:} Saved configuration in NVRAM (persistent across reboots)
+\end{itemize}
+
+\newpage
+
+%===============================================================================
+\section{Lab 5: Static \& Default Routing}
+%===============================================================================
+
+\subsection{Objectives}
+\begin{itemize}[noitemsep]
+    \item Preparation of basic configuration on router based on CLI
+    \item Configure and activate serial and Ethernet interfaces
+    \item Show connectivity between devices using static routes
+    \item Implement default routing for stub networks
+\end{itemize}
+
+%-------------------------------------------------------------------------------
+\subsection{Theory}
+%-------------------------------------------------------------------------------
+
+\begin{theorybox}{Routing Fundamentals}
+\textbf{Routing} is the process of taking a packet from one device and sending it through the network to another device on a different network.
+
+\vspace{0.3cm}
+\textbf{What Routers Need to Know:}
+\begin{itemize}[noitemsep]
+    \item Destination address
+    \item Neighbor routers from which to learn about remote networks
+    \item Possible routes to all remote networks
+    \item The best route to each remote network
+    \item How to maintain and verify routing information
+\end{itemize}
+\end{theorybox}
+
+\begin{theorybox}{Types of Routing}
+\textbf{1. Static Routing}
+\begin{itemize}[noitemsep]
+    \item Administrator manually types all network locations into routing table
+    \item \textbf{Best for:} Small networks
+    \item \textbf{Advantage:} Predictable, secure, no bandwidth overhead
+    \item \textbf{Drawback:} Not scalable, requires manual updates
+\end{itemize}
+
+\vspace{0.2cm}
+\textbf{2. Dynamic Routing}
+\begin{itemize}[noitemsep]
+    \item Protocols automatically update routing tables
+    \item \textbf{Best for:} Larger networks
+    \item \textbf{Advantage:} Automatic updates, adapts to topology changes
+    \item \textbf{Drawback:} Requires CPU, memory, and bandwidth overhead
+\end{itemize}
+\end{theorybox}
+
+\begin{theorybox}{Administrative Distances}
+\textbf{AD} is a measure of trustworthiness (lower = more trusted):
+
+\begin{center}
+\begin{tabular}{ll}
+\toprule
+\textbf{Route Source} & \textbf{Default AD} \\
+\midrule
+Connected interface & 0 (most trusted) \\
+Static route & 1 \\
+EIGRP & 90 \\
+OSPF & 110 \\
+RIP & 120 (least trusted) \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\textbf{Metric for Static Routes:} 0 (administrator decision, not protocol)
+\end{theorybox}
+
+\begin{theorybox}{Default Route Concept}
+A \textbf{default route} (0.0.0.0/0) is a catch-all route used when no specific route exists for a destination.
+
+\vspace{0.2cm}
+\textbf{Use Case:} Ideal for stub routers (routers with only one exit path)
+
+\vspace{0.2cm}
+\textbf{Benefit:} Reduces routing table size
+\end{theorybox}
+
+%-------------------------------------------------------------------------------
+\subsection{Configuration Commands by Topic}
+%-------------------------------------------------------------------------------
+
+\begin{commandbox}{Process 1: Static Route Configuration}
+\textbf{Syntax:}
+\begin{lstlisting}
+Router(config)#ip route <network-address> <subnet-mask> <next-hop-ip>
+\end{lstlisting}
+
+\textbf{Where:}
+\begin{itemize}[noitemsep]
+    \item \texttt{<network-address>} = Destination network address
+    \item \texttt{<subnet-mask>} = Subnet mask of remote network
+    \item \texttt{<next-hop-ip>} = IP address of next-hop router
+\end{itemize}
+
+\vspace{0.2cm}
+\textbf{Example: R1 needs route to Network 192.168.3.0/24 via R2 (192.168.2.2)}
+\begin{lstlisting}
+R1(config)#ip route 192.168.3.0 255.255.255.0 192.168.2.2
+\end{lstlisting}
+\end{commandbox}
+
+\begin{commandbox}{Process 2: Static Route Configuration (Multiple Networks)}
+\textbf{Scenario:} Three routers (R1 --- R2 --- R3) with three networks
+
+\vspace{0.2cm}
+\textbf{On R1 (leftmost):}
+\begin{lstlisting}
+R1(config)#ip route 192.168.2.0 255.255.255.0 <R2_next_hop>
+R1(config)#ip route 192.168.3.0 255.255.255.0 <R2_next_hop>
+\end{lstlisting}
+
+\textbf{On R2 (center):}
+\begin{lstlisting}
+R2(config)#ip route 192.168.1.0 255.255.255.0 <R1_next_hop>
+R2(config)#ip route 192.168.3.0 255.255.255.0 <R3_next_hop>
+\end{lstlisting}
+
+\textbf{On R3 (rightmost):}
+\begin{lstlisting}
+R3(config)#ip route 192.168.1.0 255.255.255.0 <R2_next_hop>
+R3(config)#ip route 192.168.2.0 255.255.255.0 <R2_next_hop>
+\end{lstlisting}
+\end{commandbox}
+
+\begin{commandbox}{Process 3: Default Static Route Configuration}
+\textbf{Syntax:}
+\begin{lstlisting}
+Router(config)#ip route 0.0.0.0 0.0.0.0 <next-hop-ip>
+\end{lstlisting}
+
+\textbf{Explanation:}
+\begin{itemize}[noitemsep]
+    \item \texttt{0.0.0.0} = Match any destination network
+    \item \texttt{0.0.0.0} = Match any subnet mask
+    \item Used for stub routers with single exit point
+\end{itemize}
+
+\vspace{0.2cm}
+\textbf{Example: R1 uses R2 as default gateway}
+\begin{lstlisting}
+R1(config)#ip route 0.0.0.0 0.0.0.0 192.168.2.2
+\end{lstlisting}
+\end{commandbox}
+
+\begin{commandbox}{Process 4: Removing Static Routes}
+\begin{lstlisting}
+Router(config)#no ip route <network> <subnet-mask> <next-hop>
+
+# Example: Remove specific static route on R1
+R1(config)#no ip route 192.168.3.0 255.255.255.0 192.168.2.2
+\end{lstlisting}
+\end{commandbox}
+
+\begin{commandbox}{Process 5: Verification Commands}
+\begin{lstlisting}
+Router#show ip route                    # Display routing table
+Router#show ip interface brief          # Verify interface status
+Router#ping <IP_address>                # Test connectivity
+
+# In routing table output:
+#   S = Static route
+#   C = Connected network
+#   * = Default route candidate
+\end{lstlisting}
+\end{commandbox}
+
+%-------------------------------------------------------------------------------
+\subsection{Network Topology Example}
+%-------------------------------------------------------------------------------
+
+\begin{center}
+\begin{tcolorbox}[colback=light,colframe=primary,width=0.9\textwidth]
+\textbf{Typical Lab 5 Topology (Three Routers):}\\[0.2cm]
+\texttt{PC1 --- R1 --- R2 --- R3 --- PC3}\\[0.3cm]
+\begin{itemize}[noitemsep]
+    \item \textbf{Network 1 (R1 LAN):} 192.168.1.0/24
+    \item \textbf{Network 2 (R1-R2 link):} 192.168.2.0/24
+    \item \textbf{Network 3 (R2-R3 link):} 192.168.3.0/24
+    \item \textbf{Network 4 (R3 LAN):} 192.168.4.0/24
+\end{itemize}
+
+\vspace{0.2cm}
+\textbf{Configuration Strategy:}
+\begin{itemize}[noitemsep]
+    \item R1 and R3 are stub routers $\rightarrow$ Use default routes
+    \item R2 is the core router $\rightarrow$ Needs specific static routes to all networks
+\end{itemize}
+\end{tcolorbox}
+\end{center}
+
+%-------------------------------------------------------------------------------
+\subsection{Key Concepts}
+%-------------------------------------------------------------------------------
+
+\begin{itemize}
+    \item \textbf{Stub Router:} Router with only one exit path; ideal for default routes
+    \item \textbf{Next-Hop Address:} IP address of neighboring router's interface
+    \item \textbf{Static Route Metric:} Always 0 (manually configured, no protocol metric)
+    \item \textbf{Route Prefix 'S':} Indicates static route in routing table
+    \item \textbf{Manual Configuration:} Static routes must be configured on each router separately
+\end{itemize}
+
+\newpage
+
+%===============================================================================
+\section{Lab 6: RIP Dynamic Routing Protocol}
+%===============================================================================
+
+\subsection{Objectives}
+\begin{itemize}[noitemsep]
+    \item To construct a network demonstrating RIP routing protocol operation
+    \item To show connectivity between nodes using RIP on all routers
+    \item Understand distance-vector routing protocol behavior
+\end{itemize}
+
+%-------------------------------------------------------------------------------
+\subsection{Theory}
+%-------------------------------------------------------------------------------
+
+\begin{theorybox}{Dynamic Routing Protocols Overview}
+\textbf{Dynamic Routing} is when protocols automatically discover networks and update routing tables on routers. Routers communicate routing information with neighboring routers.
+
+\vspace{0.3cm}
+\textbf{Advantages:}
+\begin{itemize}[noitemsep]
+    \item Automatic network discovery
+    \item Adapts to topology changes
+    \item Scalable for larger networks
+\end{itemize}
+\end{theorybox}
+
+\begin{theorybox}{Two Categories of Dynamic Routing}
+\textbf{1. Distance-Vector Routing}
+\begin{itemize}[noitemsep]
+    \item Finds best path by judging distance (hop count)
+    \item Periodically sends entire routing table to neighbors
+    \item \textbf{Example:} RIP (Routing Information Protocol)
+\end{itemize}
+
+\vspace{0.2cm}
+\textbf{2. Link-State Routing}
+\begin{itemize}[noitemsep]
+    \item Creates three tables: neighbors, topology, routing
+    \item Sends updates containing state of own links to all routers
+    \item \textbf{Example:} OSPF (Open Shortest Path First)
+\end{itemize}
+\end{theorybox}
+
+\begin{theorybox}{Routing Information Protocol (RIP) Characteristics}
+\begin{itemize}[noitemsep]
+    \item \textbf{Type:} Distance-vector routing protocol
+    \item \textbf{Metric:} Hop count (number of routers between source and destination)
+    \item \textbf{Maximum Hop Count:} 15 (16 = unreachable)
+    \item \textbf{Update Frequency:} Sends complete routing table every 30 seconds
+    \item \textbf{Administrative Distance:} 120 (least trusted)
+    \item \textbf{Use Case:} Small networks only
+    \item \textbf{Limitations:} Inefficient on large networks with slow WAN links
+\end{itemize}
+\end{theorybox}
+
+\begin{theorybox}{RIP Version Comparison}
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+\textbf{Feature} & \textbf{RIPv1} & \textbf{RIPv2} \\
+\midrule
+Routing Type & Classful & Classless \\
+Subnet Mask Info & Not sent & Sent in updates \\
+VLSM Support & No & Yes \\
+Modern Use & Rarely used & More common \\
+\bottomrule
+\end{tabular}
+\end{center}
+\end{theorybox}
+
+%-------------------------------------------------------------------------------
+\subsection{Configuration Commands by Topic}
+%-------------------------------------------------------------------------------
+
+\begin{commandbox}{Process 1: Enabling RIP on Router}
+\textbf{Syntax:}
+\begin{lstlisting}
+Router(config)#router rip
+Router(config-router)#network <NETWORK_ADDRESS>
+Router(config-router)#network <NETWORK_ADDRESS>
+Router(config-router)#exit
+\end{lstlisting}
+
+\textbf{Important Notes:}
+\begin{itemize}[noitemsep]
+    \item Enter \textbf{each directly connected network} separately
+    \item Use \textbf{classful network addresses} (not subnet addresses)
+    \item RIP automatically determines which interfaces belong to each network
+\end{itemize}
+\end{commandbox}
+
+\begin{commandbox}{Process 2: RIP Configuration Example (Router R1)}
+\textbf{Scenario:} R1 has two interfaces:
+\begin{itemize}[noitemsep]
+    \item Fa0/0: 10.1.1.1/24 (connected to Network 10.0.0.0)
+    \item S0/0/0: 10.2.2.1/24 (connected to Network 10.0.0.0)
+\end{itemize}
+
+\begin{lstlisting}
+R1(config)#router rip
+R1(config-router)#network 10.0.0.0      # Classful network address
+R1(config-router)#exit
+\end{lstlisting}
+
+\textbf{Note:} Since both interfaces are in Class A network 10.0.0.0, only one \texttt{network} command needed.
+\end{commandbox}
+
+\begin{commandbox}{Process 3: RIP Configuration (Multiple Networks)}
+\textbf{Scenario:} Router R2 connects three networks:
+\begin{itemize}[noitemsep]
+    \item Fa0/0: 172.16.1.1/24
+    \item S0/0/0: 172.17.1.1/24
+    \item S0/0/1: 172.18.1.1/24
+\end{itemize}
+
+\begin{lstlisting}
+R2(config)#router rip
+R2(config-router)#network 172.16.0.0   # Network 1
+R2(config-router)#network 172.17.0.0   # Network 2
+R2(config-router)#network 172.18.0.0   # Network 3
+R2(config-router)#exit
+\end{lstlisting}
+\end{commandbox}
+
+\begin{commandbox}{Process 4: Verifying RIP Configuration}
+\begin{lstlisting}
+Router#show ip route                    # Display routing table
+Router#show ip protocols                # Display routing protocol info
+Router#show running-config              # Verify RIP configuration
+Router#debug ip rip                     # Show RIP updates in real-time
+Router#no debug ip rip                  # Turn off RIP debugging
+\end{lstlisting}
+
+\textbf{Interpreting Routing Table:}
+\begin{itemize}[noitemsep]
+    \item \textbf{R} = Route learned via RIP
+    \item \textbf{[120/X]} = Administrative Distance 120, Metric X hops
+    \item \textbf{via <IP>} = Next-hop router address
+\end{itemize}
+\end{commandbox}
+
+\begin{commandbox}{Process 5: Disabling RIP}
+\begin{lstlisting}
+Router(config)#no router rip            # Completely remove RIP
+
+# Remove specific network from RIP
+Router(config)#router rip
+Router(config-router)#no network <NETWORK_ADDRESS>
+\end{lstlisting}
+\end{commandbox}
+
+%-------------------------------------------------------------------------------
+\subsection{Network Topology Example}
+%-------------------------------------------------------------------------------
+
+\begin{center}
+\begin{tcolorbox}[colback=light,colframe=primary,width=0.9\textwidth]
+\textbf{Typical Lab 6 Topology (Class A Addressing):}\\[0.2cm]
+\texttt{PC1 --- R1 --- R2 --- R3 --- PC3}\\[0.3cm]
+\begin{itemize}[noitemsep]
+    \item \textbf{Network 1 (R1 LAN):} 10.1.0.0/24
+    \item \textbf{Network 2 (R1-R2 link):} 10.2.0.0/24
+    \item \textbf{Network 3 (R2 LAN):} 10.3.0.0/24
+    \item \textbf{Network 4 (R2-R3 link):} 10.4.0.0/24
+    \item \textbf{Network 5 (R3 LAN):} 10.5.0.0/24
+\end{itemize}
+
+\vspace{0.2cm}
+\textbf{Configuration Sequence:}
+\begin{enumerate}[noitemsep]
+    \item Enable RIP on R1 (networks 10.0.0.0)
+    \item Enable RIP on R3 (networks 10.0.0.0)
+    \item Enable RIP on R2 (networks 10.0.0.0) $\rightarrow$ Full connectivity achieved
+\end{enumerate}
+\end{tcolorbox}
+\end{center}
+
+%-------------------------------------------------------------------------------
+\subsection{Key Concepts}
+%-------------------------------------------------------------------------------
+
+\begin{itemize}
+    \item \textbf{Convergence:} Time taken for all routers to learn all routes (30+ seconds for RIP)
+    \item \textbf{Hop Count:} Metric used by RIP; each router hop = 1
+    \item \textbf{15-Hop Limit:} Maximum reachable distance; 16 hops = unreachable
+    \item \textbf{Periodic Updates:} RIP sends updates every 30 seconds
+    \item \textbf{Administrative Distance 120:} RIP is least trusted routing protocol
+    \item \textbf{Classful Addressing:} RIPv1 uses classful networks (Class A, B, C)
+    \item \textbf{Network Discovery:} RIP automatically learns remote networks from neighbors
+\end{itemize}
+
+\newpage
+
+%===============================================================================
+\section{Lab 7: OSPF Link-State Routing Protocol}
+%===============================================================================
+
+\subsection{Objectives}
+\begin{itemize}[noitemsep]
+    \item To construct a network demonstrating OSPF routing protocol operation
+    \item To show connectivity between nodes using OSPF on all routers
+    \item Understand link-state routing protocol behavior
+    \item Configure OSPF areas, router IDs, and interface parameters
+\end{itemize}
+
+%-------------------------------------------------------------------------------
+\subsection{Theory}
+%-------------------------------------------------------------------------------
+
+\begin{theorybox}{Open Shortest Path First (OSPF) Characteristics}
+\begin{itemize}[noitemsep]
+    \item \textbf{Type:} Link-state routing protocol
+    \item \textbf{Standard:} Open standard (multi-vendor support)
+    \item \textbf{Algorithm:} Dijkstra shortest path first (SPF)
+    \item \textbf{Metric:} Cost (based on bandwidth)
+    \item \textbf{Administrative Distance:} 110
+    \item \textbf{Convergence:} Fast convergence to topology changes
+    \item \textbf{Scalability:} Supports unlimited hop count
+    \item \textbf{Features:} Supports VLSM, CIDR, hierarchical design with areas
+\end{itemize}
+\end{theorybox}
+
+\begin{theorybox}{OSPF Advantages Over RIP}
+\begin{itemize}[noitemsep]
+    \item \textbf{Unlimited Hop Count:} No 15-hop limitation
+    \item \textbf{Fast Convergence:} Immediately detects topology changes
+    \item \textbf{Efficient Updates:} Sends only changes, not entire routing table
+    \item \textbf{Hierarchical Design:} Supports areas for better scalability
+    \item \textbf{Load Balancing:} Equal-cost multipath routing
+    \item \textbf{VLSM Support:} Variable length subnet masking
+\end{itemize}
+\end{theorybox}
+
+\begin{theorybox}{OSPF Metric: Cost Calculation}
+\textbf{Cost Formula:}
+\begin{center}
+\large{$\text{Cost} = \frac{10^8}{\text{Bandwidth (bps)}}$}
+\end{center}
+
+\vspace{0.2cm}
+\textbf{Examples:}
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+\textbf{Interface Type} & \textbf{Bandwidth} & \textbf{Cost} \\
+\midrule
+10 Mbps Ethernet & 10,000,000 bps & 10 \\
+100 Mbps FastEthernet & 100,000,000 bps & 1 \\
+1 Gbps GigabitEthernet & 1,000,000,000 bps & 1 \\
+64 kbps Serial & 64,000 bps & 1562 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\textbf{Best Path:} OSPF selects route with \textbf{lowest cumulative cost}
+\end{theorybox}
+
+\begin{theorybox}{Router ID (RID)}
+\textbf{Definition:} IP address used to uniquely identify an OSPF router
+
+\vspace{0.2cm}
+\textbf{Selection Precedence (highest to lowest):}
+\begin{enumerate}[noitemsep]
+    \item IP address configured with \texttt{router-id} command
+    \item Highest IP address of active \textbf{loopback} interfaces
+    \item Highest IP address of active \textbf{physical} interfaces
+\end{enumerate}
+
+\vspace{0.2cm}
+\textbf{Best Practice:} Configure loopback interface for stable Router ID
+\end{theorybox}
+
+\begin{theorybox}{OSPF Terminology}
+\textbf{Neighbor:}
+\begin{itemize}[noitemsep]
+    \item Two or more routers with interfaces on common network
+    \item Discovered via Hello protocol
+\end{itemize}
+
+\vspace{0.2cm}
+\textbf{Adjacency:}
+\begin{itemize}[noitemsep]
+    \item Relationship between routers permitting direct route exchange
+    \item Not all neighbors become adjacent
+\end{itemize}
+
+\vspace{0.2cm}
+\textbf{Designated Router (DR):}
+\begin{itemize}[noitemsep]
+    \item Elected on broadcast/multi-access networks
+    \item Minimizes number of adjacencies
+    \item Election based on: Highest priority $\rightarrow$ Highest Router ID
+\end{itemize}
+
+\vspace{0.2cm}
+\textbf{Backup Designated Router (BDR):}
+\begin{itemize}[noitemsep]
+    \item Hot standby for DR
+    \item Receives all routing updates but doesn't disperse until DR fails
+\end{itemize}
+
+\vspace{0.2cm}
+\textbf{Hello Protocol:}
+\begin{itemize}[noitemsep]
+    \item Provides dynamic neighbor discovery
+    \item Maintains neighbor relationships
+    \item Multicast address: 224.0.0.5
+    \item Default intervals: Hello = 10 sec, Dead = 40 sec
+\end{itemize}
+
+\vspace{0.2cm}
+\textbf{Link State Advertisement (LSA):}
+\begin{itemize}[noitemsep]
+    \item OSPF data packet containing link-state information
+    \item Shared between adjacent routers
+\end{itemize}
+
+\vspace{0.2cm}
+\textbf{Topological Database:}
+\begin{itemize}[noitemsep]
+    \item Contains information from all LSA packets
+    \item Input for Dijkstra SPF algorithm
+\end{itemize}
+\end{theorybox}
+
+\begin{theorybox}{OSPF Areas}
+\textbf{Definition:} Grouping of contiguous networks and routers
+
+\vspace{0.2cm}
+\textbf{Purpose:}
+\begin{itemize}[noitemsep]
+    \item Reduce routing overhead
+    \item Speed up convergence
+    \item Confine network instability to single areas
+\end{itemize}
+
+\vspace{0.2cm}
+\textbf{Area 0 (Backbone Area):}
+\begin{itemize}[noitemsep]
+    \item Required in multi-area OSPF
+    \item All other areas must connect to Area 0
+\end{itemize}
+
+\vspace{0.2cm}
+\textbf{Single Area:} For simple topologies, use Area 0 for entire network
+\end{theorybox}
+
+\begin{theorybox}{OSPF Network Types}
+\begin{enumerate}[noitemsep]
+    \item \textbf{Broadcast (Multi-access):} Ethernet - DR/BDR elected
+    \item \textbf{Non-Broadcast Multi-access (NBMA):} Frame Relay - special config
+    \item \textbf{Point-to-Point:} Serial links - no DR/BDR needed
+    \item \textbf{Point-to-Multipoint:} Hub-and-spoke topologies
+\end{enumerate}
+\end{theorybox}
+
+%-------------------------------------------------------------------------------
+\subsection{Configuration Commands by Topic}
+%-------------------------------------------------------------------------------
+
+\begin{commandbox}{Process 1: Basic OSPF Configuration}
+\textbf{Syntax:}
+\begin{lstlisting}
+Router(config)#router ospf <Process_ID>
+Router(config-router)#network <Network_Address> <Wildcard_Mask> area <Area_ID>
+Router(config-router)#network <Network_Address> <Wildcard_Mask> area <Area_ID>
+Router(config-router)#exit
+\end{lstlisting}
+
+\textbf{Parameters:}
+\begin{itemize}[noitemsep]
+    \item \texttt{<Process\_ID>} = Locally significant number (1-65535)
+    \item \texttt{<Network\_Address>} = Network or IP address to advertise
+    \item \texttt{<Wildcard\_Mask>} = Inverse of subnet mask
+    \item \texttt{<Area\_ID>} = OSPF area number (typically 0)
+\end{itemize}
+\end{commandbox}
+
+\begin{notebox}
+\textbf{Wildcard Mask Calculation:}\\
+Wildcard Mask = 255.255.255.255 - Subnet Mask
+
+\vspace{0.2cm}
+\textbf{Examples:}
+\begin{itemize}[noitemsep]
+    \item Subnet Mask 255.255.255.0 $\rightarrow$ Wildcard 0.0.0.255
+    \item Subnet Mask 255.255.255.252 $\rightarrow$ Wildcard 0.0.0.3
+    \item Subnet Mask 255.255.255.128 $\rightarrow$ Wildcard 0.0.0.127
+\end{itemize}
+\end{notebox}
+
+\begin{commandbox}{Process 2: OSPF Configuration Example (Router R1)}
+\textbf{Scenario:} R1 has three interfaces in Class B network (172.17.0.0):
+\begin{itemize}[noitemsep]
+    \item Fa0/0: 172.17.1.1/24
+    \item S0/0/0: 172.17.2.1/30
+    \item S0/0/1: 172.17.3.1/30
+\end{itemize}
+
+\begin{lstlisting}
+R1(config)#router ospf 1
+R1(config-router)#network 172.17.1.0 0.0.0.255 area 0
+R1(config-router)#network 172.17.2.0 0.0.0.3 area 0
+R1(config-router)#network 172.17.3.0 0.0.0.3 area 0
+R1(config-router)#exit
+\end{lstlisting}
+\end{commandbox}
+
+\begin{commandbox}{Process 3: Configuring Router ID with Loopback}
+\textbf{Purpose:} Provide stable, predictable Router ID
+
+\begin{lstlisting}
+R1(config)#interface loopback 0
+R1(config-if)#ip address 10.1.1.1 255.255.255.255
+R1(config-if)#exit
+
+R2(config)#interface loopback 0
+R2(config-if)#ip address 10.2.2.2 255.255.255.255
+R2(config-if)#exit
+
+R3(config)#interface loopback 0
+R3(config-if)#ip address 10.3.3.3 255.255.255.255
+R3(config-if)#exit
+
+# Reload router for new Router ID to take effect
+Router#reload
+\end{lstlisting}
+
+\textbf{Note:} Use /32 mask (255.255.255.255) for loopback interfaces
+\end{commandbox}
+
+\begin{commandbox}{Process 4: Configuring Interface Bandwidth}
+\textbf{Purpose:} Accurate OSPF cost calculation
+
+\begin{lstlisting}
+R1(config)#interface serial 0/0/0
+R1(config-if)#bandwidth 64         # Set bandwidth to 64 kbps
+R1(config-if)#exit
+
+R2(config)#interface serial 0/0/0
+R2(config-if)#bandwidth 128        # Set bandwidth to 128 kbps
+R2(config-if)#exit
+\end{lstlisting}
+
+\textbf{Note:} This command does NOT change actual interface speed; only affects metric calculation
+\end{commandbox}
+
+\begin{commandbox}{Process 5: Modifying OSPF Hello and Dead Intervals}
+\textbf{Default Values:}
+\begin{itemize}[noitemsep]
+    \item Hello Interval: 10 seconds
+    \item Dead Interval: 40 seconds (4 $\times$ Hello)
+\end{itemize}
+
+\begin{lstlisting}
+R1(config)#interface serial 0/0/0
+R1(config-if)#ip ospf hello-interval 5     # Hello every 5 seconds
+R1(config-if)#ip ospf dead-interval 20     # Dead after 20 seconds
+R1(config-if)#exit
+
+# MUST match on both sides of link
+R2(config)#interface serial 0/0/0
+R2(config-if)#ip ospf hello-interval 5
+R2(config-if)#ip ospf dead-interval 20
+R2(config-if)#exit
+\end{lstlisting}
+
+\textbf{Important:} Intervals must match on both routers; mismatch prevents adjacency
+\end{commandbox}
+
+\begin{commandbox}{Process 6: Configuring OSPF Priority (DR/BDR Election)}
+\begin{lstlisting}
+R1(config)#interface fastethernet 0/0
+R1(config-if)#ip ospf priority 255    # Highest priority = DR
+R1(config-if)#exit
+
+R2(config)#interface fastethernet 0/0
+R2(config-if)#ip ospf priority 100    # Medium priority = BDR
+R2(config-if)#exit
+
+R3(config)#interface fastethernet 0/0
+R3(config-if)#ip ospf priority 0      # Priority 0 = Never DR/BDR
+R3(config-if)#exit
+\end{lstlisting}
+
+\textbf{Default Priority:} 1\\
+\textbf{Range:} 0-255 (higher = better chance to become DR)
+\end{commandbox}
+
+\begin{commandbox}{Process 7: OSPF Verification Commands}
+\begin{lstlisting}
+Router#show ip protocols                # Display routing protocol info
+Router#show ip ospf                     # Display OSPF process details
+Router#show ip ospf neighbor            # Display OSPF neighbors
+Router#show ip ospf interface           # Display OSPF interface details
+Router#show ip ospf interface brief     # Brief OSPF interface summary
+Router#show ip route                    # Display routing table
+Router#show ip route ospf               # Display only OSPF routes
+Router#debug ip ospf events             # Show OSPF events
+Router#debug ip ospf hello              # Show Hello packets
+Router#no debug all                     # Turn off all debugging
+\end{lstlisting}
+
+\textbf{Interpreting Routing Table:}
+\begin{itemize}[noitemsep]
+    \item \textbf{O} = OSPF intra-area route
+    \item \textbf{[110/X]} = AD 110, Cost X
+    \item \textbf{via <IP>} = Next-hop router address
+\end{itemize}
+\end{commandbox}
+
+%-------------------------------------------------------------------------------
+\subsection{Network Topology Example}
+%-------------------------------------------------------------------------------
+
+\begin{center}
+\begin{tcolorbox}[colback=light,colframe=primary,width=0.95\textwidth]
+\textbf{Typical Lab 7 Topology (Class B with VLSM):}\\[0.2cm]
+\texttt{PC1 --- R1 --- R2 --- R3 --- PC3}\\[0.3cm]
+\begin{itemize}[noitemsep]
+    \item \textbf{Network 1 (R1 LAN):} 172.17.1.0/24
+    \item \textbf{Network 2 (R1-R2 link):} 172.17.2.0/30 (point-to-point)
+    \item \textbf{Network 3 (R2 LAN):} 172.17.3.0/24
+    \item \textbf{Network 4 (R2-R3 link):} 172.17.4.0/30 (point-to-point)
+    \item \textbf{Network 5 (R3 LAN):} 172.17.5.0/24
+    \item \textbf{Loopbacks:} R1=10.1.1.1, R2=10.2.2.2, R3=10.3.3.3
+\end{itemize}
+
+\vspace{0.2cm}
+\textbf{Configuration Order:}
+\begin{enumerate}[noitemsep]
+    \item Configure loopback interfaces on all routers
+    \item Enable OSPF process 1 on all routers
+    \item Add all directly connected networks to Area 0
+    \item Verify neighbor adjacencies
+    \item Test connectivity between all hosts
+\end{enumerate}
+\end{tcolorbox}
+\end{center}
+
+%-------------------------------------------------------------------------------
+\subsection{Key Concepts}
+%-------------------------------------------------------------------------------
+
+\begin{itemize}
+    \item \textbf{Process ID:} Locally significant; can differ between routers
+    \item \textbf{Area ID:} Must match for routers to become neighbors
+    \item \textbf{Wildcard Mask:} Inverse of subnet mask (used for network matching)
+    \item \textbf{Cost Metric:} Based on bandwidth; lower cost = better path
+    \item \textbf{Router ID:} Loopback interface provides stable RID
+    \item \textbf{Administrative Distance:} 110 (more trusted than RIP's 120)
+    \item \textbf{Convergence:} Faster than RIP; immediate topology change detection
+    \item \textbf{Hello Timers:} Must match on both sides for adjacency
+    \item \textbf{DR/BDR:} Only on broadcast networks; not needed on point-to-point links
+    \item \textbf{Area 0:} Backbone area; single-area designs use Area 0 for all networks
+\end{itemize}
+
+\newpage
+
+%===============================================================================
+\section{Comparison Summary}
+%===============================================================================
+
+\begin{center}
+\begin{tcolorbox}[colback=light,colframe=primary,title=\textbf{\large Routing Methods Comparison},width=0.95\textwidth]
+\begin{center}
+\begin{tabular}{p{3cm}p{3.5cm}p{3.5cm}p{3.5cm}}
+\toprule
+\textbf{Feature} & \textbf{Static Routing} & \textbf{RIP} & \textbf{OSPF} \\
+\midrule
+\textbf{Type} & Manual configuration & Distance-vector & Link-state \\[0.2cm]
+\textbf{Metric} & N/A (admin decision) & Hop count & Cost (bandwidth) \\[0.2cm]
+\textbf{Admin Distance} & 1 & 120 & 110 \\[0.2cm]
+\textbf{Convergence} & N/A & Slow (30+ sec) & Fast (immediate) \\[0.2cm]
+\textbf{Scalability} & Small networks & Small networks & Large networks \\[0.2cm]
+\textbf{Configuration} & Manual per route & Network statements & Network + area \\[0.2cm]
+\textbf{Updates} & None & Full table every 30s & Only changes \\[0.2cm]
+\textbf{Hop Limit} & Unlimited & 15 hops max & Unlimited \\[0.2cm]
+\textbf{VLSM Support} & Yes & No (v1) / Yes (v2) & Yes \\[0.2cm]
+\textbf{Bandwidth Usage} & None & High & Low \\[0.2cm]
+\textbf{Best Use} & Stub networks & Legacy small nets & Modern enterprise \\[0.2cm]
+\bottomrule
+\end{tabular}
+\end{center}
+\end{tcolorbox}
+\end{center}
+
+\vspace{0.5cm}
+
+\begin{center}
+\begin{tcolorbox}[colback=accent!10,colframe=accent,title=\textbf{\large Command Syntax Quick Reference},width=0.95\textwidth]
+\textbf{Static Route:}
+\begin{lstlisting}
+ip route <destination-network> <mask> <next-hop-ip>
+\end{lstlisting}
+
+\textbf{Default Route:}
+\begin{lstlisting}
+ip route 0.0.0.0 0.0.0.0 <next-hop-ip>
+\end{lstlisting}
+
+\textbf{RIP:}
+\begin{lstlisting}
+router rip
+network <classful-network-address>
+\end{lstlisting}
+
+\textbf{OSPF:}
+\begin{lstlisting}
+router ospf <process-id>
+network <network-address> <wildcard-mask> area <area-id>
+\end{lstlisting}
+\end{tcolorbox}
+\end{center}
+
+%===============================================================================
+\section{Common Verification Commands}
+%===============================================================================
+
+\begin{center}
+\begin{tcolorbox}[colback=light,colframe=secondary,width=0.95\textwidth]
+\textbf{Universal Commands (All Labs):}
+\begin{lstlisting}
+show ip route                           # Routing table
+show ip interface brief                 # Interface status summary
+show running-config                     # Current configuration
+ping <IP>                               # Test connectivity
+traceroute <IP>                         # Trace packet path
+\end{lstlisting}
+
+\vspace{0.3cm}
+\textbf{RIP-Specific:}
+\begin{lstlisting}
+show ip protocols                       # Routing protocol details
+debug ip rip                            # Show RIP updates
+\end{lstlisting}
+
+\vspace{0.3cm}
+\textbf{OSPF-Specific:}
+\begin{lstlisting}
+show ip ospf neighbor                   # OSPF neighbors
+show ip ospf interface                  # OSPF interface details
+show ip ospf                            # OSPF process information
+show ip route ospf                      # Only OSPF routes
+debug ip ospf events                    # OSPF events
+debug ip ospf hello                     # Hello packets
+\end{lstlisting}
+\end{tcolorbox}
+\end{center}
+
+%===============================================================================
+\section{Troubleshooting Tips}
+%===============================================================================
+
+\subsection{Lab 4: Basic Configuration Issues}
+\begin{itemize}
+    \item \textbf{Interface down:} Check \texttt{no shutdown} command
+    \item \textbf{No connectivity:} Verify IP addressing and subnet masks
+    \item \textbf{Serial link down:} Verify clock rate on DCE side
+    \item \textbf{Cannot ping:} Check default gateways on PCs
+\end{itemize}
+
+\subsection{Lab 5: Static Routing Issues}
+\begin{itemize}
+    \item \textbf{No route in table:} Check static route syntax
+    \item \textbf{Wrong next-hop:} Verify next-hop IP is reachable
+    \item \textbf{Default route not working:} Ensure 0.0.0.0/0 configured correctly
+\end{itemize}
+
+\subsection{Lab 6: RIP Issues}
+\begin{itemize}
+    \item \textbf{No RIP routes:} Verify \texttt{router rip} and \texttt{network} commands
+    \item \textbf{Slow convergence:} Wait 30+ seconds for updates
+    \item \textbf{Missing networks:} Check classful network addresses used
+    \item \textbf{Hop count exceeded:} Destination $>$15 hops away
+\end{itemize}
+
+\subsection{Lab 7: OSPF Issues}
+\begin{itemize}
+    \item \textbf{No neighbors:} Check area ID, Hello/Dead timers match
+    \item \textbf{Wrong Router ID:} Configure loopback and reload
+    \item \textbf{High cost routes:} Verify bandwidth settings
+    \item \textbf{No adjacency:} Check wildcard masks, area numbers
+    \item \textbf{Stuck in INIT state:} Check bidirectional communication
+\end{itemize}
+
+%===============================================================================
+\section{Viva Preparation Checklist}
+%===============================================================================
+
+\begin{tcolorbox}[colback=highlight!15,colframe=highlight,title=\textbf{Before Your Viva},rounded corners,breakable]
+\textbf{Conceptual Understanding:}
+\begin{itemize}[noitemsep]
+    \item[$\Box$] Explain difference between static and dynamic routing
+    \item[$\Box$] Describe how distance-vector routing works
+    \item[$\Box$] Describe how link-state routing works
+    \item[$\Box$] Compare RIP vs OSPF characteristics
+    \item[$\Box$] Explain administrative distance concept
+    \item[$\Box$] Understand DCE vs DTE on serial links
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Practical Skills:}
+\begin{itemize}[noitemsep]
+    \item[$\Box$] Configure router hostname, passwords
+    \item[$\Box$] Configure FastEthernet and Serial interfaces
+    \item[$\Box$] Create static routes with correct syntax
+    \item[$\Box$] Configure default routes for stub routers
+    \item[$\Box$] Enable RIP with network statements
+    \item[$\Box$] Configure OSPF with wildcard masks
+    \item[$\Box$] Set up loopback interfaces for Router ID
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Verification \& Troubleshooting:}
+\begin{itemize}[noitemsep]
+    \item[$\Box$] Use \texttt{show ip route} effectively
+    \item[$\Box$] Interpret routing table entries
+    \item[$\Box$] Verify neighbor adjacencies (OSPF)
+    \item[$\Box$] Test connectivity with ping
+    \item[$\Box$] Calculate wildcard masks
+    \item[$\Box$] Calculate OSPF cost
+\end{itemize}
+\end{tcolorbox}
+
+\vfill
+
+\begin{center}
+\begin{tcolorbox}[colback=primary!10,colframe=primary,width=0.7\textwidth]
+\begin{center}
+\textbf{\large Good Luck with Your Viva!}\\[0.2cm]
+\textit{Practice makes perfect}
+\end{center}
+\end{tcolorbox}
+\end{center}
+
+\end{document}

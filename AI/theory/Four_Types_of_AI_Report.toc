@@ -1,0 +1,9 @@
+\contentsline {section}{\numberline {1}Introduction}{2}{section.1}%
+\contentsline {section}{\numberline {2}2x2 Framework Diagram}{2}{section.2}%
+\contentsline {section}{\numberline {3}Systems That Think Like Humans}{2}{section.3}%
+\contentsline {section}{\numberline {4}Systems That Think Rationally}{3}{section.4}%
+\contentsline {section}{\numberline {5}Systems That Act Like Humans}{3}{section.5}%
+\contentsline {section}{\numberline {6}Systems That Act Rationally}{4}{section.6}%
+\contentsline {section}{\numberline {7}Comparison Table}{5}{section.7}%
+\contentsline {section}{\numberline {8}One Problem Viewed in Four Ways}{5}{section.8}%
+\contentsline {section}{\numberline {9}Conclusion}{5}{section.9}%

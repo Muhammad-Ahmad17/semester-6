@@ -1,0 +1,1182 @@
+\documentclass[12pt,a4paper]{article}
+
+\usepackage[margin=0.9in]{geometry}
+\usepackage{tikz}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{colortbl}
+\usepackage{multirow}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{float}
+\usepackage{tcolorbox}
+\usepackage{longtable}
+\usepackage{soul}
+\usepackage{mdframed}
+\usepackage{parskip}
+
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning}
+\tcbuselibrary{skins,breakable}
+
+% Colors
+\definecolor{primary}{RGB}{0,82,147}
+\definecolor{secondary}{RGB}{52,152,219}
+\definecolor{accent}{RGB}{39,174,96}
+\definecolor{highlight}{RGB}{230,126,34}
+\definecolor{danger}{RGB}{231,76,60}
+\definecolor{light}{RGB}{236,240,241}
+\definecolor{darkbg}{RGB}{44,62,80}
+
+% Section formatting
+\titleformat{\section}{\Large\bfseries\color{primary}}{}{0em}{\thesection\hspace{1em}}
+\titleformat{\subsection}{\large\bfseries\color{secondary}}{}{0em}{\thesubsection\hspace{1em}}
+\titleformat{\subsubsection}{\normalsize\bfseries\color{darkbg}}{}{0em}{\thesubsubsection\hspace{1em}}
+
+% Header/Footer
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\textcolor{primary}{\textbf{English Writing -- Study Guide}}}
+\rhead{\textcolor{primary}{Semester 6}}
+\rfoot{Page \thepage}
+\lfoot{\textcolor{secondary}{\small Comprehensive Exam Preparation}}
+
+\hypersetup{colorlinks=true,linkcolor=primary,urlcolor=secondary}
+
+% Custom Boxes
+\newtcolorbox{keybox}[1]{
+    colback=primary!5, colframe=primary,
+    title=#1, fonttitle=\bfseries,
+    rounded corners, boxrule=1pt,
+    breakable
+}
+
+\newtcolorbox{tipbox}[1]{
+    colback=accent!8, colframe=accent,
+    title=#1, fonttitle=\bfseries,
+    rounded corners, boxrule=1pt,
+    breakable
+}
+
+\newtcolorbox{warnbox}[1]{
+    colback=danger!8, colframe=danger,
+    title=#1, fonttitle=\bfseries,
+    rounded corners, boxrule=1pt,
+    breakable
+}
+
+\newtcolorbox{exbox}[1]{
+    colback=highlight!8, colframe=highlight,
+    title=#1, fonttitle=\bfseries,
+    rounded corners, boxrule=1pt,
+    breakable
+}
+
+\newtcolorbox{practicebox}[1]{
+    colback=secondary!8, colframe=secondary,
+    title=#1, fonttitle=\bfseries,
+    rounded corners, boxrule=1pt,
+    breakable
+}
+
+\begin{document}
+
+%===============================================================================
+% Title Page
+%===============================================================================
+\begin{titlepage}
+\centering
+\vspace*{1cm}
+{\Large\color{primary}\textbf{English Writing (EW)}}\\[0.3cm]
+\rule{\textwidth}{2pt}\\[0.5cm]
+{\Huge\bfseries\color{primary} Comprehensive Study Guide}\\[0.3cm]
+{\Large Expository Writing, Essays, Reports, Plagiarism,}\\[0.1cm]
+{\Large 7 C's of Communication \& 100 Ways to Improve Writing}\\[0.2cm]
+\rule{\textwidth}{2pt}\\[1.5cm]
+
+\begin{tabular}{rl}
+\textbf{Course:} & English Writing \\[0.3cm]
+\textbf{Semester:} & 6th \\[0.3cm]
+\textbf{Date:} & \today \\
+\end{tabular}
+
+\vfill
+{\large \textit{``Good writing is clear thinking made visible.''}}\\[0.5cm]
+{\large Exam Preparation Document}
+\end{titlepage}
+
+\tableofcontents
+\newpage
+
+%===============================================================================
+%===============================================================================
+\section{Introduction to Expository Writing}
+%===============================================================================
+%===============================================================================
+
+\begin{keybox}{What is Expository Writing?}
+\textbf{Expository writing} is a type of writing that aims to \textbf{explain, inform, describe, or define} a subject to the reader. It is fact-based, objective, and does \textbf{not} include the writer's personal opinions or emotions. The word ``expository'' comes from the Latin \textit{exponere}, meaning ``to put forth'' or ``to explain.''
+\end{keybox}
+
+\subsection{Key Characteristics}
+
+\begin{enumerate}[noitemsep]
+    \item \textbf{Informative \& Factual} -- Presents verified information, data, and evidence rather than personal feelings.
+    \item \textbf{Objective Tone} -- The writer maintains a neutral, third-person perspective (no ``I think'' or ``I feel'').
+    \item \textbf{Clear \& Logical Organization} -- Ideas flow in a structured, coherent manner using transitions.
+    \item \textbf{Thesis-Driven} -- A clear thesis statement guides the entire piece.
+    \item \textbf{Evidence-Based} -- Claims are supported with facts, statistics, examples, and expert opinions.
+    \item \textbf{Formal Language} -- Avoids slang, colloquialisms, and emotional language.
+\end{enumerate}
+
+\subsection{Types of Expository Writing}
+
+\begin{center}
+\begin{tabular}{p{3.5cm}p{5cm}p{5cm}}
+\toprule
+\textbf{Type} & \textbf{Purpose} & \textbf{Example} \\
+\midrule
+Descriptive & Describes a topic using facts and details & An article describing how the solar system works \\
+\addlinespace
+Process / How-to & Explains step-by-step procedures & A recipe; ``How to change a tire'' \\
+\addlinespace
+Compare \& Contrast & Shows similarities and differences between two subjects & Comparing online vs. traditional education \\
+\addlinespace
+Cause \& Effect & Explains why something happens and its results & Effects of deforestation on climate \\
+\addlinespace
+Problem \& Solution & Identifies a problem and proposes solutions & Water scarcity and desalination solutions \\
+\addlinespace
+Classification & Divides a broad subject into categories & Types of renewable energy sources \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{Structure of Expository Writing}
+
+\begin{keybox}{Standard Structure}
+\begin{enumerate}[noitemsep]
+    \item \textbf{Introduction} -- Hook + Background + Thesis Statement
+    \item \textbf{Body Paragraphs} (usually 3+) -- Each with a topic sentence, supporting evidence, and a concluding sentence
+    \item \textbf{Conclusion} -- Restates thesis, summarizes key points, and provides a closing thought
+\end{enumerate}
+\end{keybox}
+
+\newpage
+
+%===============================================================================
+%===============================================================================
+\section{Essay Writing}
+%===============================================================================
+%===============================================================================
+
+\subsection{The Three-Part Structure}
+
+An essay is a short piece of writing on a particular subject. Every well-structured essay has three essential parts:
+
+\subsubsection{Introduction}
+
+The introduction is the gateway to your essay. It must accomplish three things:
+
+\begin{keybox}{Components of a Strong Introduction}
+\begin{enumerate}
+    \item \textbf{Hook (Attention Grabber)} -- The very first sentence(s) designed to capture the reader's interest.
+    \begin{itemize}[noitemsep]
+        \item \textit{Types of hooks:} A surprising fact/statistic, a provocative question, a vivid anecdote, a relevant quotation, a bold statement
+    \end{itemize}
+    \item \textbf{Background / Context} -- 2--3 sentences that bridge the hook to the thesis by providing necessary context.
+    \item \textbf{Thesis Statement} -- A single, clear, arguable sentence that states the main claim or focus of the essay. It is the \textit{last sentence} of the introduction.
+\end{enumerate}
+\end{keybox}
+
+\begin{tipbox}{Formula for a Thesis Statement}
+\textbf{Topic} + \textbf{Position/Claim} + \textbf{Reasons (optional blueprint)} = Thesis\\[0.3cm]
+\textit{Example:} ``Social media \textit{(topic)} has a detrimental impact on teenagers' mental health \textit{(claim)} because it promotes unrealistic beauty standards, fosters cyberbullying, and reduces face-to-face social skills \textit{(reasons)}.''
+\end{tipbox}
+
+\subsubsection{Body Paragraphs}
+
+Each body paragraph develops \textbf{one} aspect of the thesis:
+
+\begin{enumerate}[noitemsep]
+    \item \textbf{Topic Sentence} -- States the paragraph's main idea (connects to thesis).
+    \item \textbf{Explanation} -- Clarifies what the topic sentence means.
+    \item \textbf{Evidence} -- Facts, statistics, quotes, or examples that support the claim.
+    \item \textbf{Analysis} -- Explains \textit{how} the evidence supports the topic sentence.
+    \item \textbf{Transition} -- Links to the next paragraph smoothly.
+\end{enumerate}
+
+\subsubsection{Conclusion}
+
+\begin{enumerate}[noitemsep]
+    \item \textbf{Restate the thesis} (in different words -- do not copy-paste).
+    \item \textbf{Summarize key points} from each body paragraph.
+    \item \textbf{Closing thought} -- A call to action, a prediction, a broader implication, or a thought-provoking question.
+\end{enumerate}
+
+\begin{warnbox}{Common Mistakes to Avoid}
+\begin{itemize}[noitemsep]
+    \item Do NOT introduce \textbf{new} information in the conclusion.
+    \item Do NOT start with ``In this essay I will\ldots'' -- show, don't announce.
+    \item Do NOT use ``I think / I feel'' in expository/formal essays.
+    \item Do NOT write a thesis that is a simple fact (not arguable).
+\end{itemize}
+\end{warnbox}
+
+\subsection{Practice: Write the Introduction Only}
+
+\begin{practicebox}{Exercise 1 -- Technology \& Education}
+\textbf{Topic:} The impact of technology on modern education.\\
+\textbf{Task:} Write a full introduction (hook + background + thesis).\\[0.3cm]
+\textit{Sample Introduction:}\\
+\textbf{Hook:} ``In 2020, over 1.5 billion students worldwide were forced out of physical classrooms overnight---yet education did not stop.''\\
+\textbf{Background:} ``The COVID-19 pandemic accelerated the adoption of digital tools in education, transforming laptops and smartphones into virtual classrooms. Online platforms such as Zoom and Google Classroom became household names within weeks.''\\
+\textbf{Thesis:} ``While technology has expanded access to education and enabled flexible learning, it has also widened the digital divide, reduced meaningful student--teacher interaction, and raised concerns about academic integrity.''
+\end{practicebox}
+
+\begin{practicebox}{Exercise 2 -- Social Media \& Mental Health}
+\textbf{Topic:} Social media's effect on teenagers' mental health.\\
+\textbf{Task:} Write a full introduction (hook + background + thesis).\\[0.3cm]
+\textit{Sample Introduction:}\\
+\textbf{Hook:} ``A recent study by the American Psychological Association found that teenagers who spend more than three hours daily on social media are twice as likely to report symptoms of depression.''\\
+\textbf{Background:} ``With platforms like Instagram, TikTok, and Snapchat dominating youth culture, the line between online personas and real-life identity has blurred considerably.''\\
+\textbf{Thesis:} ``Excessive social media use negatively affects teenagers' mental health by fostering unrealistic self-comparisons, enabling cyberbullying, and disrupting healthy sleep patterns.''
+\end{practicebox}
+
+\begin{practicebox}{Exercise 3 -- Climate Change}
+\textbf{Topic:} The urgency of addressing climate change.\\
+\textbf{Task:} Write a full introduction.\\[0.3cm]
+\textit{Sample Introduction:}\\
+\textbf{Hook:} ``The year 2023 was officially recorded as the hottest year in human history, shattering temperature records set just twelve months earlier.''\\
+\textbf{Background:} ``Rising greenhouse gas emissions from industrialization, deforestation, and fossil fuel dependency continue to drive global temperatures upward, threatening ecosystems and human livelihoods.''\\
+\textbf{Thesis:} ``Immediate and coordinated global action on climate change is essential because delayed responses will result in irreversible ecological damage, mass displacement of populations, and unsustainable economic losses.''
+\end{practicebox}
+
+\begin{practicebox}{Exercise 4 -- Artificial Intelligence in Healthcare}
+\textbf{Topic:} The role of artificial intelligence in healthcare.\\
+\textbf{Task:} Write a full introduction.\\[0.3cm]
+\textit{Sample Introduction:}\\
+\textbf{Hook:} ``An AI system developed by Google Health detected breast cancer in mammograms with greater accuracy than six board-certified radiologists combined.''\\
+\textbf{Background:} ``Artificial intelligence is rapidly integrating into the healthcare industry, from diagnostic imaging and drug discovery to robotic surgery and patient monitoring systems.''\\
+\textbf{Thesis:} ``AI has the potential to revolutionize healthcare delivery by improving diagnostic accuracy, reducing medical errors, and making quality care more accessible---provided ethical and privacy concerns are adequately addressed.''
+\end{practicebox}
+
+\begin{practicebox}{Exercise 5 -- Remote Work}
+\textbf{Topic:} The future of remote work.\\
+\textbf{Task:} Write a full introduction.\\[0.3cm]
+\textit{Sample Introduction:}\\
+\textbf{Hook:} ``A 2023 Stanford study revealed that employees working from home are 13\% more productive than their office-based counterparts---yet 60\% of CEOs want workers back at their desks.''\\
+\textbf{Background:} ``The pandemic-era shift to remote work has permanently altered workplace norms, sparking an ongoing debate between employers seeking in-office collaboration and employees valuing flexibility and work-life balance.''\\
+\textbf{Thesis:} ``A hybrid work model represents the most sustainable future of work because it balances organizational productivity with employee well-being, reduces overhead costs, and broadens the talent pool beyond geographic boundaries.''
+\end{practicebox}
+
+\newpage
+
+%===============================================================================
+%===============================================================================
+\section{Report Writing}
+%===============================================================================
+%===============================================================================
+
+\subsection{What is a Report?}
+
+A \textbf{report} is a structured document that presents information gathered through research, investigation, or analysis. Reports are written for a \textbf{specific audience} and \textbf{purpose}, and they typically include recommendations for action.
+
+\subsection{Formal vs.\ Informal Reports}
+
+\begin{center}
+\begin{tabular}{p{2.5cm}p{5.5cm}p{5.5cm}}
+\toprule
+\textbf{Feature} & \textbf{Formal Report} & \textbf{Informal Report} \\
+\midrule
+Length & Long (10+ pages) & Short (1--5 pages) \\
+\addlinespace
+Tone & Impersonal, objective, third person & May use first person; conversational \\
+\addlinespace
+Structure & Title page, TOC, abstract, sections, appendices, references & Memo/letter format; headings optional \\
+\addlinespace
+Purpose & Major decisions, stakeholders, external audiences & Internal updates, routine matters \\
+\addlinespace
+Examples & Annual report, feasibility study, research report & Progress memo, trip report, incident summary \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{Standard Report Structure (What You Need to Practise)}
+
+\begin{keybox}{Key Sections to Master}
+\begin{enumerate}
+    \item \textbf{Aims / Objectives} -- What the report sets out to achieve or investigate.
+    \item \textbf{Methodology} -- How data was collected (surveys, interviews, observation, experiments, literature review).
+    \item \textbf{Findings} -- What the data/research revealed (presented with tables, charts, bullet points).
+    \item \textbf{Conclusions} -- What the findings mean; interpretation and summary of key results.
+    \item \textbf{Recommendations} -- Actionable suggestions based on the conclusions.
+\end{enumerate}
+\end{keybox}
+
+\subsection{5 Practice Report-Writing Exercises}
+
+%--- Exercise 1 ---
+\begin{exbox}{Report Exercise 1 -- Student Attendance Analysis}
+\textbf{Scenario:} You are a student representative at a university. The dean has asked you to investigate why attendance has dropped by 25\% this semester.\\[0.3cm]
+
+\textbf{Aims/Objectives:}
+\begin{itemize}[noitemsep]
+    \item To identify the primary causes of declining student attendance in Semester 6.
+    \item To recommend strategies to improve attendance rates.
+\end{itemize}
+
+\textbf{Methodology:}
+\begin{itemize}[noitemsep]
+    \item Conducted an online survey of 200 students across 4 departments.
+    \item Interviewed 10 faculty members to gather qualitative insights.
+    \item Analysed attendance records from the university's LMS over the past two semesters.
+\end{itemize}
+
+\textbf{Findings:}
+\begin{itemize}[noitemsep]
+    \item 62\% of students cited ``boring lecture delivery'' as a key reason.
+    \item 45\% said ``early morning classes (8 AM)'' clashed with commuting schedules.
+    \item 30\% preferred watching recorded lectures over attending in person.
+    \item Departments with interactive teaching methods had 18\% higher attendance.
+\end{itemize}
+
+\textbf{Conclusions:}
+\begin{itemize}[noitemsep]
+    \item The decline is primarily caused by unengaging teaching methods and inconvenient scheduling.
+    \item The availability of recorded lectures has reduced the perceived necessity of physical attendance.
+\end{itemize}
+
+\textbf{Recommendations:}
+\begin{itemize}[noitemsep]
+    \item Introduce mandatory interactive components (quizzes, group discussions) that require physical presence.
+    \item Reschedule critical courses to avoid 8 AM slots where possible.
+    \item Provide faculty training workshops on engaging lecture delivery.
+    \item Implement a blended attendance policy (e.g., 70\% minimum in-person).
+\end{itemize}
+\end{exbox}
+
+%--- Exercise 2 ---
+\begin{exbox}{Report Exercise 2 -- Workplace Safety Audit}
+\textbf{Scenario:} You are a safety officer at a manufacturing company. A recent incident prompted management to request a full safety audit.\\[0.3cm]
+
+\textbf{Aims/Objectives:}
+\begin{itemize}[noitemsep]
+    \item To assess current workplace safety conditions in the production facility.
+    \item To identify hazards and recommend corrective measures.
+\end{itemize}
+
+\textbf{Methodology:}
+\begin{itemize}[noitemsep]
+    \item Physical inspection of all 3 production floors conducted over 5 days.
+    \item Reviewed incident reports from the past 12 months (total: 47 incidents).
+    \item Interviewed 30 workers and 5 supervisors using structured questionnaires.
+    \item Compared findings against OSHA safety standards.
+\end{itemize}
+
+\textbf{Findings:}
+\begin{itemize}[noitemsep]
+    \item 60\% of workers did not wear required PPE (personal protective equipment) consistently.
+    \item Fire extinguishers on Floor 2 were expired (last inspected 18 months ago).
+    \item Emergency exit signage was missing or obscured in 4 locations.
+    \item 35\% of incidents involved machinery with outdated safety guards.
+\end{itemize}
+
+\textbf{Conclusions:}
+\begin{itemize}[noitemsep]
+    \item The facility has significant non-compliance issues with PPE usage and equipment maintenance.
+    \item The recent incident was not isolated; systemic safety gaps exist.
+\end{itemize}
+
+\textbf{Recommendations:}
+\begin{itemize}[noitemsep]
+    \item Enforce mandatory PPE checks before each shift with supervisor sign-off.
+    \item Replace all expired fire extinguishers immediately and establish a quarterly inspection schedule.
+    \item Install illuminated emergency exit signs in all identified locations within 2 weeks.
+    \item Upgrade safety guards on all machinery and implement a preventive maintenance calendar.
+    \item Conduct monthly safety drills and quarterly safety training sessions.
+\end{itemize}
+\end{exbox}
+
+%--- Exercise 3 ---
+\begin{exbox}{Report Exercise 3 -- Customer Satisfaction Survey}
+\textbf{Scenario:} An e-commerce company has seen a 15\% increase in product returns. You are tasked with investigating customer dissatisfaction.\\[0.3cm]
+
+\textbf{Aims/Objectives:}
+\begin{itemize}[noitemsep]
+    \item To determine the root causes of increasing product returns.
+    \item To recommend improvements to product quality and customer experience.
+\end{itemize}
+
+\textbf{Methodology:}
+\begin{itemize}[noitemsep]
+    \item Analysed 1,200 return requests from Q1 2026 using the company's CRM system.
+    \item Sent a post-return satisfaction survey to 500 customers (response rate: 68\%).
+    \item Conducted 15 phone interviews with repeat-return customers.
+    \item Benchmarked return rates against industry averages.
+\end{itemize}
+
+\textbf{Findings:}
+\begin{itemize}[noitemsep]
+    \item 42\% of returns were due to ``product not matching description/photos.''
+    \item 28\% cited ``poor packaging leading to damage during delivery.''
+    \item 18\% returned items due to ``sizing inconsistencies'' (clothing category).
+    \item The company's return rate (12\%) exceeds the industry average (8\%).
+\end{itemize}
+
+\textbf{Conclusions:}
+\begin{itemize}[noitemsep]
+    \item Misleading product descriptions and inadequate packaging are the primary drivers.
+    \item The lack of a standardized sizing chart contributes significantly to clothing returns.
+\end{itemize}
+
+\textbf{Recommendations:}
+\begin{itemize}[noitemsep]
+    \item Implement a product photography and description audit across all listings.
+    \item Upgrade packaging materials, especially for fragile items, and add internal cushioning.
+    \item Introduce a standardized sizing chart with detailed measurements for all clothing items.
+    \item Add a ``customer review photos'' feature so buyers can see real-world product images.
+    \item Set a target to reduce return rate to 8\% within 6 months.
+\end{itemize}
+\end{exbox}
+
+%--- Exercise 4 ---
+\begin{exbox}{Report Exercise 4 -- Campus Cafeteria Improvement}
+\textbf{Scenario:} The university administration has received multiple complaints about the campus cafeteria. You are a member of the student council asked to investigate and propose improvements.\\[0.3cm]
+
+\textbf{Aims/Objectives:}
+\begin{itemize}[noitemsep]
+    \item To evaluate the quality of food, hygiene standards, and pricing at the campus cafeteria.
+    \item To propose actionable improvement measures based on student feedback.
+\end{itemize}
+
+\textbf{Methodology:}
+\begin{itemize}[noitemsep]
+    \item Distributed a Google Forms survey to 350 students; received 280 responses.
+    \item Conducted 3 unannounced hygiene inspections with a checklist (based on local food safety codes).
+    \item Compared cafeteria prices with 5 eateries within a 1 km radius of campus.
+    \item Held a focus group of 12 students to gather in-depth qualitative feedback.
+\end{itemize}
+
+\textbf{Findings:}
+\begin{itemize}[noitemsep]
+    \item 72\% of respondents rated food quality as ``below average'' or ``poor.''
+    \item During inspections, 2 out of 3 visits found uncovered food containers and unclean serving counters.
+    \item Cafeteria prices were 20--30\% higher than nearby alternatives for comparable items.
+    \item Limited menu variety---only 4 main dishes available daily, with no vegetarian/vegan options.
+\end{itemize}
+
+\textbf{Conclusions:}
+\begin{itemize}[noitemsep]
+    \item The cafeteria's food quality, hygiene, and pricing are significantly below student expectations.
+    \item The lack of dietary variety excludes a growing segment of students with specific dietary needs.
+\end{itemize}
+
+\textbf{Recommendations:}
+\begin{itemize}[noitemsep]
+    \item Renegotiate the vendor contract with mandatory quality and hygiene KPIs.
+    \item Introduce a rotating weekly menu with at least 8 dishes daily, including vegetarian/vegan options.
+    \item Cap pricing at no more than 10\% above the average of nearby competitors.
+    \item Install a student feedback kiosk at the cafeteria exit for real-time quality monitoring.
+    \item Schedule monthly hygiene audits with results published on the student portal.
+\end{itemize}
+\end{exbox}
+
+%--- Exercise 5 ---
+\begin{exbox}{Report Exercise 5 -- IT Infrastructure Upgrade Proposal}
+\textbf{Scenario:} A mid-sized company's IT systems are outdated, causing frequent downtime. The CTO has asked for a report evaluating the situation and recommending an upgrade path.\\[0.3cm]
+
+\textbf{Aims/Objectives:}
+\begin{itemize}[noitemsep]
+    \item To assess the current state of IT infrastructure and quantify downtime impact.
+    \item To recommend a cost-effective upgrade plan with a clear timeline.
+\end{itemize}
+
+\textbf{Methodology:}
+\begin{itemize}[noitemsep]
+    \item Reviewed server logs and network monitoring data for the past 6 months.
+    \item Conducted interviews with 8 department heads to understand productivity impact.
+    \item Obtained quotes from 3 vendors for hardware and cloud migration services.
+    \item Performed a cost-benefit analysis comparing on-premises upgrade vs.\ cloud migration.
+\end{itemize}
+
+\textbf{Findings:}
+\begin{itemize}[noitemsep]
+    \item The company experienced 47 hours of unplanned downtime in 6 months, costing an estimated \$142,000 in lost productivity.
+    \item 70\% of servers are over 7 years old and no longer receive security patches.
+    \item Current network bandwidth (100 Mbps) is insufficient for 150+ simultaneous users.
+    \item Cloud migration would reduce infrastructure costs by 35\% over 3 years compared to an on-premises hardware refresh.
+\end{itemize}
+
+\textbf{Conclusions:}
+\begin{itemize}[noitemsep]
+    \item The IT infrastructure is critically outdated and poses both security and productivity risks.
+    \item Cloud migration offers a more scalable, cost-effective, and secure solution than on-premises upgrades.
+\end{itemize}
+
+\textbf{Recommendations:}
+\begin{itemize}[noitemsep]
+    \item Migrate core services (email, file storage, CRM) to a cloud provider (e.g., AWS/Azure) within Q3 2026.
+    \item Upgrade network switches and increase bandwidth to 1 Gbps.
+    \item Decommission servers older than 5 years and implement a 4-year hardware refresh cycle.
+    \item Allocate a budget of \$180,000 for Phase 1 (cloud migration + network upgrade).
+    \item Hire a dedicated cloud administrator or upskill existing IT staff through certifications.
+\end{itemize}
+\end{exbox}
+
+\newpage
+
+%===============================================================================
+%===============================================================================
+\section{Plagiarism}
+%===============================================================================
+%===============================================================================
+
+\begin{keybox}{Definition}
+\textbf{Plagiarism} is the act of using someone else's words, ideas, or work and presenting them as your own---whether intentionally or unintentionally---without proper acknowledgment.
+\end{keybox}
+
+\subsection{Types of Plagiarism}
+
+\begin{warnbox}{1. Direct Plagiarism}
+\textbf{What it is:} Copying someone's exact words \textbf{word-for-word} without quotation marks or attribution.\\[0.2cm]
+\textbf{Example:}
+\begin{itemize}[noitemsep]
+    \item \textbf{Original (by author X):} ``Climate change is the defining crisis of our time, demanding immediate global cooperation.''
+    \item \textbf{Plagiarised version:} ``Climate change is the defining crisis of our time, demanding immediate global cooperation.'' \textit{(no citation, no quotation marks)}
+\end{itemize}
+\textbf{How to avoid:} Use quotation marks and cite the source, OR paraphrase in your own words with a citation.
+\end{warnbox}
+
+\begin{warnbox}{2. Mosaic (Patchwork) Plagiarism}
+\textbf{What it is:} Taking phrases from a source and mixing them into your own writing \textbf{without quotation marks}, changing only a few words to disguise the borrowing. The patchwork of original and borrowed text makes it seem original.\\[0.2cm]
+\textbf{Example:}
+\begin{itemize}[noitemsep]
+    \item \textbf{Original:} ``The rapid deforestation of the Amazon is accelerating biodiversity loss at an alarming rate.''
+    \item \textbf{Mosaic version:} ``The fast deforestation of the Amazon is speeding up the loss of biodiversity at a concerning pace.'' \textit{(synonyms swapped, structure kept)}
+\end{itemize}
+\textbf{How to avoid:} Fully paraphrase by restructuring the sentence \textit{and} using your own vocabulary, then cite. If you keep any original phrasing, use quotation marks.
+\end{warnbox}
+
+\begin{warnbox}{3. Self-Plagiarism}
+\textbf{What it is:} Reusing your own previously submitted work (or portions of it) for a new assignment \textbf{without disclosure}.\\[0.2cm]
+\textbf{Example:}
+\begin{itemize}[noitemsep]
+    \item Submitting an essay you wrote last semester for a different course as if it were new work.
+    \item Copy-pasting your methodology section from a previous report into a new one.
+\end{itemize}
+\textbf{How to avoid:} Always write fresh content for each assignment. If reuse is necessary, get permission from the instructor and cite your previous work.
+\end{warnbox}
+
+\begin{warnbox}{4. Accidental Plagiarism}
+\textbf{What it is:} Unintentionally failing to cite a source, misquoting, or poorly paraphrasing---not out of dishonesty, but out of carelessness or ignorance.\\[0.2cm]
+\textbf{Common causes:}
+\begin{itemize}[noitemsep]
+    \item Forgetting to note down a source during research.
+    \item Not knowing the correct citation format (APA, MLA, etc.).
+    \item Paraphrasing too closely to the original without realising.
+\end{itemize}
+\textbf{How to avoid:}
+\begin{itemize}[noitemsep]
+    \item Take detailed notes with full source information during research.
+    \item Learn the required citation style and follow it consistently.
+    \item Use plagiarism-checking tools (Turnitin, Grammarly) before submission.
+    \item \textbf{When in doubt, cite.}
+\end{itemize}
+\end{warnbox}
+
+\begin{tipbox}{Quick Reference: How to Avoid All Plagiarism}
+\begin{enumerate}[noitemsep]
+    \item \textbf{Cite} all sources---direct quotes, paraphrases, and ideas.
+    \item \textbf{Paraphrase} properly: change both words \textbf{and} sentence structure.
+    \item \textbf{Use quotation marks} for any directly copied phrases.
+    \item \textbf{Keep a bibliography} as you research.
+    \item \textbf{Run plagiarism checkers} before final submission.
+\end{enumerate}
+\end{tipbox}
+
+\newpage
+
+%===============================================================================
+%===============================================================================
+\section{7 C's of Communication}
+%===============================================================================
+%===============================================================================
+
+\begin{keybox}{Overview}
+The 7 C's provide a \textbf{checklist} for making sure that your meetings, emails, conference calls, reports, and presentations are well constructed and clear---so your audience gets your message. They apply to \textbf{both written and oral communication}.
+\end{keybox}
+
+\subsection{The 7 C's -- Detailed Breakdown}
+
+\begin{keybox}{1. Completeness -- Convey ALL Required Facts}
+\begin{itemize}[noitemsep]
+    \item The message must include \textbf{all} information the audience needs to understand and act.
+    \item Answers all of the receiver's questions -- leaves no gaps.
+    \item Adds additional information wherever required.
+    \item Helps the audience make \textbf{better decisions} because they have all desired and crucial information.
+    \item A complete communication builds and enhances the \textbf{reputation} of an organization.
+    \item Cost-saving: no additional messages needed to fill in missing details.
+\end{itemize}
+\textbf{Ask yourself:} \textit{Who? What? When? Where? Why? How?} -- if any answer is missing, add it.
+\end{keybox}
+
+\begin{keybox}{2. Conciseness -- Say It in the Fewest Possible Words}
+\begin{itemize}[noitemsep]
+    \item Communicate what you want in the \textbf{least possible words} without sacrificing the other C's.
+    \item It is both \textbf{time-saving} and \textbf{cost-saving}.
+    \item Highlights the \textbf{main message} by avoiding excessive and needless words.
+    \item A concise message is \textbf{non-repetitive} in nature.
+    \item A short, essential message is more \textbf{appealing and comprehensible} to the audience.
+\end{itemize}
+\textbf{Rule of thumb:} \textit{If a word is not doing work, delete it.}
+\end{keybox}
+
+\begin{keybox}{3. Consideration -- Step Into the Receiver's Shoes}
+\begin{itemize}[noitemsep]
+    \item Take the audience's \textbf{viewpoints, background, mindset, education level} into account.
+    \item Emphasise the \textbf{``you'' approach} -- focus on the receiver, not just the sender.
+    \item Show \textbf{empathy} and genuine interest in the audience. This stimulates a positive reaction.
+    \item Show \textbf{optimism}: emphasise ``what is possible'' rather than ``what is impossible.''
+    \item Use \textbf{positive words}: jovial, committed, thanks, warm, healthy, help.
+    \item Ensure the \textbf{self-respect} of the audience is maintained and emotions are not harmed.
+\end{itemize}
+\end{keybox}
+
+\begin{keybox}{4. Clarity -- One Message at a Time}
+\begin{itemize}[noitemsep]
+    \item Emphasise on a \textbf{specific message or goal at a time}, rather than trying to achieve too much at once.
+    \item Use \textbf{exact, appropriate, and concrete words} -- avoid vague or ambiguous language.
+    \item Makes \textbf{understanding easier} for the receiver.
+    \item Complete clarity of thoughts and ideas \textbf{enhances the meaning} of the message.
+    \item The purpose of the communication should be \textbf{clear to the sender first} -- only then will the receiver understand.
+\end{itemize}
+\textbf{Test:} \textit{Can this sentence be misunderstood? If yes, rewrite it.}
+\end{keybox}
+
+\begin{keybox}{5. Concreteness -- Be Specific and Definite}
+\begin{itemize}[noitemsep]
+    \item Be \textbf{particular and clear} rather than fuzzy and general.
+    \item Support your message with \textbf{specific facts and figures}.
+    \item Concrete messages are \textbf{not misinterpreted} -- there is no room for misunderstanding.
+    \item Builds \textbf{confidence and reputation} of the sender.
+    \item Uses words that are clear and that build credibility.
+\end{itemize}
+\textbf{Example:} \textit{``Sales increased''} $\rightarrow$ \textit{``Sales increased by 15\% in Q3 2025.''}
+\end{keybox}
+
+\begin{keybox}{6. Courtesy -- Be Polite and Respectful}
+\begin{itemize}[noitemsep]
+    \item The message should show the sender's \textbf{sincerity} and \textbf{respect} the receiver.
+    \item The sender should be \textbf{polite, judicious, reflective, and enthusiastic}.
+    \item Take into consideration \textbf{both viewpoints and feelings} of the receiver.
+    \item The message should be \textbf{positive and audience-focused}.
+    \item It must \textbf{not be biased} and must use terms showing respect for the receiver.
+\end{itemize}
+\end{keybox}
+
+\begin{keybox}{7. Correctness -- No Errors; Accurate and Well-Timed}
+\begin{itemize}[noitemsep]
+    \item There should be \textbf{no grammatical or spelling errors} in the communication.
+    \item The message must be \textbf{exact, correct, and well-timed}.
+    \item Check for \textbf{precision and accuracy} of all facts and figures.
+    \item Use \textbf{appropriate and correct language} for the audience's level.
+    \item A correct message \textbf{boosts confidence} and has \textbf{greater impact} on the audience.
+\end{itemize}
+\end{keybox}
+
+\begin{tipbox}{Memory Aid}
+\textbf{C}omplete $\rightarrow$ \textbf{C}oncise $\rightarrow$ \textbf{C}onsiderate $\rightarrow$ \textbf{C}lear $\rightarrow$  \textbf{C}oncrete $\rightarrow$ \textbf{C}ourteous $\rightarrow$ \textbf{C}orrect\\[0.2cm]
+\textit{Think:} ``\textbf{C}ommunication that is \textbf{C}omplete, \textbf{C}oncise, \textbf{C}onsiderate, \textbf{C}lear, \textbf{C}oncrete, \textbf{C}ourteous, and \textbf{C}orrect will always \textbf{C}onnect with the audience.''
+\end{tipbox}
+
+\newpage
+
+%===============================================================================
+%===============================================================================
+\section{100 Ways to Improve Your Writing -- Key Takeaways}
+%===============================================================================
+%===============================================================================
+
+\textit{Based on the book by \textbf{Gary Provost}. The book has 11 major chapters with 100 tips total. Below is a distilled summary of the \textbf{most exam-relevant} principles -- the minimum you need to remember.}
+
+\subsection{Part I: Improve Your Writing When You're Not Writing (9 Tips)}
+
+\begin{keybox}{Core Ideas}
+\begin{enumerate}[noitemsep]
+    \item \textbf{Get reference books:} Dictionary, thesaurus, encyclopedia---keep them at arm's length.
+    \item \textbf{Expand vocabulary:} Use the words you already know more deliberately; don't chase obscure words.
+    \item \textbf{Improve spelling:} Use spell check but know its limits (e.g., \textit{there/their/they're}).
+    \item \textbf{Read widely:} Novels, news, magazines---observe how good writers structure their work.
+    \item \textbf{Take a class:} A good teacher with publishing experience beats a pretentious one.
+    \item \textbf{Eavesdrop:} Listen to real conversations for natural dialogue and slang.
+    \item \textbf{Research thoroughly:} Look it up, ask somebody, observe it, ask a librarian.
+    \item \textbf{Write in your head:} Plan your opening and structure before sitting down.
+    \item \textbf{Choose a time \& place:} Write in long uninterrupted blocks, in a quiet environment.
+\end{enumerate}
+\end{keybox}
+
+\subsection{Part II: Overcome Writer's Block (9 Tips)}
+
+\begin{tipbox}{Key Strategies}
+\begin{itemize}[noitemsep]
+    \item \textbf{Copy a passage} you admire word-for-word to internalise good style.
+    \item \textbf{Keep a journal} -- it exercises your writing muscles daily.
+    \item \textbf{Talk about your writing} to plug into others' knowledge.
+    \item \textbf{Do warm-up exercises} (describe something random; list rhyming words).
+    \item \textbf{Organize material} before writing, but leave room for creativity.
+    \item \textbf{Make a list} of key elements, even a short one.
+    \item \textbf{Picture your reader} -- adjust vocabulary and tone to your audience.
+    \item \textbf{Know WHY you're writing} -- purpose determines word choice and structure.
+\end{itemize}
+\end{tipbox}
+
+\subsection{Part III: Write a Strong Beginning (5 Tips)}
+
+\begin{keybox}{Strong Beginnings}
+\begin{enumerate}[noitemsep]
+    \item \textbf{Find a slant:} Don't try to cover everything. Pick one manageable aspect.
+    \item \textbf{Write a strong lead:} Provocative, energetic, creating curiosity. Give readers something to \textit{care about} before drowning them in background.
+    \item \textbf{Don't make empty promises:} Your lead must deliver on what it implies.
+    \item \textbf{Set a tone and maintain it:} Don't jar the reader by switching between urgent and leisurely.
+    \item \textbf{Begin at the beginning:} Cut ``warm-up'' writing. Your first sentence should do real work.
+\end{enumerate}
+\end{keybox}
+
+\subsection{Part IV: Save Time \& Energy (9 Tips)}
+
+\begin{itemize}[noitemsep]
+    \item \textbf{Pyramid construction:} Put the most important info first (who, what, when, where, why).
+    \item \textbf{Topic sentences:} The first sentence of each paragraph states its main idea.
+    \item \textbf{Short paragraphs} are faster, livelier, and clearer.
+    \item \textbf{Transitional phrases:} Bridge the reader smoothly between sections (e.g., ``On the other hand,'' ``Twenty years later'').
+    \item \textbf{Don't over-explain} transitions -- ``Sam drove to the church'' is enough.
+    \item \textbf{Bridge words:} Repeat a key word from one paragraph in the next to show logical connection.
+    \item \textbf{Avoid wordiness:} ``It is my objective to utilize'' $\rightarrow$ ``I want to use.''
+    \item \textbf{Steal small:} Borrow a metaphor or anecdote (with credit), not whole passages.
+    \item \textbf{Stop at the end:} Don't linger. If the last sentence can be cut without loss, cut it.
+\end{itemize}
+
+\subsection{Part V: Develop Style (10 Tips)}
+
+\begin{keybox}{Style Essentials}
+\begin{itemize}[noitemsep]
+    \item \textbf{Style = form, not content.} Same info, different arrangement = different impact.
+    \item \textbf{Listen to your writing:} Read it aloud. Writing is music.
+    \item \textbf{Mimic spoken language:} Sound conversational but exploit the advantages of revision.
+    \item \textbf{Vary sentence length:} Short. Medium. And sometimes long. \textit{Write music.}
+    \item \textbf{Vary sentence construction:} Don't start every sentence with subject-verb-object.
+    \item \textbf{Show, don't tell:} ``She ran 5 miles in a storm to see me'' $>$ ``She's very athletic.''
+    \item \textbf{Keep related words together:} Place adjectives near the nouns they modify.
+    \item \textbf{Use parallel construction:}  ``Fish gotta swim, birds gotta fly'' (not ``flying is something birds do'').
+    \item \textbf{Don't force a personal style:} Write well; style will emerge naturally.
+\end{itemize}
+\end{keybox}
+
+\subsection{Part VI: Give Words Power (12 Tips)}
+
+\begin{tipbox}{Power Words}
+\begin{itemize}[noitemsep]
+    \item Use \textbf{short words} (``stop'' $>$ ``discontinue'').
+    \item Use \textbf{dense words} (``monthly'' $>$ ``once a month'').
+    \item Use \textbf{familiar words} (``jaw'' $>$ ``mandible'').
+    \item Use \textbf{active verbs} (``towered'' $>$ ``was'').
+    \item Use \textbf{strong verbs} (``paced'' instead of ``walked nervously'').
+    \item Use \textbf{specific nouns} (``bulldog'' $>$ ``dog''; ``priest'' $>$ ``man'').
+    \item Use \textbf{active voice} most of the time (``John broke the vase'' $>$ ``The vase was broken by John'').
+    \item \textbf{Say things positively} (``the safe was open'' $>$ ``the safe was not closed'').
+    \item \textbf{Be specific} (``On March 5 my father died'' $>$ ``Recently there was a death in my family'').
+    \item Use \textbf{statistics} sparingly -- ``sprinkle like pepper, not smeared like butter.''
+    \item \textbf{Provide facts} -- concrete data is more persuasive than vague conclusions.
+    \item Put \textbf{emphatic words at the end} of the sentence for maximum impact.
+\end{itemize}
+\end{tipbox}
+
+\subsection{Part VII: Make People Like Your Writing (11 Tips)}
+
+\begin{itemize}[noitemsep]
+    \item \textbf{Be likable:} Write clearly, conversationally; present an honest picture of yourself.
+    \item \textbf{Write about people:} Readers care about humans, not abstract systems.
+    \item \textbf{Show your opinion} (but include other viewpoints too).
+    \item \textbf{Obey your own rules:} The tone/scope set in the intro is a contract with the reader.
+    \item \textbf{Use anecdotes:} Short stories that make a point are powerful reader-pleasers.
+    \item \textbf{Use examples:} Back up generalizations with specific instances.
+    \item \textbf{Name your sources:} Credibility depends on who said it.
+    \item \textbf{Provide useful information} (dates, addresses, actionable steps).
+    \item \textbf{Use quotations} for poetic reinforcement and credibility by association.
+    \item \textbf{Use quotes} from interviews---trim them to the essential words.
+    \item \textbf{Create a strong title:} Short, curious, revealing, and slanted.
+\end{itemize}
+
+\subsection{Part VIII--IX: Grammar \& Punctuation (16 Tips)}
+
+\begin{keybox}{Grammar Essentials}
+\begin{itemize}[noitemsep]
+    \item \textbf{Respect grammar rules} -- they are the currency of communication.
+    \item \textbf{Don't change tenses} within a passage.
+    \item \textbf{Possessives:} Add \textbf{'s} for singular ($dog's$); add \textbf{'} for plural ending in s ($dogs'$).  \textbf{its} (possessive) vs.\ \textbf{it's} (it is).
+    \item \textbf{Subject-verb agreement:} ``The list of actors \textit{is}'' (not \textit{are}).
+    \item \textbf{Fix dangling modifiers:} ``In drawing the picture, \textit{he} used his wife as a model'' (not ``his wife was used'').
+    \item \textbf{Don't split infinitives} unless clarity demands it.
+    \item \textbf{Comma rules:} Use for nonrestrictive clauses, series, introductory words, direct quotes.
+    \item \textbf{Semicolons:} Join closely related independent clauses without a conjunction.
+    \item \textbf{Colons:} Introduce lists, formal quotations, examples.
+    \item \textbf{Quotation marks:} Only for directly quoted speech/writing and words being defined.
+    \item \textbf{Prefer good writing to good grammar} -- ``I ain't got no money'' can be great writing in context.
+\end{itemize}
+\end{keybox}
+
+\subsection{Part X--XI: Reader Relations \& Self-Editing (19 Tips)}
+
+\begin{itemize}[noitemsep]
+    \item \textbf{Avoid jargon:} ``Don't walk for 6 weeks'' $>$ ``Remain un-ambulatory.''
+    \item \textbf{Avoid clich\'{e}s:} They make writing feel lazy and unoriginal.
+    \item \textbf{Avoid parentheses and footnotes:} They interrupt the reader's flow.
+    \item \textbf{Don't play the mystery game:} Don't withhold key information to ``surprise'' the reader at the end.
+    \item \textbf{Don't cheat:} Be honest; don't obscure quotes or ignore opposing facts.
+    \item \textbf{Read your work aloud:} You'll hear errors your eyes miss.
+    \item \textbf{Cut unnecessary words:} ``The annual ball is held once a year in Quincy'' $\rightarrow$ ``The annual ball is held in Quincy.''
+    \item \textbf{Let a draft rest:} Wait at least a day before final revision.
+    \item \textbf{Ask 13 self-editing questions:} Is it clear? Does each paragraph advance the subject? Are there grammar/punctuation errors? (See the full list in Chapter 11.)
+\end{itemize}
+
+\begin{tipbox}{Gary Provost's Most Famous Passage (Varying Sentence Length)}
+``This sentence has five words. Here are five more words. Five-word sentences are fine. But several together become monotonous. Listen to what is happening. The writing is getting boring. The sound of it drones. It's like a stuck record. The ear demands some variety. Now listen. I vary the sentence length, and I create music. Music. The writing sings.''
+\end{tipbox}
+
+\newpage
+
+%===============================================================================
+%===============================================================================
+\section{Reading Comprehension}
+%===============================================================================
+%===============================================================================
+
+\begin{keybox}{What is Reading Comprehension?}
+\textbf{Reading comprehension} is the ability to \textbf{read text, process it, and understand its meaning}. It involves:
+\begin{itemize}[noitemsep]
+    \item Decoding the words
+    \item Understanding vocabulary in context
+    \item Identifying the main idea and supporting details
+    \item Making inferences (reading ``between the lines'')
+    \item Evaluating the author's purpose, tone, and bias
+\end{itemize}
+\end{keybox}
+
+\subsection{Strategies for Reading Comprehension}
+
+\begin{enumerate}
+    \item \textbf{Preview the text:} Read the title, headings, and first/last paragraphs before reading the full text.
+    \item \textbf{Identify the main idea:} Ask ``What is this passage mostly about?'' after each paragraph.
+    \item \textbf{Look for signal words:} \textit{However, therefore, for example, in contrast, moreover} -- these reveal text structure.
+    \item \textbf{Ask questions as you read:} Who? What? When? Where? Why? How?
+    \item \textbf{Summarise each paragraph} in one sentence in your own words.
+    \item \textbf{Make inferences:} Combine clues from the text with your own knowledge.
+    \item \textbf{Re-read difficult parts:} Slow down for complex sentences; don't skip.
+\end{enumerate}
+
+\subsection{Reading Comprehension Practice Exercises}
+
+\begin{practicebox}{Exercise 1 -- Science Passage}
+\textbf{Read the passage and answer the questions:}
+
+\textit{``The water cycle, also known as the hydrological cycle, describes the continuous movement of water on, above, and below the surface of the Earth. Water evaporates from oceans, lakes, and rivers due to heat energy from the sun. As water vapour rises, it cools and condenses into tiny droplets that form clouds. When these droplets combine and grow heavy enough, they fall back to Earth as precipitation---rain, snow, sleet, or hail. Some of this water flows into rivers and streams (runoff), some seeps into the ground (infiltration) and replenishes aquifers, and some is taken up by plants (transpiration). Eventually, through evaporation and transpiration, water returns to the atmosphere, completing the cycle.''}
+
+\textbf{Questions:}
+\begin{enumerate}[noitemsep]
+    \item What is the main topic of the passage?
+    \item What causes water to evaporate from oceans?
+    \item What happens when water vapour rises and cools?
+    \item Name three things that can happen to water after precipitation.
+    \item What does the word ``infiltration'' mean in this context?
+\end{enumerate}
+
+\textbf{Answers:}
+\begin{enumerate}[noitemsep]
+    \item The water cycle / hydrological cycle
+    \item Heat energy from the sun
+    \item It condenses into tiny droplets that form clouds
+    \item Runoff (flows into rivers), infiltration (seeps into ground), transpiration (taken up by plants)
+    \item Water seeping into the ground
+\end{enumerate}
+\end{practicebox}
+
+\begin{practicebox}{Exercise 2 -- Social Issue Passage}
+\textbf{Read the passage and answer the questions:}
+
+\textit{``Urbanisation is one of the defining trends of the 21st century. By 2050, nearly 70\% of the world's population is expected to live in cities. While urban areas offer better healthcare, education, and employment opportunities, rapid and unplanned urbanisation can lead to overcrowding, pollution, inadequate housing, and strain on public services. Developing countries face the greatest challenges, as their cities are growing faster than infrastructure can be built. Governments must invest in sustainable urban planning, including public transportation, green spaces, and affordable housing, to ensure cities remain liveable.''}
+
+\textbf{Questions:}
+\begin{enumerate}[noitemsep]
+    \item What percentage of the world's population is expected to live in cities by 2050?
+    \item List two advantages of living in urban areas mentioned in the passage.
+    \item What problems can unplanned urbanisation cause?
+    \item Which countries face the greatest urbanisation challenges, and why?
+    \item What is the author's main recommendation?
+\end{enumerate}
+
+\textbf{Answers:}
+\begin{enumerate}[noitemsep]
+    \item Nearly 70\%
+    \item Better healthcare, education, and employment opportunities (any two)
+    \item Overcrowding, pollution, inadequate housing, strain on public services
+    \item Developing countries -- their cities grow faster than infrastructure can be built
+    \item Invest in sustainable urban planning (public transport, green spaces, affordable housing)
+\end{enumerate}
+\end{practicebox}
+
+\begin{practicebox}{Exercise 3 -- Technology Passage}
+\textbf{Read the passage and answer the questions:}
+
+\textit{``Artificial intelligence has transformed how businesses operate across nearly every industry. In healthcare, AI algorithms can analyse medical images with greater accuracy than many specialists, enabling earlier detection of diseases such as cancer. In finance, AI-powered systems detect fraudulent transactions in real time, saving institutions billions annually. However, the rise of AI has also raised ethical concerns. Critics argue that automated decision-making can perpetuate biases present in training data, and that increased automation threatens to displace millions of workers. Proponents counter that AI will create new categories of jobs and free humans from repetitive tasks, allowing them to focus on creative and strategic work.''}
+
+\textbf{Questions:}
+\begin{enumerate}[noitemsep]
+    \item According to the passage, how does AI help in healthcare?
+    \item What ethical concern about AI is mentioned?
+    \item What do AI proponents argue as benefits?
+    \item What does ``perpetuate'' most likely mean in context?
+    \item Is the passage's tone supportive, critical, or balanced? How do you know?
+\end{enumerate}
+
+\textbf{Answers:}
+\begin{enumerate}[noitemsep]
+    \item AI analyses medical images with greater accuracy, enabling earlier disease detection
+    \item AI can perpetuate biases in training data; automation may displace workers
+    \item AI will create new job categories and free humans from repetitive tasks
+    \item To continue/maintain (in this case, continue biases)
+    \item Balanced -- the passage presents both advantages (healthcare, fraud detection) and concerns (bias, job loss)
+\end{enumerate}
+\end{practicebox}
+
+\begin{practicebox}{Exercise 4 -- Historical Passage}
+\textbf{Read the passage and answer the questions:}
+
+\textit{``The printing press, invented by Johannes Gutenberg around 1440, is widely considered one of the most important inventions in human history. Before its creation, books were laboriously copied by hand, making them extremely expensive and accessible only to the wealthy and the clergy. Gutenberg's movable-type press made it possible to produce books quickly and cheaply, dramatically increasing literacy rates across Europe. The printing press also played a crucial role in the Protestant Reformation, as Martin Luther's ideas could be rapidly disseminated through printed pamphlets. Within 50 years of its invention, an estimated 20 million volumes had been printed in Europe.''}
+
+\textbf{Questions:}
+\begin{enumerate}[noitemsep]
+    \item When and by whom was the printing press invented?
+    \item How were books produced before the printing press?
+    \item What effect did the printing press have on literacy?
+    \item How did the printing press contribute to the Protestant Reformation?
+    \item What does ``disseminated'' mean in context?
+\end{enumerate}
+
+\textbf{Answers:}
+\begin{enumerate}[noitemsep]
+    \item Around 1440, by Johannes Gutenberg
+    \item Books were copied by hand, making them expensive and limited to the wealthy/clergy
+    \item It dramatically increased literacy rates across Europe
+    \item Luther's ideas could be rapidly spread through printed pamphlets
+    \item Distributed/spread widely
+\end{enumerate}
+\end{practicebox}
+
+\begin{practicebox}{Exercise 5 -- Environmental Passage}
+\textbf{Read the passage and answer the questions:}
+
+\textit{``Plastic pollution has emerged as one of the most pressing environmental crises of our time. Approximately 8 million metric tons of plastic waste enters the world's oceans every year, according to a study published in the journal Science. Marine animals mistake plastic debris for food, leading to internal injuries, starvation, and death. Microplastics---tiny fragments less than 5mm in size---have been found in drinking water, seafood, and even human blood. While recycling is often promoted as a solution, only about 9\% of all plastic ever produced has been recycled. Experts advocate for a multi-pronged approach: reducing single-use plastics, improving waste management infrastructure in developing countries, and investing in biodegradable alternatives.''}
+
+\textbf{Questions:}
+\begin{enumerate}[noitemsep]
+    \item How much plastic enters the oceans annually?
+    \item What are microplastics, and where have they been found?
+    \item Why is recycling alone insufficient as a solution?
+    \item What three-part solution do experts recommend?
+    \item What is the author's purpose in writing this passage?
+\end{enumerate}
+
+\textbf{Answers:}
+\begin{enumerate}[noitemsep]
+    \item Approximately 8 million metric tons per year
+    \item Tiny plastic fragments $<$5mm; found in drinking water, seafood, and human blood
+    \item Only about 9\% of all plastic ever produced has been recycled
+    \item Reduce single-use plastics, improve waste management in developing countries, invest in biodegradable alternatives
+    \item To inform readers about the severity of plastic pollution and advocate for comprehensive solutions
+\end{enumerate}
+\end{practicebox}
+
+\newpage
+
+%===============================================================================
+%===============================================================================
+\section{Skimming Exercises}
+%===============================================================================
+%===============================================================================
+
+\begin{keybox}{What is Skimming?}
+\textbf{Skimming} is a reading technique used to quickly identify the \textbf{main idea} or \textbf{gist} of a text \textbf{without reading every word}. It involves:
+\begin{itemize}[noitemsep]
+    \item Reading titles, headings, and subheadings
+    \item Reading the \textbf{first and last sentences} of each paragraph
+    \item Glancing at bold, italicised, or highlighted text
+    \item Looking at images, charts, and captions
+    \item Skipping details, examples, and supporting data
+\end{itemize}
+\textbf{Goal:} Get the overall picture in 20--30\% of normal reading time.\\
+\textbf{When to use:} Previewing a chapter, reviewing before an exam, deciding if a source is relevant.
+\end{keybox}
+
+\subsection{Skimming vs.\ Scanning}
+
+\begin{center}
+\begin{tabular}{p{2.5cm}p{5cm}p{5cm}}
+\toprule
+\textbf{Feature} & \textbf{Skimming} & \textbf{Scanning} \\
+\midrule
+Purpose & Get the main idea / overview & Find a specific piece of information \\
+Speed & Fast (20--30\% of reading time) & Very fast (looking for a keyword) \\
+Focus & General understanding & Specific data (date, name, number) \\
+Eye movement & Sweeps across text & Jumps around text \\
+Example & ``What is this article about?'' & ``What year was the company founded?'' \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{Skimming Practice Exercises}
+
+\begin{practicebox}{Skimming Exercise 1}
+\textbf{Instructions:} You have \textbf{60 seconds} to skim the following passage. Then answer the question \textbf{without looking back}.
+
+\textit{``Electric vehicles (EVs) are becoming increasingly popular as governments around the world push for greener transportation. In 2023, global EV sales exceeded 14 million units, a 35\% increase from the previous year. Major automakers like Tesla, BYD, and Volkswagen are investing billions in battery technology to extend driving range and reduce charging times. Despite this growth, challenges remain. Charging infrastructure in rural areas is still limited, battery production depends on mining lithium and cobalt---processes that carry their own environmental costs---and the initial purchase price of EVs remains higher than that of comparable gasoline-powered cars. Analysts predict that by 2030, EVs will account for over 40\% of all new car sales worldwide.''}
+
+\textbf{After skimming, answer:}
+\begin{enumerate}[noitemsep]
+    \item What is this passage mainly about?
+    \item Is the overall tone optimistic, pessimistic, or balanced?
+\end{enumerate}
+\textbf{Expected Answers:}
+\begin{enumerate}[noitemsep]
+    \item The growth and challenges of electric vehicles
+    \item Balanced (mentions both growth and challenges)
+\end{enumerate}
+\end{practicebox}
+
+\begin{practicebox}{Skimming Exercise 2}
+\textbf{Instructions:} Skim in \textbf{45 seconds}. Answer without looking back.
+
+\textit{``Sleep deprivation among university students is a growing concern. Studies indicate that over 60\% of college students do not get the recommended 7--9 hours of sleep per night. The consequences are severe: impaired memory consolidation, reduced cognitive function, weakened immune response, and increased susceptibility to anxiety and depression. Late-night study sessions, excessive screen time, and irregular sleep schedules are the primary culprits. Sleep researchers recommend maintaining a consistent bedtime, limiting caffeine after 2 PM, and creating a dark, cool sleeping environment. Universities are also beginning to offer `sleep hygiene' workshops to combat this epidemic.''}
+
+\textbf{After skimming, answer:}
+\begin{enumerate}[noitemsep]
+    \item What is the main problem discussed?
+    \item Who is the target audience for this text?
+\end{enumerate}
+\textbf{Expected Answers:}
+\begin{enumerate}[noitemsep]
+    \item Sleep deprivation among university students
+    \item University students (and possibly university administrators)
+\end{enumerate}
+\end{practicebox}
+
+\begin{practicebox}{Skimming Exercise 3}
+\textbf{Instructions:} Skim in \textbf{60 seconds}. Answer without looking back.
+
+\textit{``The freelance economy, sometimes called the `gig economy,' has expanded rapidly over the past decade. Platforms like Upwork, Fiverr, and Toptal connect millions of freelancers with clients worldwide. For workers, freelancing offers flexibility, autonomy, and the opportunity to work from anywhere. However, it also comes with significant drawbacks: no employer-provided health insurance, no retirement benefits, income instability, and the constant need to market oneself. A McKinsey report estimates that 36\% of the US workforce now engages in some form of independent work. Governments are grappling with how to regulate this sector, with some countries introducing portable benefits systems that follow workers across multiple gigs.''}
+
+\textbf{After skimming, answer:}
+\begin{enumerate}[noitemsep]
+    \item What is the passage about?
+    \item Name one advantage and one disadvantage of freelancing mentioned.
+\end{enumerate}
+\textbf{Expected Answers:}
+\begin{enumerate}[noitemsep]
+    \item The growth, benefits, and challenges of the freelance/gig economy
+    \item Advantage: flexibility/autonomy/work from anywhere. Disadvantage: no insurance/unstable income/no retirement benefits
+\end{enumerate}
+\end{practicebox}
+
+\begin{practicebox}{Skimming Exercise 4}
+\textbf{Instructions:} Skim in \textbf{45 seconds}. Answer without looking back.
+
+\textit{``Renewable energy sources---solar, wind, hydroelectric, and geothermal---now account for nearly 30\% of global electricity generation. Solar power has seen the most dramatic cost reduction, falling by 89\% over the past decade. China leads the world in renewable energy capacity, followed by the United States and India. Despite this progress, fossil fuels still dominate the global energy mix, accounting for approximately 80\% of total primary energy consumption. The transition to renewables faces obstacles including energy storage limitations, grid infrastructure modernization, and political resistance from fossil fuel-dependent economies.''}
+
+\textbf{After skimming, answer:}
+\begin{enumerate}[noitemsep]
+    \item What percentage of global electricity comes from renewables?
+    \item What is the main obstacle to the energy transition?
+\end{enumerate}
+\textbf{Expected Answers:}
+\begin{enumerate}[noitemsep]
+    \item Nearly 30\%
+    \item Energy storage, grid modernization, and political resistance (any one)
+\end{enumerate}
+\end{practicebox}
+
+\begin{practicebox}{Skimming Exercise 5}
+\textbf{Instructions:} Skim in \textbf{60 seconds}. Answer without looking back.
+
+\textit{``Water scarcity affects more than 2 billion people in the world today. By 2025, two-thirds of the global population could be living under water-stressed conditions. Agriculture consumes approximately 70\% of the world's freshwater supply, making it the largest user by far. Climate change is worsening the crisis by altering rainfall patterns and accelerating glacier melt. Innovative solutions are emerging: desalination plants in the Middle East, rainwater harvesting systems in India, and drip irrigation in Israel have all shown promise. However, experts emphasize that conservation---reducing waste in homes, industries, and farms---remains the most cost-effective strategy. International cooperation is essential, particularly for managing shared river basins that cross national borders.''}
+
+\textbf{After skimming, answer:}
+\begin{enumerate}[noitemsep]
+    \item What is the largest consumer of freshwater?
+    \item What does the passage argue is the most cost-effective strategy?
+\end{enumerate}
+\textbf{Expected Answers:}
+\begin{enumerate}[noitemsep]
+    \item Agriculture (approximately 70\%)
+    \item Conservation (reducing waste)
+\end{enumerate}
+\end{practicebox}
+
+\newpage
+
+%===============================================================================
+%===============================================================================
+\section{Quick Revision Cheat Sheet}
+%===============================================================================
+%===============================================================================
+
+\begin{keybox}{One-Page Exam Recap}
+
+\textbf{Expository Writing:} Explains/informs; objective; thesis-driven; 6 types (Descriptive, Process, Compare/Contrast, Cause/Effect, Problem/Solution, Classification).
+
+\vspace{0.2cm}
+\textbf{Essay Structure:}
+\begin{itemize}[noitemsep]
+    \item \textbf{Introduction:} Hook $\rightarrow$ Background $\rightarrow$ Thesis (last sentence)
+    \item \textbf{Body:} Topic sentence $\rightarrow$ Evidence $\rightarrow$ Analysis $\rightarrow$ Transition
+    \item \textbf{Conclusion:} Restate thesis $\rightarrow$ Summarise $\rightarrow$ Closing thought
+\end{itemize}
+
+\vspace{0.2cm}
+\textbf{Report Sections:} Aims $\rightarrow$ Methodology $\rightarrow$ Findings $\rightarrow$ Conclusions $\rightarrow$ Recommendations
+
+\vspace{0.2cm}
+\textbf{Plagiarism Types:} Direct (word-for-word), Mosaic (patchwork synonyms), Self (reusing own work), Accidental (careless omission).
+
+\vspace{0.2cm}
+\textbf{7 C's:} \textcolor{primary}{C}ompleteness, \textcolor{primary}{C}onciseness, \textcolor{primary}{C}onsideration, \textcolor{primary}{C}larity, \textcolor{primary}{C}oncreteness, \textcolor{primary}{C}ourtesy, \textcolor{primary}{C}orrectness.
+
+\vspace{0.2cm}
+\textbf{100 Ways -- Top 10 Rules:}
+\begin{enumerate}[noitemsep]
+    \item Vary sentence length -- write music, not monotone.
+    \item Show, don't tell.
+    \item Use active voice and strong verbs.
+    \item Use specific nouns (bulldog $>$ dog).
+    \item Write a strong lead -- hook the reader in the first sentence.
+    \item Avoid wordiness -- cut unnecessary words.
+    \item Read your work aloud.
+    \item Know your audience (picture a reader).
+    \item Use pyramid construction (most important info first).
+    \item Use parallel construction for rhythm and clarity.
+\end{enumerate}
+
+\vspace{0.2cm}
+\textbf{Skimming:} Read titles, first/last sentences, bold text. Get the gist fast.\\
+\textbf{Scanning:} Search for specific info (name, date, number).\\
+\textbf{Comprehension:} Identify main idea, infer meaning, evaluate tone/purpose.
+\end{keybox}
+
+\vfill
+\begin{center}
+\rule{0.5\textwidth}{1pt}\\[0.3cm]
+{\large\textcolor{primary}{\textbf{Good luck with your exam!}}}\\[0.2cm]
+{\small\textit{``Good writing is clear thinking made visible.'' --- Bill Wheeler}}
+\end{center}
+
+\end{document}
